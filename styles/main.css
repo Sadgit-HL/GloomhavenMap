@@ -1,0 +1,702 @@
+body {
+	margin: 0;
+}
+
+.background {
+	background-color: black;
+	position: relative;
+	width: 2728px;
+	height: 2728px;
+	z-index: 100;
+	min-height: 600px;
+	padding-top: 64px;
+}
+
+html body {
+    background: black;
+    margin: 20px;
+}
+
+.menu.active {
+	height: 100%;
+}
+
+.menu .show-menu,
+.menu.active .hide-menu {
+	display: block;
+}
+
+.menu.active .show-menu,
+.menu .hide-menu {
+	display: none;
+}
+
+.menu-item {
+	visibility: hidden;
+	opacity: 1;
+}
+
+.active .menu-item {
+	visibility: visible;
+}
+
+.map, .figures, .grid {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.map {
+	z-index: 100;
+}
+
+.grid {
+	z-index: 250;
+/* 	position: fixed; */
+}
+
+.grid > div {
+	background: black;
+}
+
+.figures {
+	z-index: 200;
+}
+
+.oneCell,
+.twoCells,
+.threeCells,
+.mage,
+.warrior,
+.scout,
+.healer,
+.TSR,
+.Hob,
+.LotW,
+.LoR,
+.TF,
+.SoN,
+.MoR,
+.MoB,
+.CTR,
+.HM,
+.Custom,
+.checkbox.apothecary,
+.checkbox.disciple,
+.checkbox.prophet,
+.checkbox.spiritspeaker,
+.checkbox.beastmaster,
+.checkbox.berserker,
+.checkbox.champion,
+.checkbox.knight,
+.checkbox.geomancer,
+.checkbox.hexer,
+.checkbox.monk,
+.checkbox.steelcaster,
+.checkbox.battlemage,
+.checkbox.watchman,
+.checkbox.necromancer,
+.checkbox.runemaster,
+.checkbox.stalker,
+.checkbox.thief,
+.checkbox.treasurehunter,
+.checkbox.wildlander,
+.checkbox.bard,
+.checkbox.skirmisher,
+.checkbox.conjurer,
+.checkbox.shadowwalker,
+.checkbox.marshal,
+.checkbox.bountyhunter,
+.checkbox.burningambition,
+.checkbox.cursedbypower,
+.checkbox.darkillusions,
+.checkbox.dragonsgreed,
+.checkbox.endlessthirst,
+.checkbox.eternalagony,
+.checkbox.firstlegion,
+.checkbox.goblinuprising,
+.checkbox.hybridloyalty,
+.checkbox.innercorruption,
+.checkbox.raginginfection,
+.checkbox.seedsofbetrayal,
+.checkbox.silentprotector,
+.checkbox.skulduggery,
+.checkbox.tangledweb,
+.checkbox.thefallenelite,
+.checkbox.twistedsoul,
+.checkbox.unseenlegions,
+.checkbox.unstableforces,
+.checkbox.vitalessence,
+.skills-container .select-hybrid-class.monk,
+.skills-container .select-hybrid-class.battlemage,
+.skills-container .select-hybrid-class.watchman,
+.skills-container .select-hybrid-class.steelcaster,
+.items-selects .apothecary,
+.items-selects .disciple,
+.items-selects .prophet,
+.items-selects .spiritspeaker,
+.items-selects .beastmaster,
+.items-selects .berserker,
+.items-selects .champion,
+.items-selects .knight,
+.items-selects .geomancer,
+.items-selects .hexer,
+.items-selects .monk,
+.items-selects .battlemage,
+.items-selects .watchman,
+.items-selects .steelcaster,
+.items-selects .necromancer,
+.items-selects .runemaster,
+.items-selects .stalker,
+.items-selects .thief,
+.items-selects .treasurehunter,
+.items-selects .wildlander,
+.items-selects .bard,
+.items-selects .skirmisher,
+.items-selects .conjurer,
+.items-selects .shadowwalker
+.items-selects .marshal,
+.items-selects .bountyhunter {
+	display: none;
+}
+
+.skills-container.monk [xp-cost="3"]:not(.monk),
+.skills-container.battlemage [xp-cost="3"]:not(.battlemage),
+.skills-container.watchman [xp-cost="3"]:not(.watchman),
+.skills-container.steelcaster [xp-cost="3"]:not(.steelcaster) {
+	display: none !important;
+}
+
+.showOneCell .oneCell,
+.showTwoCells .twoCells,
+.showThreeCells .threeCells,
+.showcampaign.TSR .TSR,
+.showcampaign.Hob .Hob,
+.showcampaign.LotW .LotW,
+.showcampaign.LoR .LoR,
+.showcampaign.TF .TF,
+.showcampaign.SoN .SoN,
+.showcampaign.MoR .MoR,
+.showcampaign.MoB .MoB,
+.showcampaign.CTR .CTR,
+.showcampaign.HM .HM,
+.showcampaign.Custom .Custom,
+.showcampaign,
+.showarch.mage .mage,
+.showarch.warrior .warrior,
+.showarch.scout .scout,
+.showarch.healer .healer,
+.showarch,
+.showplot.burningambition .checkbox.burningambition,
+.showplot.cursedbypower .checkbox.cursedbypower,
+.showplot.darkillusions .checkbox.darkillusions,
+.showplot.dragonsgreed .checkbox.dragonsgreed,
+.showplot.endlessthirst .checkbox.endlessthirst,
+.showplot.eternalagony .checkbox.eternalagony,
+.showplot.firstlegion .checkbox.firstlegion,
+.showplot.goblinuprising .checkbox.goblinuprising,
+.showplot.hybridloyalty .checkbox.hybridloyalty,
+.showplot.innercorruption .checkbox.innercorruption,
+.showplot.raginginfection .checkbox.raginginfection,
+.showplot.seedsofbetrayal .checkbox.seedsofbetrayal,
+.showplot.silentprotector .checkbox.silentprotector,
+.showplot.skulduggery .checkbox.skulduggery,
+.showplot.tangledweb .checkbox.tangledweb,
+.showplot.thefallenelite .checkbox.thefallenelite,
+.showplot.twistedsoul .checkbox.twistedsoul,
+.showplot.unseenlegions .checkbox.unseenlegions,
+.showplot.unstableforces .checkbox.unstableforces,
+.showplot.vitalessence .checkbox.vitalessence,
+.showclass.apothecary .checkbox.apothecary,
+.showclass.disciple .checkbox.disciple,
+.showclass.prophet .checkbox.prophet,
+.showclass.spiritspeaker .checkbox.spiritspeaker,
+.showclass.beastmaster .checkbox.beastmaster,
+.showclass.berserker .checkbox.berserker,
+.showclass.champion .checkbox.champion,
+.showclass.knight .checkbox.knight,
+.showclass.geomancer .checkbox.geomancer,
+.showclass.hexer .checkbox.hexer,
+.showclass.necromancer .checkbox.necromancer,
+.showclass.runemaster .checkbox.runemaster,
+.showclass.stalker .checkbox.stalker,
+.showclass.thief .checkbox.thief,
+.showclass.treasurehunter .checkbox.treasurehunter,
+.showclass.wildlander .checkbox.wildlander,
+.showclass.bard .checkbox.bard,
+.showclass.monk .checkbox.monk,
+.showclass.battlemage .checkbox.battlemage,
+.showclass.watchman .checkbox.watchman,
+.showclass.steelcaster .checkbox.steelcaster,
+.showclass.monk.skills-container .select-hybrid-class.monk,
+.showclass.battlemage.skills-container .select-hybrid-class.battlemage,
+.showclass.watchman.skills-container .select-hybrid-class.watchman,
+.showclass.steelcaster.skills-container .select-hybrid-class.steelcaster,
+.showclass.skirmisher .checkbox.skirmisher,
+.showclass.conjurer .checkbox.conjurer,
+.showclass.shadowwalker .checkbox.shadowwalker,
+.showclass.marshal .checkbox.marshal,
+.showclass.bountyhunter .checkbox.bountyhunter,
+.showclass.apothecary.items-selects .apothecary,
+.showclass.disciple.items-selects .disciple,
+.showclass.prophet.items-selects .prophet,
+.showclass.spiritspeaker.items-selects .spiritspeaker,
+.showclass.beastmaster.items-selects .beastmaster,
+.showclass.berserker.items-selects .berserker,
+.showclass.champion.items-selects .champion,
+.showclass.knight.items-selects .knight,
+.showclass.geomancer.items-selects .geomancer,
+.showclass.hexer.items-selects .hexer,
+.showclass.necromancer.items-selects .necromancer,
+.showclass.runemaster.items-selects .runemaster,
+.showclass.stalker.items-selects .stalker,
+.showclass.thief.items-selects .thief,
+.showclass.treasurehunter.items-selects .treasurehunter,
+.showclass.wildlander.items-selects .wildlander,
+.showclass.bard.items-selects .bard,
+.showclass.monk.items-selects .monk,
+.showclass.battlemage.items-selects .battlemage,
+.showclass.watchman.items-selects .watchman,
+.showclass.steelcaster.items-selects .steelcaster,
+.showclass.skirmisher.items-selects .skirmisher,
+.showclass.conjurer.items-selects .conjurer,
+.showclass.shadowwalker.items-selects .shadowwalker,
+.showclass.marshal.items-selects .marshal,
+.showclass.bountyhunter.items-selects .bountyhunter,
+.showclass {
+	display: block;
+}
+
+.tab-pane {
+	padding: 20px 30px 20px 20px;
+}
+
+#map {
+	padding: 0;
+}
+
+.select-row {
+	margin-bottom: 10px;
+}
+
+.select-row > input[type="text"] {
+	display: inline-block;
+	width: 104px;
+	position: relative;
+	top: 1px;
+}
+
+.select-row > .btn-group,
+.select-row > input[type="text"],
+.select-row > button,
+.items-selects > .btn-group,
+.sack-selects > .btn-group {
+	margin-right: 15px;
+	margin-bottom: 15px;
+	vertical-align: top;
+}
+
+.select-monster button {
+	min-width: 140px;
+}
+
+.select-x > button, .select-y > button {
+	min-width: 161px;
+}
+
+#monsters .radio label {
+	display: block;
+}
+
+.select-row img {
+	margin: 20px;
+	display: block;
+	max-width: 600px;
+}
+
+.imagescontainer img,
+.ally-skills-images-container img {
+	margin: 10px;
+	width: 200px;
+}
+
+.imagescontainer img {
+	display: none;
+}
+
+.imagescontainer img.showimage {
+	display: inline-block;
+}
+
+.items-container img,
+.sack-container img {
+	margin: 10px 15px 10px 0;
+	display: inline-block;
+	width: 128px;
+	height: 192px;
+}
+
+.tainted-container img,
+.familiar-image {
+	display: block;
+	height: 255px;
+	margin: 0 0 20px 0;
+}
+
+img.familiar-image {
+    margin-right: 20px;
+}
+
+.items-selects > .btn-group > button,
+.sack-selects > .btn-group > button {
+	width: 128px;
+}
+
+.secondary {
+	opacity: 0.5;
+	z-index: -1;
+}
+
+.sack-container button {
+	display: inline-block;
+}
+
+.hit-points,
+.stamina {
+	position: absolute;
+	left: 0;
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 20px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	border-radius: 10px;
+}
+
+.hit-points {
+	top: 0;
+	background: red;
+}
+
+.stamina {
+	bottom: 0;
+	background: rgb(184, 157, 10);
+}
+
+.grid div {
+	margin-top: -64px;
+	width: 64px;
+	height: 64px;
+	color: white;
+	font-weight: bold;
+	line-height: 64px;
+	text-align: center;
+	font-size: 30px;
+}
+
+.conditions {
+	position: absolute;
+	right: -5px;
+	top: -5px;
+}
+
+.conditions img {
+	width: 30px;
+	left: 0;
+}
+
+.overlord-cards-images-container img,
+img.ally-image,
+img.ally-image-back,
+img.lieutenant-image,
+img.lieutenant-image-back,
+img.relic-image {
+	margin: 10px 10px 10px 0;
+	width: 200px;
+	display: inline-block;
+}
+
+.overlord-cards-images-container img {
+	cursor: pointer;
+}
+
+.overlord-cards-class {
+	display: block;
+	padding: 5px;
+	float: left;
+	min-height: 400px;
+}
+
+.dropdown-menu>li>a {
+	cursor: pointer;
+}
+
+#monster-traits img {
+    height: 50px;
+    margin-right: 15px;
+}
+
+#monster-traits .checkbox {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#monster-traits label {
+    display: block;
+    text-align: center;
+    padding-left: 15px;
+}
+
+#monsters-cards img {
+    margin-right: 10px;
+    margin-bottom: 25px;
+    max-height: 300px;
+}
+
+.expansions-group {
+	display: block;
+	padding: 5px;
+	float: left;
+	min-height: 200px;
+}
+
+#tinyUrl {
+/* 	pointer-events: none; */
+	color: white;
+}
+
+#tinyUrl, #map-transformation {
+	display: inline-block;
+    padding-left: 20px;
+}
+
+#map-transformation .btn-link {
+	color: white;
+	outline: none;
+}
+
+#tabs .map-icon-container {
+	display: none;
+}
+
+ul#tabs {
+	position: fixed;
+	right: 0;
+	top: 0;
+	border: 0;
+	z-index: 11000;
+	height: 100%;
+	overflow-y: auto;
+}
+
+ul#tabs > li {
+	display: block;
+	float: none;
+	width: 64px;
+	height: 64px;
+	margin: 20px;
+	border-radius: 32px;
+/*     border: 2px solid white; */
+    overflow: hidden;
+}
+
+ul#tabs > li.active {
+/* 	border-color: red; */
+	opacity: 0.5;
+}
+
+ul#tabs > li > a {
+	padding: 0;
+	border: 0;
+	background: transparent;
+}
+
+#content {
+	z-index: 10000;
+	padding-top: 25px;
+}
+
+#content .tab-pane {
+    width: 80%;
+    height: 90%;
+    overflow: auto;
+    float: right;
+    position: fixed;
+    right: 35px;
+    z-index: 10020;
+    background: white;
+    margin-right: 80px;
+    border-radius: 10px;
+    border: solid 1px #777;
+}
+
+.top-controls {
+	position: fixed;
+	z-index: 10020;
+	background: black;
+    border-radius: 10px;
+}
+
+#content #map {
+	width: 100%;
+	display: block;
+	position: absolute;
+    z-index: 10010;
+    margin-right: 0;
+    border-radius: 0;
+    border: none;
+    right: inherit;
+}
+
+#tabs .no-border-radius {
+	border-radius: 0;
+}
+
+[href="#overlord"] {
+	text-align: center;
+}
+
+#content .close {
+    position: absolute;
+    top: 10px;
+    right: 17px;
+}
+
+.exhausted {
+    transform: rotate(90deg);
+}
+
+.imagescontainer .exhausted {
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.items-container .exhausted {
+    margin-left: 30px;
+    margin-right: 50px;
+}
+
+.condition {
+	height: 300px;
+}
+
+.select-row .condition {
+	display: inline-block;
+}
+
+#map-transformation input {
+    width: 50px;
+}
+
+#melody1, #harmony1,
+#melody2, #harmony2,
+#melody3, #harmony3,
+#melody4, #harmony4 {
+	width: 90px;
+    margin-left: -150px;
+    margin-right: 60px;
+}
+
+#melody1,
+#melody2,
+#melody3,
+#melody4 {
+	margin-top: -30px;
+}
+
+#harmony1,
+#harmony2,
+#harmony3,
+#harmony4 {
+	margin-top: 100px;
+}
+
+.fakeimg {
+	display: none;
+}
+
+.bard .imagescontainer .fakeimg {
+	width: 200px;
+	height: 300px;
+	display: inline-block;
+    vertical-align: bottom;
+}
+
+.aura {
+    display: inline-block;
+}
+
+.aura .form-control {
+    width: 100px;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: bottom;
+}
+
+.select-hybrid-class {
+    margin-bottom: 10px;
+}
+
+#content .select-hybrid-class .btn {
+    float: none;
+}
+
+.hero-image-container {
+	position: relative;
+	display: inline-block;
+    vertical-align: top;
+    padding: 20px 0;
+}
+
+.tainted-container {
+    display: inline-block;
+    vertical-align: top;
+    padding: 20px;
+}
+
+.hero-image-container img {
+	margin: 0;
+}
+
+.hero-image-feat {
+	display: none;
+    position: absolute;
+    width: 40%;
+    height: 36%;
+    bottom: 52px;
+    right: 14px;
+    background: #FAF1C6;
+    opacity: 0.9;
+    border-radius: 65px;
+    border-top-left-radius: 100px;
+}
+
+.feat-used .hero-image-feat {
+	display: block;	
+}
+
+.threat-number-label {
+	line-height: 34px;
+    font-weight: bold;
+}
+
+.agent [onclick="addRelic(this);"],
+.agent .select-relic,
+.agent .relic-image {
+	display: none;
+}
+
+.checkbox.door-opened {
+	display: inline-block;
+	height: 34px;
+	border: 1px solid #ccc;
+	margin: 0 15px 15px 0;
+	padding: 6px 12px;
+	border-radius: 4px;
+}
+
+.opened {
+	opacity: 0.4;
+}
