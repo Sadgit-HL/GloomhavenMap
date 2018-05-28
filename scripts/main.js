@@ -654,7 +654,7 @@ function addHeroToMap(hero) {
 	heroHp.html(hero.hp.toString());
 	var heroStamina = $('<div>').addClass('stamina');
 	heroStamina.html(hero.stamina.toString());
-	var folder = 'images/heroes_tokens/';
+	var folder = 'images/character_tokens/hex/';
 	heroObject.css({
 		'position' : 'absolute',
 		'left' : (hero.x * cellSize).toString() + 'px',

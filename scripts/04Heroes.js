@@ -42,10 +42,10 @@ function updateHero(element, value) {
 	container.find('input[name="hero-y"]').attr('value','');
 	container.find('input[name="hero-hp"]').val(HEROES[value].hp);
 	container.find('input[name="hero-stamina"]').val(HEROES[value].stamina);
-	container.find('.hero-image-container').children('img').attr('src', 'images/heroes_cards/' + urlize(value) + '.png');
+	container.find('.hero-image-container').children('img').attr('src', 'images/character-mats/' + urlize(value) + '.jpg');
 	var heroId = container.parent().attr('id');
 	var heroImage = $('<img>');
-	heroImage.attr('src', 'images/heroes_tokens/' + urlize(value) + '.png');
+	heroImage.attr('src', 'images/character-tokens/hex/' + urlize(value) + '.png');
 	var heroMenuIcon = $('[href="#' + heroId + '"]');
 	heroMenuIcon.html('');
 	heroMenuIcon.append(heroImage);
