@@ -1090,11 +1090,6 @@ VILLAGERS_LIST = [
 	['Villager Male',false]
 ];
 
-for (var i = 0; i < MAP_TILES_LIST_COMPLETE.length; i++) {
-	MAP_TILES_LIST.push(MAP_TILES_LIST_COMPLETE[i][0]);
-	MAP_TILES_SIZES[MAP_TILES_LIST_COMPLETE[i][0]] = {'width':MAP_TILES_LIST_COMPLETE[i][1], 'height':MAP_TILES_LIST_COMPLETE[i][2]};
-}
-
 DOORS_LIST = [
 	'Yellow Door',
 	'Red Door',
