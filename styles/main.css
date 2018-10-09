@@ -63,6 +63,64 @@ html body {
 	z-index: 200;
 }
 
+.SelectAct {
+    position: absolute;
+    top: 60px;
+    right: 17px;
+
+	border-radius: 16px;
+	width: 32px;
+	height: 32px;
+    overflow: hidden;
+
+/*
+display: block;
+	float: none;
+	margin: 20px;
+     border: 2px solid white; 
+   */
+
+}
+
+li.H, li.V
+{
+	display: none;
+}
+.H div ul .H, .V div ul .V
+{
+	display: block;
+}
+
+.direction-container .H
+{
+	background-image: url("../images/misc/DirectionH.png");
+	background-repeat: no-repeat;
+//	background-color : #d54343;
+//	height : 16px;
+	height : 30px;
+	width : 30px;
+//	margin-top:7px;
+//	border-radius: 8px;
+}
+.direction-container .V
+{
+	background-image: url("../images/misc/DirectionV.png");
+	background-repeat: no-repeat;
+//	background-color : #d54343;
+	height : 30px;
+//	width : 16px;
+	width : 30px;
+//	margin-left:7px;
+//	border-radius: 8px;
+}
+.direction-container
+{
+	display: none;
+	height : 30px;
+	width : 30px;
+	border : solid 1px white;
+}
+
 .oneCell,
 .twoCells,
 .threeCells,
@@ -80,6 +138,8 @@ html body {
 .MoB,
 .CTR,
 .HM,
+.ActI
+.ActII
 .Custom,
 .checkbox.apothecary,
 .checkbox.disciple,
@@ -182,6 +242,29 @@ html body {
 .showcampaign.HM .HM,
 .showcampaign.Custom .Custom,
 .showcampaign,
+.showencounter.TSR.ActI .TSR.ActI,
+.showencounter.TSR.ActII .TSR.ActII,
+.showencounter.Hob.ActI .Hob.ActI,
+.showencounter.Hob.ActII .Hob.ActII,
+.showencounter.LotW.ActI .LotW.ActI,
+.showencounter.LotW.ActII .LotW.ActII,
+.showencounter.LoR.ActI .LoR.ActI,
+.showencounter.LoR.ActII .LoR.ActII,
+.showencounter.TF.ActI .TF.ActI,
+.showencounter.TF.ActII .TF.ActII,
+.showencounter.SoN.ActI .SoN.ActI,
+.showencounter.SoN.ActII .SoN.ActII,
+.showencounter.MoR.ActI .MoR.ActI,
+.showencounter.MoR.ActII .MoR.ActII,
+.showencounter.MoB.ActI .MoB.ActI,
+.showencounter.MoB.ActII .MoB.ActII,
+.showencounter.CTR.ActI .CTR.ActI,
+.showencounter.CTR.ActII .CTR.ActII,
+.showencounter.HM.ActI .HM.ActI,
+.showencounter.HM.ActII .HM.ActII,
+.showencounter.Custom.ActI .Custom.ActI,
+.showencounter.Custom.ActII .Custom.ActII,
+.showencounter,
 .showarch.mage .mage,
 .showarch.warrior .warrior,
 .showarch.scout .scout,
@@ -286,6 +369,9 @@ html body {
 	top: 1px;
 }
 
+.select-token,
+.select-relic,
+.coordinates-container > .btn-group,
 .select-row > .btn-group,
 .select-row > input[type="text"],
 .select-row > button,
@@ -294,6 +380,10 @@ html body {
 	margin-right: 15px;
 	margin-bottom: 15px;
 	vertical-align: top;
+}
+
+.coordinates-container.btn-group {
+	margin-right: 0px;
 }
 
 .select-monster button {
@@ -396,13 +486,51 @@ img.familiar-image {
 	font-size: 30px;
 }
 
+
+.row-cards img, .row-relicscards img, .row-tokenscards img, 
+.monsters-cards img, .monsters-relicscards img, .monsters-tokenscards img {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 10px;
+	margin-bottom: 25px;
+	max-height: 300px;
+	display :inline;
+}
+
+.row-cards,
+.monsters-cards {
+/*	float:left;*/
+	display :inline;
+}
+
+.row-relicscards,
+.monsters-relicscards {
+/*	float:left;*/
+	display :inline;
+}
+
+.row-tokenscards,
+.monsters-tokenscards {
+/*	float:left;*/
+	display :inline;
+}
+
 .conditions {
 	position: absolute;
 	right: -5px;
 	top: -5px;
 }
-
 .conditions img {
+	width: 30px;
+	left: 0;
+}
+
+.relics {
+	position: absolute;
+	right: -5px;
+	top: -5px;
+}
+.relics img {
 	width: 30px;
 	left: 0;
 }
@@ -412,6 +540,8 @@ img.ally-image,
 img.ally-image-back,
 img.lieutenant-image,
 img.lieutenant-image-back,
+img.agent-image,
+img.agent-image-back,
 img.relic-image {
 	margin: 10px 10px 10px 0;
 	width: 200px;
@@ -433,26 +563,20 @@ img.relic-image {
 	cursor: pointer;
 }
 
-#monster-traits img {
+.monster-traits img {
     height: 50px;
     margin-right: 15px;
 }
 
-#monster-traits .checkbox {
+.monster-traits .checkbox {
     display: inline-block;
     margin-right: 10px;
 }
 
-#monster-traits label {
+.monster-traits label {
     display: block;
     text-align: center;
     padding-left: 15px;
-}
-
-#monsters-cards img {
-    margin-right: 10px;
-    margin-bottom: 25px;
-    max-height: 300px;
 }
 
 .expansions-group {
@@ -467,12 +591,12 @@ img.relic-image {
 	color: white;
 }
 
-#tinyUrl, #map-transformation {
+#tinyUrl, .map-transformation {
 	display: inline-block;
     padding-left: 20px;
 }
 
-#map-transformation .btn-link {
+.map-transformation .btn-link {
 	color: white;
 	outline: none;
 }
@@ -581,12 +705,18 @@ ul#tabs > li > a {
 .condition {
 	height: 300px;
 }
-
 .select-row .condition {
 	display: inline-block;
 }
 
-#map-transformation input {
+img.relic {
+	height: 300px;
+}
+.select-row .relic {
+	display: inline-block;
+}
+
+.map-transformation input {
     width: 50px;
 }
 
@@ -682,7 +812,6 @@ ul#tabs > li > a {
     font-weight: bold;
 }
 
-.agent [onclick="addRelic(this);"],
 .agent .select-relic,
 .agent .relic-image {
 	display: none;
@@ -699,4 +828,36 @@ ul#tabs > li > a {
 
 .opened {
 	opacity: 0.4;
+}
+
+.btn-group .direction-container
+{
+	display: none;
+}
+
+.btn-group .direction-container.visible
+{
+	display: block;
+}
+
+
+a.boxclose{
+    float:right;
+    margin-top:-14px;
+    margin-right:-20px;
+    cursor:pointer;
+    color: #fff;
+    border: 3px solid #AEAEAE;
+    border-radius: 10px;
+    background: #605F61;
+    font-size: 10px;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 0px;
+    padding: 4px 1px;       
+}
+
+.boxclose:before {
+    content: "X";
+
 }

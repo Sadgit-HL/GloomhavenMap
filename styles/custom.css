@@ -1,0 +1,43 @@
+.direction-container
+{
+//	display: none;
+}
+
+.H .direction-container, .V .direction-container
+{
+//	display: block;
+}
+
+.map-transformation .btn-link {
+	color: white;
+	outline: none;
+}
+
+/* Custom Color Picker */
+.sp-replacer {
+	overflow:visible;
+	margin-right:15px;
+}
+.sp-palette-container {
+	width:272px;
+}
+.sp-picker-container , .sp-palette-container {
+	padding-bottom: 10px;
+	margin-bottom: 0px;
+}
+.sp-container.sp-palette-only{
+	width:auto;
+}
+.sp-container{
+	width:490px;
+	overflow:inherit;
+}
+.select-aura{
+	width:100%;
+}
+.select-aura .btn-default{
+	width:100%;
+	margin-bottom:5px;
+	background-color:#ffffff;
+	background-image:none;
+}

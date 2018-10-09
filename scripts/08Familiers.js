@@ -1,3 +1,40 @@
+function InitializeWindowFor_Familiars() {
+	var html = $('#familiars');
+
+	//allies zone
+	html.append('<div id="allies-container"><h1>Allies</h1></div>');
+	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addAllyLine();">Add Ally</button>');
+	//familiars zone
+	html.append('<div id="familiars-container"><h1>Familiars</h1></div>');
+	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addFamiliarLine();">Add Familiar</button>');
+	//villagers zone
+	html.append('<div id="villagers-container"><h1>Villagers</h1></div>');
+	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addVillagerLine();">Add Villager</button>');
+}
+
+//allies zone
+
+function addAllyLine() {
+	var ally = $('<div>');
+	addUnitLine(ally, 'Ally');
+
+	ally.find('.select-ally ul').append(createAlliesSelectContent());
+	ally.find('.select-x ul').addClass('showOneCell').append(createXSelectContent(true));
+	ally.find('.select-y ul').addClass('showOneCell').append(createYSelectContent(true));
+	ally.append($('<button type="button" class="btn btn-warning" aria-expanded="false" onclick="addCondition(this);">Add token</button>'));
+	ally.append($('<button type="button" class="btn btn-danger" aria-expanded="false" onclick="removeRow(this);">Remove row</button>'));
+	ally.append($('<br/>'));
+	ally.append($('<img src="" style="display: none;">').addClass('ally-image'));
+	ally.append($('<img src="" style="display: none;">').addClass('ally-image-back'));
+	ally.append($('<br/>'));
+	ally.append(getAllySkillsBlock());
+	$('#allies-container').append(ally);
+	return ally;
+}
+
+
+
+
 
 function constructAlliesAndFamiliarsTabFromConfig() {
 	constructAlliesTabFromConfig();
@@ -31,24 +68,6 @@ function createAlliesSelectContent() {
 		html += addOption(ALLIES_LIST[i] + ' ', '', 'updateAlly(this, \'' + ALLIES_LIST[i] + '\')');
 	}
 	return html;
-}
-
-function addAllyLine() {
-	var ally = $('<div>');
-	addUnitLine(ally, 'Ally');
-
-	ally.find('.select-ally ul').append(createAlliesSelectContent());
-	ally.find('.select-x ul').addClass('showOneCell').append(createXSelectContent(true));
-	ally.find('.select-y ul').addClass('showOneCell').append(createYSelectContent(true));
-	ally.append($('<button type="button" class="btn btn-warning" aria-expanded="false" onclick="addCondition(this);">Add token</button>'));
-	ally.append($('<button type="button" class="btn btn-danger" aria-expanded="false" onclick="removeRow(this);">Remove row</button>'));
-	ally.append($('<br/>'));
-	ally.append($('<img src="" style="display: none;">').addClass('ally-image'));
-	ally.append($('<img src="" style="display: none;">').addClass('ally-image-back'));
-	ally.append($('<br/>'));
-	ally.append(getAllySkillsBlock());
-	$('#allies-container').append(ally);
-	return ally;
 }
 
 function updateAlly(element, value) {

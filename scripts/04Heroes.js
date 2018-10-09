@@ -42,10 +42,10 @@ function updateHero(element, value) {
 	container.find('input[name="hero-y"]').attr('value','');
 	container.find('input[name="hero-hp"]').val(HEROES[value].hp);
 	container.find('input[name="hero-stamina"]').val(HEROES[value].stamina);
-	container.find('.hero-image-container').children('img').attr('src', 'images/character-mats/' + urlize(value) + '.jpg');
+	container.find('.hero-image-container').children('img').attr('src', 'images/heroes_cards/' + urlize(value) + '.png');
 	var heroId = container.parent().attr('id');
 	var heroImage = $('<img>');
-	heroImage.attr('src', 'images/character-tokens/hex/' + urlize(value) + '.png');
+	heroImage.attr('src', 'images/heroes_tokens/' + urlize(value) + '.png');
 	var heroMenuIcon = $('[href="#' + heroId + '"]');
 	heroMenuIcon.html('');
 	heroMenuIcon.append(heroImage);
@@ -692,7 +692,7 @@ function updateSackItem(element, value) {
 	var elementAttr = $(element).parents('.select-sack').attr('sack');
 	var folder = search ? 'search_cards' : 'items_cards/' + (tierOne ? 'tier_one' : relic ? 'relic' : 'tier_two');
 	if (classItem) {
-		folder = 'classes_cards/' + parent.attr('class').replace(new RegExp("classitem",'g'), '').replace(new RegExp("twohand",'g'), '').replace(new RegExp(" ",'g'), '');
+		folder = 'classes_cards/' + parent.attr('class').replace(new RegExp("classitem",'g'), '').replace(new RegExp("tierone",'g'), '').replace(new RegExp("twohand",'g'), '').replace(new RegExp(" ",'g'), '');
 	}
 	container.find('img[sack="' + elementAttr + '"]').attr('src', 'images/' + folder + '/' + urlize(value) + '.png').attr('item', value);
 	container.find('div[sack="' + elementAttr + '"]').find('.sack-title').html(value + ' ');

@@ -1,7 +1,3 @@
-function createSelect(title) {
-	return '<div class="btn-group select-x showOneCell showTwoCells"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' + title + ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu"></ul></div>';
-}
-
 function addOptionOld(title, value, optionClass) {
 	return '<option class="' + optionClass + '" value="' + value + '">' + title + '</option>';
 }
@@ -17,8 +13,6 @@ function addTextareaWithLabel(labelText, link) {
 	html += '<textarea class="form-control" rows="5" id="' + link +'"></textarea>'
 	return html;
 }
-
-
 
 function updateCoordinate(element, value) {
 	updateOption(element, value, false);
@@ -37,16 +31,16 @@ function updateOption(element, value, isMonster) {
 		if (isMonster) {
 			var monsterHp;
 			if (monsterTitle.indexOf('master') > -1) {
-				if (actOne) {
-					monsterHp = MONSTERS[value].masterHpActOne;
+				if (CurrentAct == "I") {
+					monsterHp = MONSTERS[value].masterHpI;
 				} else {
-					monsterHp = MONSTERS[value].masterHpActTwo;
+					monsterHp = MONSTERS[value].masterHpII;
 				}
 			} else {
-				if (actOne) {
-					monsterHp = MONSTERS[value].minionHpActOne;
+				if (CurrentAct == "I") {
+					monsterHp = MONSTERS[value].minionHpI;
 				} else {
-					monsterHp = MONSTERS[value].minionHpActTwo;
+					monsterHp = MONSTERS[value].minionHpII;
 				}
 			}
 			container.find('.monster-title').html(monsterTitle + ' ');
@@ -92,7 +86,7 @@ function updateOption(element, value, isMonster) {
 		if (parent.hasClass('select-x')) {
 			container.find('input[name="monster-x"]').attr('value',selectedCoordinate);
 			container.find('input[name="hero-x"]').attr('value',selectedCoordinate);
-			container.find('input[name="tile-x"]').attr('value',selectedCoordinate);
+			container.find('input[name="line-x"]').attr('value',selectedCoordinate);
 			container.find('input[name="door-x"]').attr('value',selectedCoordinate);
 			container.find('input[name="xs-x"]').attr('value',selectedCoordinate);
 			container.find('input[name="ally-x"]').attr('value',selectedCoordinate);
@@ -100,6 +94,7 @@ function updateOption(element, value, isMonster) {
 			container.find('input[name="villager-x"]').attr('value',selectedCoordinate);
 			container.find('input[name="maptoken-x"]').attr('value',selectedCoordinate);
 			container.find('input[name="lieutenant-x"]').attr('value',selectedCoordinate);
+			container.find('input[name="agent-x"]').attr('value',selectedCoordinate);
 			container.find('input[name="monster-x-size"]').attr('value',selectedSize);
 			container.find('.x-title').html($(element).html() + ' ');
 			if (!parent.hasClass('squared')) {
@@ -109,7 +104,7 @@ function updateOption(element, value, isMonster) {
 			container.find('.y-title').html($(element).html() + ' ');
 			container.find('input[name="monster-y"]').attr('value',selectedCoordinate);
 			container.find('input[name="hero-y"]').attr('value',selectedCoordinate);
-			container.find('input[name="tile-y"]').attr('value',selectedCoordinate);
+			container.find('input[name="line-y"]').attr('value',selectedCoordinate);
 			container.find('input[name="door-y"]').attr('value',selectedCoordinate);
 			container.find('input[name="xs-y"]').attr('value',selectedCoordinate);
 			container.find('input[name="ally-y"]').attr('value',selectedCoordinate);
@@ -117,6 +112,7 @@ function updateOption(element, value, isMonster) {
 			container.find('input[name="villager-y"]').attr('value',selectedCoordinate);
 			container.find('input[name="maptoken-y"]').attr('value',selectedCoordinate);
 			container.find('input[name="lieutenant-y"]').attr('value',selectedCoordinate);
+			container.find('input[name="agent-y"]').attr('value',selectedCoordinate);
 			container.find('input[name="monster-y-size"]').attr('value',selectedSize);
 			if (!parent.hasClass('squared')) {
 				container.find('.select-x').removeClass(SHOWING_CLASSES[selectedSize]);
@@ -255,8 +251,79 @@ function createDirectionSelectContent() {
 	return html;
 }
 
+function recoverConfig(Base64Data) {
+	var dataTemp = JSON.parse(Base64.decode(Base64Data));
+	dataTemp = RetroCompatibility(dataTemp);
+
+	return dataTemp;
+}
+
+function RetroCompatibility(OldConfig) {
+	//update Recovered config based on Version
+	var NewConfig = OldConfig
+
+	//initialize values if needed
+	if (NewConfig.currentAct == undefined) {
+		NewConfig.currentAct = 'I';
+	}
+
+	// previous to 1.5.0
+	if (NewConfig.mapVersion == undefined) {
+		//change monsters data
+		// FROM "title":"Wraith","master":true TO "title":"Wraith master"
+		// AND FROM "title":"Wraith","master":false TO "title":"Wraith minion"
+		if (NewConfig.monsters != undefined) {
+			for (var i = 0; NewConfig.monsters != undefined && i < NewConfig.monsters.length; i++) {
+				if (NewConfig.monsters[i].master) {
+					NewConfig.monsters[i].title = NewConfig.monsters[i].title + " master";
+				}
+				else {
+					NewConfig.monsters[i].title = NewConfig.monsters[i].title + " minion";
+				}
+//				if (monster.vertical) folder += 'vertical/';
+//				if (monster.direction == "V") folder += 'vertical/';
+
+			}
+		}
+
+		//change Doors Direction
+		// FROM "vertical":true TO "direction":"V"
+		// FROM "vertical":false TO "direction":"H"
+		if (NewConfig.doors != undefined) {
+			for (var i = 0; NewConfig.doors != undefined && i < NewConfig.doors.length; i++) {
+				if (NewConfig.doors[i].vertical) {
+					NewConfig.doors[i].direction = "V";
+				}
+				else {
+					NewConfig.doors[i].direction = "H";
+				}
+			}
+		}
+
+		//change Act
+		// FROM "actOne":true TO "currentAct":"I"
+		// FROM "actOne":false TO "currentAct":"II"
+		if (NewConfig.actOne != undefined) {
+			if (NewConfig.actOne) {
+				NewConfig.currentAct = "I";
+			}
+			else {
+				NewConfig.currentAct = "II";
+			}
+		}
+
+
+
+	}
+
+	return NewConfig;
+}
+
 function rebuildMap(element, mapNb) {
-	var mapConfig = JSON.parse(Base64.decode(MAP_HASES_LIST[mapNb][3]));
+	var mapConfig = recoverConfig(MAP_HASES_LIST[mapNb][3]);
+
+
+
 	config.tiles = mapConfig.tiles;
 	config.doors = mapConfig.doors;
 	config.xs = mapConfig.xs;
@@ -264,21 +331,19 @@ function rebuildMap(element, mapNb) {
 	config.lieutenants = mapConfig.lieutenants;
 	config.allies = mapConfig.allies;
 	config.villagers = mapConfig.villagers;
-	config.actOne = mapConfig.actOne;
+	config.currentAct = mapConfig.currentAct;
 	config.questObjectives = mapConfig.questObjectives;
 	config.monsterTraits = mapConfig.monsterTraits;
 
-	clearMapControlTab();
 	clearAllies();
 	clearVillagers();
-	clearLieutenants();
-	clearQuestObjectives();
+//	clearLieutenants();
 
-	fillQuestObjectives();
-	updateAct(config.actOne);
-	updateTraitsFromConfig()
-	constructMonstersAndLieutenantsTabFromConfig();
-	constructMapControlsTabFromConfig();
+	updateAct(config.currentAct);
+	FillWindow_QuestObjectives(config, true);
+	FillWindow_MapDesign(config, true);
+	FillWindow_OLFigures(config, true);
+
 	constructAlliesTabFromConfig();
 	constructVillagersTabFromConfig();
 	if (mapConfig.objectives != undefined) {
@@ -287,7 +352,7 @@ function rebuildMap(element, mapNb) {
 		constructMiscellaneousObjectsTabFromConfig();
 	}
 	switchToMap();
-	clearCampaign(element);
+	UnSet_Campaign(element);
 }
 
 function clearHeroesConditions() {
@@ -341,19 +406,6 @@ function createInputSelect(title, titleClass, additionalClass) {
 	button.append($('<span>' + title + ' </span>').addClass(titleClass)).append($('<span>').addClass('caret'));
 	select.append(button).append($('<ul>').addClass('dropdown-menu').attr('role','menu'));
 	return select;
-}
-
-function monster(element) {
-	var container = $(element);
-	var monster = {};
-	monster.title = container.find('[name="monster-title"]').val();
-	monster.master = container.find('[name="master"]').val() == 'true';
-	monster.x = container.find('[name="monster-x"]').val();
-	monster.y = container.find('[name="monster-y"]').val();
-	monster.vertical = container.find('[name="monster-x-size"]').val() < container.find('[name="monster-y-size"]').val();
-	monster.hp = container.find('[name="monster-hp"]').val();
-	monster.conditions = getConditions(container);
-	return monster;
 }
 
 function hero(element) {
@@ -425,6 +477,7 @@ function constructMapFromConfig() {
         map.append(tileObject);
 	}
 
+/*
 	for (var i = 0; config.doors != undefined && i < config.doors.length; i++) {
 		var door = config.doors[i];
 		var doorObject = $('<div>');
@@ -436,6 +489,14 @@ function constructMapFromConfig() {
 			'top' : (door.y * cellSize).toString() + 'px'
 		});
 		if (door.vertical) {
+			doorImage.css({
+				'-ms-transform' : 'rotate(90deg)',
+				'-webkit-transform' : 'rotate(90deg)',
+				'transform' : 'rotate(90deg)',
+				'transform-origin' : cellSize.toString() + 'px'
+			});
+		}
+		if (door.direction == "V") {
 			doorImage.css({
 				'-ms-transform' : 'rotate(90deg)',
 				'-webkit-transform' : 'rotate(90deg)',
@@ -546,13 +607,52 @@ function constructMapFromConfig() {
 		monsterHp.html(monster.hp == undefined ? '' : monster.hp.toString());
 		var folder = 'images/monster_tokens/';
 		if (monster.vertical) folder += 'vertical/';
+		if (monster.direction == "V") folder += 'vertical/';
 		monsterObject.css({
 			'position' : 'absolute',
 			'left' : (monster.x * cellSize).toString() + 'px',
 			'top' : (monster.y * cellSize).toString() + 'px',
 			'z-index' : z_index
 		});
-		monsterImage.attr('src', folder + urlize(monster.title) + (monster.master ? '_master.png' : '.png'));
+
+		if (monster.auras != undefined) {
+			for (var j = 0; j < monster.auras.length; j++) {
+				var aura = $('<div>');
+				var auraRadius = parseInt(monster.auras[j].radius);
+
+				var xDelta;
+				var yDelta;
+				if (monster.vertical) {
+					xDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].width;
+					yDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].height;
+					}
+				else {
+					xDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].height;
+					yDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].width;
+					}
+				if (monster.direction == "V") {
+					xDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].width;
+					yDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].height;
+					}
+				else {
+					xDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].height;
+					yDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].width;
+					}
+
+				aura.css({
+					'position' : 'absolute',
+					'left' : '-' + (auraRadius * cellSize).toString() + 'px',
+					'top' : '-' + (auraRadius * cellSize).toString() + 'px',
+					'width' : ((2 * auraRadius + xDelta) * cellSize).toString() + 'px',
+					'height' : ((2 * auraRadius + yDelta) * cellSize).toString() + 'px',
+					'background' : monster.auras[j].color,
+					'opacity' : '0.2',
+					'border-radius' : (cellSize / 2).toString() + 'px'
+				});
+				monsterObject.append(aura);
+			}
+		}
+		monsterImage.attr('src', folder + urlize(monster.title.replace(' master','').replace(' minion','')) + ((monster.master || monster.title.indexOf(" master") > 0) ? '_master.png' : '.png'));
 		monsterObject.append(monsterImage);
 		monsterObject.append(monsterHp);
 		addConditionsToImage(monsterObject, monster.conditions);
@@ -591,13 +691,52 @@ function constructMapFromConfig() {
 		var folder = 'images/monster_tokens/';
 		var z_index = 2;
 		if (lieutenant.vertical != undefined && lieutenant.vertical) folder += 'vertical/';
+		if (lieutenant.direction == "V") folder += 'vertical/';
 		lieutenantObject.css({
 			'position' : 'absolute',
 			'left' : (lieutenant.x * cellSize).toString() + 'px',
 			'top' : (lieutenant.y * cellSize).toString() + 'px',
 			'z-index' : z_index
 		});
-		lieutenantImage.attr('src', folder + urlize(lieutenant.title.replace('Agent ', '')) + '.png');
+
+		if (lieutenant.auras != undefined) {
+			for (var j = 0; j < lieutenant.auras.length; j++) {
+				var aura = $('<div>');
+				var auraRadius = parseInt(lieutenant.auras[j].radius);
+
+				var xDelta;
+				var yDelta;
+				if (lieutenant.vertical) {
+					xDelta = LIEUTENANTS[lieutenant.title].width;
+					yDelta = LIEUTENANTS[lieutenant.title].height;
+					}
+				else {
+					xDelta = LIEUTENANTS[lieutenant.title].height;
+					yDelta = LIEUTENANTS[lieutenant.title].width;
+					}
+				if (lieutenant.direction == "V") {
+					xDelta = LIEUTENANTS[lieutenant.title].width;
+					yDelta = LIEUTENANTS[lieutenant.title].height;
+					}
+				else {
+					xDelta = LIEUTENANTS[lieutenant.title].height;
+					yDelta = LIEUTENANTS[lieutenant.title].width;
+					}
+
+				aura.css({
+					'position' : 'absolute',
+					'left' : '-' + (auraRadius * cellSize).toString() + 'px',
+					'top' : '-' + (auraRadius * cellSize).toString() + 'px',
+					'width' : ((2 * auraRadius + xDelta) * cellSize).toString() + 'px',
+					'height' : ((2 * auraRadius + yDelta) * cellSize).toString() + 'px',
+					'background' : lieutenant.auras[j].color,
+					'opacity' : '0.2',
+					'border-radius' : (cellSize / 2).toString() + 'px'
+				});
+				lieutenantObject.append(aura);
+			}
+		}
+		lieutenantImage.attr('src', folder + urlize(lieutenant.title) + '.png');
 		lieutenantObject.append(lieutenantImage);
 		lieutenantObject.append(lieutenantHp);
 		addConditionsToImage(lieutenantObject, lieutenant.conditions);
@@ -605,11 +744,73 @@ function constructMapFromConfig() {
         figures.append(lieutenantObject);
 	}
 
+	for (var i = 0; config.agents != undefined && i < config.agents.length; i++) {
+		var agent = config.agents[i];
+		var agentObject = $('<div>');
+		var agentImage = $('<img>');
+		var agentHp = $('<div>').addClass('hit-points');
+		agentHp.html(agent.hp.toString());
+		var folder = 'images/monster_tokens/';
+		var z_index = 2;
+		if (agent.vertical != undefined && agent.vertical) folder += 'vertical/';
+		if (agent.direction == "V") folder += 'vertical/';
+		agentObject.css({
+			'position' : 'absolute',
+			'left' : (agent.x * cellSize).toString() + 'px',
+			'top' : (agent.y * cellSize).toString() + 'px',
+			'z-index' : z_index
+		});
+
+		if (agent.auras != undefined) {
+			for (var j = 0; j < agent.auras.length; j++) {
+				var aura = $('<div>');
+				var auraRadius = parseInt(agent.auras[j].radius);
+
+				var xDelta;
+				var yDelta;
+				if (agent.vertical) {
+					xDelta = LIEUTENANTS[agent.title].width;
+					yDelta = LIEUTENANTS[agent.title].height;
+					}
+				else {
+					xDelta = LIEUTENANTS[agent.title].height;
+					yDelta = LIEUTENANTS[agent.title].width;
+					}
+				if (lieutenant.direction == "V") {
+					xDelta = LIEUTENANTS[agent.title].width;
+					yDelta = LIEUTENANTS[agent.title].height;
+					}
+				else {
+					xDelta = LIEUTENANTS[agent.title].height;
+					yDelta = LIEUTENANTS[agent.title].width;
+					}
+
+				aura.css({
+					'position' : 'absolute',
+					'left' : '-' + (auraRadius * cellSize).toString() + 'px',
+					'top' : '-' + (auraRadius * cellSize).toString() + 'px',
+					'width' : ((2 * auraRadius + xDelta) * cellSize).toString() + 'px',
+					'height' : ((2 * auraRadius + yDelta) * cellSize).toString() + 'px',
+					'background' : agent.auras[j].color,
+					'opacity' : '0.2',
+					'border-radius' : (cellSize / 2).toString() + 'px'
+				});
+				agentObject.append(aura);
+			}
+		}
+		agentImage.attr('src', folder + urlize(agent.title.replace('Agent ', '')) + '.png');
+		agentObject.append(agentImage);
+		agentObject.append(agentHp);
+		addConditionsToImage(agentObject, agent.conditions);
+		addMapObject(agent.x, agent.y, agentObject, z_index);
+        figures.append(agentObject);
+	}
+
 	addHeroToMap(config.hero1);
 	addHeroToMap(config.hero2);
 	addHeroToMap(config.hero3);
 	addHeroToMap(config.hero4);
-
+*/
 	adjustOverlappingImages();
 
 	setShortLink();
@@ -619,7 +820,7 @@ function getConditionsArrayFromObjectOrArray(conditions) {
 	var result = [];
 	if (conditions.length == undefined) {
 		for (var condition in conditions) {
-			if (condition == undefined) continue;
+			if (condition == undefined || condition == "") continue;
 			for (var i = 0; i < conditions[condition] && (i == 0 || !CONDITIONS[condition].hasConditionCard); i++) {
 				result.push(condition);
 			}
@@ -654,7 +855,7 @@ function addHeroToMap(hero) {
 	heroHp.html(hero.hp.toString());
 	var heroStamina = $('<div>').addClass('stamina');
 	heroStamina.html(hero.stamina.toString());
-	var folder = 'images/character_tokens/hex/';
+	var folder = 'images/heroes_tokens/';
 	heroObject.css({
 		'position' : 'absolute',
 		'left' : (hero.x * cellSize).toString() + 'px',
@@ -706,16 +907,19 @@ function adjustOverlappingImages() {
 }
 
 function constructSettingsFromConfig() {
-	updateAct(config.actOne);
-	updateTraitsAndExpansionsFromConfig();
-	fillQuestObjectives();
+//	updateAct(config.currentAct);
+	FillWindow_QuestObjectives(config, false);
+	FillWindow_MapDesign(config, false);
+
+/*
+	FillWindow_OLFigures(config, false);
+
 	constructHeroesTabsFromConfig();
-	constructMonstersAndLieutenantsTabFromConfig();
-	constructMapControlsTabFromConfig();
 	constructAlliesAndFamiliarsTabFromConfig();
 	constructMiscellaneousObjectsTabFromConfig();
 	constructOverlordCardsTabFromConfig();
 	constructPlotDeckTabFromConfig();
+*/
 	constructMapSize();
 }
 
@@ -803,37 +1007,29 @@ function updateConfig() {
 	window.location.hash = Base64.encode(JSON.stringify(config));
 }
 
-function decodeConfig() {
-	config = JSON.parse(Base64.decode(window.location.hash));
-}
-
 function collectData() {
-	var monsterRows = $('#monsters-container .select-row');
-	config.monsters = [];
-	for (var i = 0; i < monsterRows.length; i++) {
-		config.monsters.push(monster(monsterRows[i]));
-	}
-	config.questObjectives = getQuestObjectives();
+	config.mapVersion = MAPVERSION;
+//	config.currentAct = CurrentAct;
+//	config.expansions = selectedExpansions;
+	config = GetWindow_QuestObjectives(config);
+	config = GetWindow_MapDesign(config);
+/*
+	config = GetWindow_OLFigures(config);
+
 	config.hero1 = hero($('#hero1 .select-row'));
 	config.hero2 = hero($('#hero2 .select-row'));
 	config.hero3 = hero($('#hero3 .select-row'));
 	config.hero4 = hero($('#hero4 .select-row'));
-	config.tiles = getMapTiles();
-	config.doors = getDoors();
-	config.xs = getXs();
 	config.allies = getAllies();
 	config.familiars = getFamiliars();
 	config.villagers = getVillagers();
 	config.objectives = getObjectives();
 	config.overlord = {};
 	config.overlord.cards = getOverlordCards();
-	config.lieutenants = getLieutenants();
 	config.plot = getPlotInfo();
-	config.actOne = actOne;
+*/
 	config.mapWidth = mapWidth;
 	config.mapHeight = mapHeight;
-	config.monsterTraits = monsterTraits;
-	config.expansions = selectedExpansions;
 }
 
 function drawGrid() {
@@ -874,241 +1070,21 @@ function setShortLink() {
     tinyUrl.attr('href', 'https://tinyurl.com/' + string);
 }
 
-function getMapHash() {
-	var config2 = {};
-	config2.xs = config.xs;
-	config2.tiles = config.tiles;
-	config2.doors = config.doors;
-	config2.objectives = config.objectives;
-	console.log(Base64.encode(JSON.stringify(config2)));
-}
-
 function switchToMap() {
 //	$('[href="#map"]').tab('show');
 	$('[href="#map"]').click();
 }
 
 function clearAdditionalElements() {
-	clearMapControlTab();
+	ResetWindow_MapDesign();
+	ResetWindow_OLFigures();
+
+//	clearLieutenants();
+//	clearAgents();
 	clearMiscellaneousObjectsTab();
 	clearHeroesSackAndSearchItems();
 	clearHeroesConditions();
-	clearLieutenants();
 	clearFamiliarsAndAllies();
-}
-
-function moveObjectsOnMap(right, down) {
-	for (var n in config) {
-		var configPart = config[n];
-		if (configPart == undefined) continue;
-		if (configPart.x != undefined) {
-			configPart.x = (parseInt(configPart.x) + right).toString();
-			configPart.y = (parseInt(configPart.y) + down).toString();
-		} else {
-			for (var i = 0; i < configPart.length && configPart.length != undefined; i++) {
-				if (configPart[i].x != undefined) {
-					configPart[i].x = (parseInt(configPart[i].x) + right).toString();
-					configPart[i].y = (parseInt(configPart[i].y) + down).toString();;
-				}
-			}
-
-		}
-	}
-	constructMapFromConfig();
-	clearAdditionalElements();
-	constructSettingsFromConfig();
-	updateConfig();
-}
-
-function rotateMap(clockwise) {
-	var realWidth = 0;
-	var realHeight = 0;
-	for (var i = 0; i < config.tiles.length; i++) {
-		var tile = config.tiles[i];
-		var rightSide, bottomSide;
-		if (tile.angle == 90 || tile.angle == 270) {
-			rightSide = parseInt(tile.x) + MAP_TILES_SIZES[tile.title].height - 1;
-			bottomSide = parseInt(tile.y) + MAP_TILES_SIZES[tile.title].width - 1 + 1; //+1 for the nubering is starting from 0
-		} else {
-			rightSide = parseInt(tile.x) + MAP_TILES_SIZES[tile.title].width - 1;
-			bottomSide = parseInt(tile.y) + MAP_TILES_SIZES[tile.title].height - 1 + 1;
-		}
-		if (rightSide > realWidth) realWidth = rightSide;
-		if (bottomSide > realHeight) realHeight = bottomSide;
-	}
-	rotateTiles(clockwise, realWidth, realHeight);
-	rotateDoors(clockwise, realWidth, realHeight);
-	rotateMonsters(clockwise, realWidth, realHeight);
-	rotateLieutenants(clockwise, realWidth, realHeight);
-	rotateHeroes(clockwise, realWidth, realHeight);
-	rotateAllies(clockwise, realWidth, realHeight);
-	rotateFamiliars(clockwise, realWidth, realHeight);
-	rotateVillagers(clockwise, realWidth, realHeight);
-	rotateObjectives(clockwise, realWidth, realHeight);
-	constructMapFromConfig();
-	clearAdditionalElements();
-	constructSettingsFromConfig();
-	updateConfig();
-}
-
-function rotateTiles(clockwise, realWidth, realHeight) {
-	if (clockwise) {
-		for (var i = 0; i < config.tiles.length; i++) {
-			var tile = config.tiles[i];
-			var tileHeight;
-			if (tile.angle == 270 || tile.angle == 90) {
-				tileHeight = MAP_TILES_SIZES[tile.title].width;
-			} else {
-				tileHeight = MAP_TILES_SIZES[tile.title].height;
-			}
-			if (tile.angle == 270) {
-				tile.angle = "0";
-			} else {
-				tile.angle = (parseInt(tile.angle) + 90).toString();
-			}
-			rotateObjectClockwise(tile, tileHeight, realHeight);
-		}
-	} else {
-		for (var i = 0; i < config.tiles.length; i++) {
-			var tile = config.tiles[i];
-			var tileWidth;
-			if (tile.angle == 270 || tile.angle == 90) {
-				tileWidth = MAP_TILES_SIZES[tile.title].height;
-			} else {
-				tileWidth = MAP_TILES_SIZES[tile.title].width;
-			}
-			if (tile.angle == 0) {
-				tile.angle = "270";
-			} else {
-				tile.angle = (parseInt(tile.angle) - 90).toString();
-			}
-			rotateObjectCounterClockwise(tile, tileWidth, realWidth);
-		}
-	}
-}
-
-function rotateDoors(clockwise, realWidth, realHeight) {
-	for (var i = 0; i < config.doors.length; i++) {
-		var door = config.doors[i];
-		var height, width;
-		if (door.vertical) {
-			height = 4;
-			width = 2;
-		} else {
-			height = 2;
-			width = 4;
-		}
-		door.vertical = !door.vertical;
-		rotateObject(clockwise, door, height, width, realHeight, realWidth);
-	}
-}
-
-function rotateXs(clockwise, realWidth, realHeight) {
-	for (var i = 0; i < config.doors.length; i++) {
-		var x = config.doors[i];
-		var height, width;
-		height = parseInt(x.title.substring(0,1));
-		width = height;
-		rotateObject(clockwise, x, height, width, realHeight, realWidth);
-	}
-}
-
-function rotateMonsters(clockwise, realWidth, realHeight) {
-	for (var i = 0; i < config.monsters.length; i++) {
-		var monster = config.monsters[i];
-		var height, width;
-		if (monster.vertical) {
-			height = MONSTERS[monster.title].width;
-			width = MONSTERS[monster.title].height;
-		} else {
-			height = MONSTERS[monster.title].height;
-			width = MONSTERS[monster.title].width;
-		}
-		monster.vertical = !monster.vertical;
-		rotateObject(clockwise, monster, height, width, realHeight, realWidth);
-	}
-}
-
-function rotateLieutenants(clockwise, realWidth, realHeight) {
-	if (config.lieutenants == undefined) {
-		return;
-	}
-	for (var i = 0; i < config.lieutenants.length; i++) {
-		var lieutenant = config.lieutenants[i];
-		var height, width;
-		if (lieutenant.vertical) {
-			height = LIEUTENANTS[lieutenant.title].width;
-			width = LIEUTENANTS[lieutenant.title].height;
-		} else {
-			height = LIEUTENANTS[lieutenant.title].height;
-			width = LIEUTENANTS[lieutenant.title].width;
-		}
-		lieutenant.vertical = !lieutenant.vertical;
-		rotateObject(clockwise, lieutenant, height, width, realHeight, realWidth);
-	}
-}
-
-function rotateHeroes(clockwise, realWidth, realHeight) {
-	for (var i = 0; i < 4; i++) {
-		var hero = config['hero' + (i+1).toString()];
-		if (config.hero4.title == '') {
-			continue;
-		}
-		var height = 1, width = 1;
-		rotateObject(clockwise, hero, height, width, realHeight, realWidth);
-	}
-}
-
-function rotateAllies(clockwise, realWidth, realHeight) {
-	for (var i = 0; i < config.allies.length; i++) {
-		var ally = config.allies[i];
-		var height = 1, width = 1;
-		rotateObject(clockwise, ally, height, width, realHeight, realWidth);
-	}
-}
-
-function rotateFamiliars(clockwise, realWidth, realHeight) {
-	for (var i = 0; i < config.familiars.length; i++) {
-		var familiar = config.familiars[i];
-		var height = 1, width = 1;
-		rotateObject(clockwise, familiar, height, width, realHeight, realWidth);
-	}
-}
-
-function rotateVillagers(clockwise, realWidth, realHeight) {
-	for (var i = 0; i < config.villagers.length; i++) {
-		var villager = config.villagers[i];
-		var height = 1, width = 1;
-		rotateObject(clockwise, villager, height, width, realHeight, realWidth);
-	}
-}
-
-function rotateObjectives(clockwise, realWidth, realHeight) {
-	for (var i = 0; i < config.objectives.length; i++) {
-		var objective = config.objectives[i];
-		var height = 1, width = 1;
-		rotateObject(clockwise, objective, height, width, realHeight, realWidth);
-	}
-}
-
-function rotateObjectClockwise(object, height, canvasHeight) {
-	var newX = (canvasHeight - parseInt(object.y) + 1 - height).toString(); //+1 and -1 lower are made becays numbering on x starts width 1 and on y - with 0
-	object.y = (parseInt(object.x) - 1).toString();
-	object.x = newX;
-}
-
-function rotateObjectCounterClockwise(object, width, canvasWidth) {
-	var newY = (canvasWidth - parseInt(object.x) - width + 1).toString();
-	object.x = (parseInt(object.y) + 1).toString();
-	object.y = newY;
-}
-
-function rotateObject(clockwise, object, height, width, canvasHeight, canvasWidth) {
-	if (clockwise) {
-		rotateObjectClockwise(object, height, canvasHeight);
-	} else {
-		rotateObjectCounterClockwise(object, width, canvasWidth);
-	}
 }
 
 function updateMapSize() {
@@ -1122,7 +1098,7 @@ function setMapSizeFromConfig() {
 }
 
 function toggleMapControls() {
-	$('#map-transformation div').toggle();
+	$('.map-transformation div').toggle();
 }
 
 function allowDrop(ev) {
@@ -1149,51 +1125,68 @@ function dropToken(target, data) {
 }
 
 
-//function LoadOneSubScripts(scriptFile){
-//	$.getScript(scriptFile);
-//	var script = document.createElement("script");
-//	script.src = scriptFile;
-//    document.head.appendChild(script);
-//}
-//function LoadSubScripts(){
-//	LoadOneSubScripts("scripts/01QuestObjectives.js");
-//	LoadOneSubScripts("scripts/02MapControls.js");
-//	LoadOneSubScripts("scripts/03Monsters.js");
-//	LoadOneSubScripts("scripts/04Heroes.js");
-//	LoadOneSubScripts("scripts/08Familiers.js");
-//	LoadOneSubScripts("scripts/09OLCards.js");
-//	LoadOneSubScripts("scripts/10Tokens.js");
-//	LoadOneSubScripts("scripts/11PlotCards.js");
-//}
+function LoadOneSubScripts(scriptFile){
+	$.getScript(scriptFile);
+	var script = document.createElement("script");
+	script.src = scriptFile;
+    document.head.appendChild(script);
+}
+function LoadSubScripts(){
+	LoadOneSubScripts("scripts/00MapControls.js");
+	LoadOneSubScripts("scripts/01QuestObjectives.js");
+	LoadOneSubScripts("scripts/02MapDesign.js");
+	/*
+	LoadOneSubScripts("scripts/03OLFigures.js");
+	LoadOneSubScripts("scripts/04Heroes.js");
+	LoadOneSubScripts("scripts/08Familiers.js");
+	LoadOneSubScripts("scripts/09OLCards.js");
+	LoadOneSubScripts("scripts/10Tokens.js");
+	LoadOneSubScripts("scripts/11PlotCards.js");
+	*/
+}
+
+
+
+function InitializeAllWindows() {
+	Initialize_MapControls();
+
+	InitializeWindowFor_QuestObjectives();
+	InitializeWindowFor_MapDesign();
+/*
+	InitializeWindowFor_OLFigures();
+	//InitializeWindowFor_Heroes();
+	InitializeWindowFor_Familiars();
+	InitializeWindowFor_OLCards();
+	InitializeWindowFor_MapTokens();
+	//InitializeWindowFor_PlotCards();
+*/
+}
 
 $(function() {
 //	LoadSubScripts();
 
-	InitializeWindowFor_QuestObjectives();
-	InitializeWindowFor_MapControls();
-	InitializeWindowFor_MapTokens();
+	InitializeAllWindows();
 
-
-	addMonsterLine();
+/*
 	for (var i = 1; i <= 4; i++) {
 		addHeroLine(i);
 	}
-	createFullMapsBlock();
 	createFamiliarsImagesBlock();
-	createMonsterTraitsBlock();
-	createExpansionsBlock();
 	createOverlordCardsBlock();
 	createPlotDeckBlock();
+*/
+
+
+	// recover data / config
 	if (window.location.hash != "") {
-		decodeConfig();
-		constructSettingsFromConfig();
-		constructMapFromConfig();
+		//From URL
+		config = recoverConfig(window.location.hash);
 	} else {
-		//TEST
-		config = JSON.parse(Base64.decode(defaultConfig));
-		constructSettingsFromConfig();
-		constructMapFromConfig();
+		//From default config
+		config = recoverConfig(defaultConfig);
 	}
+	constructSettingsFromConfig();
+	constructMapFromConfig();
 	drawGrid();
 	setMapSizeFromConfig();
 
@@ -1211,3 +1204,4 @@ $(function() {
         }
     });
 });
+

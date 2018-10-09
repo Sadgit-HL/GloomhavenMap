@@ -1,3 +1,15 @@
+function InitializeWindowFor_OLCards() {
+	var html = $('#overlord');
+
+	var OverlordContainer = $('<div id="overlord-container">');
+	OverlordContainer.append('<h1>Overlord available cards</h1>');
+	OverlordContainer.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="clearOverlordDeck();">Reset deck</button>');
+	OverlordContainer.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="selectBasicOverlordDeck();">Basic I</button>');
+	OverlordContainer.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="selectBasic2OverlordDeck();">Basic II</button>');
+	OverlordContainer.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="HashOverlordDeck();">Random Sort For HASH</button>');
+	html.append(OverlordContainer);
+}
+
 function createOverlordCardsBlock() {
 	var html = $('<div>').addClass('overlord-cards-container');
 	var cardsImages = $('<div>').addClass('overlord-cards-images-container');
@@ -168,5 +180,3 @@ function getOverlordCards() {
 //				document.execCommand("Copy");
 				alert("Copied the text to Clipboard: \n" + temporaryText);
 			}
-
-
