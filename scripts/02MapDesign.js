@@ -2,16 +2,16 @@ function InitializeWindowFor_MapDesign() {
 	var html = $('#map-controls');
 
 	//Act Button
-	html.append(Create_ActButton());
+//	html.append(Create_ActButton());
 
 	//pre-filled Maps zone
-	html.append(CreateZone_PreFilledMaps());
+//	html.append(CreateZone_PreFilledMaps());
 	//tiles zone
 	html.append(CreateZone_Tiles());
 	//doors zone
-	html.append(CreateZone_Doors());
+//	html.append(CreateZone_Doors());
 	//xMarks zone
-	html.append(CreateZone_XMarks());
+//	html.append(CreateZone_XMarks());
 }
 
 function UpdateWindow_MapDesign() {
@@ -22,22 +22,22 @@ function UpdateWindow_MapDesign() {
 
 function GetWindow_MapDesign(DataToUpdate) {
 	DataToUpdate = GetZone_Tiles(DataToUpdate);
-	DataToUpdate = GetZone_Doors(DataToUpdate);
-	DataToUpdate = GetZone_XMarks(DataToUpdate);
+//	DataToUpdate = GetZone_Doors(DataToUpdate);
+//	DataToUpdate = GetZone_XMarks(DataToUpdate);
 	return DataToUpdate;
 }
 
 function FillWindow_MapDesign(NewData, FromPreFilledMaps) {
 	//Fill_ActButton(); -> Common not Filled Here
 	FillZone_Tiles(NewData, FromPreFilledMaps);
-	FillZone_Doors(NewData, FromPreFilledMaps);
-	FillZone_XMarks(NewData, FromPreFilledMaps);
+//	FillZone_Doors(NewData, FromPreFilledMaps);
+//	FillZone_XMarks(NewData, FromPreFilledMaps);
 }
 
 function ResetWindow_MapDesign(FromPreFilledMaps) {
 	ResetZone_Tiles(FromPreFilledMaps);
-	ResetZone_Doors(FromPreFilledMaps);
-	ResetZone_XMarks(FromPreFilledMaps);
+//	ResetZone_Doors(FromPreFilledMaps);
+//	ResetZone_XMarks(FromPreFilledMaps);
 }
 
 //pre-filled Maps zone

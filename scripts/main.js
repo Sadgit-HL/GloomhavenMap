@@ -472,7 +472,7 @@ function constructMapFromConfig() {
 		    '-webkit-transform' : 'rotate(' + angle + 'deg)',
 		    'transform' : 'rotate(' + angle + 'deg)'
 		});
-		tileImage.attr('src', folder + mapTilize(tile.title) + tile.side + '.png');
+		tileImage.attr('src', folder + mapTilize(tile.title) + tile.side.toLowerCase() + '.png');
 		tileObject.append(tileImage);
         map.append(tileObject);
 	}
