@@ -305,10 +305,9 @@ function Set_OpenCheckbox(RowElement, value) {
 function Create_AngleList(elementTitle) {
 	var html = createInputSelect('Select angle', 'Angle-Title', 'select-angle');
 	html.find('ul').append(addOption('Clear', '', 'UnSet_Angle(this,\'\');'));
-	html.find('ul').append(addOption('0' + ' ', '', 'Set_Angle(this, \'' + '0' + '\');'));
-	html.find('ul').append(addOption('90' + ' ', '', 'Set_Angle(this, \'' + '90' + '\');'));
-	html.find('ul').append(addOption('180' + ' ', '', 'Set_Angle(this, \'' + '180' + '\');'));
-	html.find('ul').append(addOption('270' + ' ', '', 'Set_Angle(this, \'' + '270' + '\');'));
+	for (var i = 0; i < ANGLES_LIST.length; i++) {
+		html.find('ul').append(addOption(ANGLES_LIST[i] + ' ', '', 'Set_Angle(this, \'' + ANGLES_LIST[i] + '\');'));
+	}
 	html.append($('<input type="hidden" name="Angle-Value" class="Angle-Value" value=""/>'));
 	return html;
 }

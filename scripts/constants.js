@@ -28,6 +28,11 @@ for (var i = 0; i < MAP_TILES_LIST_COMPLETE.length; i++) {
 	MAP_TILES_SIZES[MAP_TILES_LIST_COMPLETE[i][0]] = {'width':MAP_TILES_LIST_COMPLETE[i][1], 'height':MAP_TILES_LIST_COMPLETE[i][2]};
 }
 
+ANGLES_LIST = [
+	[0],
+	[120],
+	[240]
+];
 
 
 

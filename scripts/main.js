@@ -458,10 +458,10 @@ function constructMapFromConfig() {
 		var tileImage = $('<img>');
 		var folder = 'images/map_tiles/';
 		var angle = tile.angle;
-		if (angle == 90 || angle == 270){
-			folder += 'vertical/';
-			angle -= 90;
-		}
+//		if (angle == 90 || angle == 270){
+//			folder += 'vertical/';
+//			angle -= 90;
+//		}
 		tileObject.css({
 			'position' : 'absolute',
 			'left' : (tile.x * cellSize).toString() + 'px',
