@@ -2,7 +2,9 @@ var MAPVERSION = "0.0.0";
 
 var ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-var cellSize = 64;
+var HCellSize = 92;
+var VCellSize = 80;
+var cellType = "HEX"; // SQUARE - HEX
 
 function listsort(a, b) {
 	if(a[0] < b[0]) return -1;
@@ -10,22 +12,21 @@ function listsort(a, b) {
 	return 0;
 }
 
-
-
-
 MAP_TILES_LIST_COMPLETE = [
-	['a1',2,5],
-	['i2',5,6],
-	['k1',6,8],
-	['k2',6,8]
+	['a1',2,5,69,40],
+	['i2',5,6,0,0],
+	['k1',6,8,92,120],
+	['k2',6,8,0,0]
 ];
 
 MAP_TILES_LIST = [];
 MAP_TILES_SIZES = {};
+MAP_TILES_CENTER_ROTATE_CELL = {};
 
 for (var i = 0; i < MAP_TILES_LIST_COMPLETE.length; i++) {
 	MAP_TILES_LIST.push(MAP_TILES_LIST_COMPLETE[i][0]);
 	MAP_TILES_SIZES[MAP_TILES_LIST_COMPLETE[i][0]] = {'width':MAP_TILES_LIST_COMPLETE[i][1], 'height':MAP_TILES_LIST_COMPLETE[i][2]};
+	MAP_TILES_CENTER_ROTATE_CELL[MAP_TILES_LIST_COMPLETE[i][0]] = {'left':MAP_TILES_LIST_COMPLETE[i][3], 'top':MAP_TILES_LIST_COMPLETE[i][4]};
 }
 
 ANGLES_LIST = [

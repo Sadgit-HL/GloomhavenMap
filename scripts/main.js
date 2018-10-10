@@ -458,19 +458,17 @@ function constructMapFromConfig() {
 		var tileImage = $('<img>');
 		var folder = 'images/map_tiles/';
 		var angle = tile.angle;
-//		if (angle == 90 || angle == 270){
-//			folder += 'vertical/';
-//			angle -= 90;
-//		}
+
 		tileObject.css({
 			'position' : 'absolute',
-			'left' : (tile.x * cellSize).toString() + 'px',
-			'top' : (tile.y * cellSize).toString() + 'px'
+			'left' : ((tile.x * HCellSize) - MAP_TILES_CENTER_ROTATE_CELL[tile.title].left + 46).toString()  + 'px',
+			'top' : ((tile.y * VCellSize) - MAP_TILES_CENTER_ROTATE_CELL[tile.title].top + 40).toString() + 'px'
 		});
 		tileImage.css({
 			'-ms-transform' : 'rotate(' + angle + 'deg)',
 		    '-webkit-transform' : 'rotate(' + angle + 'deg)',
-		    'transform' : 'rotate(' + angle + 'deg)'
+		    'transform' : 'rotate(' + angle + 'deg)',
+			'transform-origin' : MAP_TILES_CENTER_ROTATE_CELL[tile.title].left + 'px ' + MAP_TILES_CENTER_ROTATE_CELL[tile.title].top + 'px'
 		});
 		tileImage.attr('src', folder + mapTilize(tile.title) + tile.side.toLowerCase() + '.png');
 		tileObject.append(tileImage);
@@ -485,15 +483,15 @@ function constructMapFromConfig() {
 		var folder = 'images/doors/';
 		doorObject.css({
 			'position' : 'absolute',
-			'left' : (door.x * cellSize).toString() + 'px',
-			'top' : (door.y * cellSize).toString() + 'px'
+			'left' : (door.x * HCellSize).toString() + 'px',
+			'top' : (door.y * VCellSize).toString() + 'px'
 		});
 		if (door.vertical) {
 			doorImage.css({
 				'-ms-transform' : 'rotate(90deg)',
 				'-webkit-transform' : 'rotate(90deg)',
 				'transform' : 'rotate(90deg)',
-				'transform-origin' : cellSize.toString() + 'px'
+				'transform-origin' : HCellSize.toString() + 'px'
 			});
 		}
 		if (door.direction == "V") {
@@ -501,7 +499,7 @@ function constructMapFromConfig() {
 				'-ms-transform' : 'rotate(90deg)',
 				'-webkit-transform' : 'rotate(90deg)',
 				'transform' : 'rotate(90deg)',
-				'transform-origin' : cellSize.toString() + 'px'
+				'transform-origin' : HCellSize.toString() + 'px'
 			});
 		}
 		if (door.opened != undefined && door.opened) {
@@ -519,8 +517,8 @@ function constructMapFromConfig() {
 		var folder = 'images/blocks/';
 		xsObject.css({
 			'position' : 'absolute',
-			'left' : (xs.x * cellSize).toString() + 'px',
-			'top' : (xs.y * cellSize).toString() + 'px'
+			'left' : (xs.x * HCellSize).toString() + 'px',
+			'top' : (xs.y * VCellSize).toString() + 'px'
 		});
 		xsImage.attr('src', folder + urlize(xs.title) + '.png');
 		xsObject.append(xsImage);
@@ -535,8 +533,8 @@ function constructMapFromConfig() {
 		var z_index = 0;
 		objectiveObject.css({
 			'position' : 'absolute',
-			'left' : (objective.x * cellSize).toString() + 'px',
-			'top' : (objective.y * cellSize).toString() + 'px',
+			'left' : (objective.x * HCellSize).toString() + 'px',
+			'top' : (objective.y * VCellSize).toString() + 'px',
 			'z-index' : z_index
 		});
 		objectiveImage.attr('src', folder + urlize(objective.title) + '.png');
@@ -558,8 +556,8 @@ function constructMapFromConfig() {
 		var z_index = 1;
 		familiarObject.css({
 			'position' : 'absolute',
-			'left' : (familiar.x * cellSize).toString() + 'px',
-			'top' : (familiar.y * cellSize).toString() + 'px',
+			'left' : (familiar.x * HCellSize).toString() + 'px',
+			'top' : (familiar.y * VCellSize).toString() + 'px',
 			'z-index' : z_index
 		});
 		familiarImage.attr('src', folder + urlize(familiar.title) + '.png');
@@ -582,8 +580,8 @@ function constructMapFromConfig() {
 		var z_index = 1;
 		villagerObject.css({
 			'position' : 'absolute',
-			'left' : (villager.x * cellSize).toString() + 'px',
-			'top' : (villager.y * cellSize).toString() + 'px',
+			'left' : (villager.x * HCellSize).toString() + 'px',
+			'top' : (villager.y * VCellSize).toString() + 'px',
 			'z-index' : z_index
 		});
 		villagerImage.attr('src', folder + urlize(villager.title) + '.png');
@@ -610,8 +608,8 @@ function constructMapFromConfig() {
 		if (monster.direction == "V") folder += 'vertical/';
 		monsterObject.css({
 			'position' : 'absolute',
-			'left' : (monster.x * cellSize).toString() + 'px',
-			'top' : (monster.y * cellSize).toString() + 'px',
+			'left' : (monster.x * HCellSize).toString() + 'px',
+			'top' : (monster.y * VCellSize).toString() + 'px',
 			'z-index' : z_index
 		});
 
@@ -641,13 +639,13 @@ function constructMapFromConfig() {
 
 				aura.css({
 					'position' : 'absolute',
-					'left' : '-' + (auraRadius * cellSize).toString() + 'px',
-					'top' : '-' + (auraRadius * cellSize).toString() + 'px',
-					'width' : ((2 * auraRadius + xDelta) * cellSize).toString() + 'px',
-					'height' : ((2 * auraRadius + yDelta) * cellSize).toString() + 'px',
+					'left' : '-' + (auraRadius * HCellSize).toString() + 'px',
+					'top' : '-' + (auraRadius * VCellSize).toString() + 'px',
+					'width' : ((2 * auraRadius + xDelta) * HCellSize).toString() + 'px',
+					'height' : ((2 * auraRadius + yDelta) * VCellSize).toString() + 'px',
 					'background' : monster.auras[j].color,
 					'opacity' : '0.2',
-					'border-radius' : (cellSize / 2).toString() + 'px'
+					'border-radius' : ((HCellSize + VCellSize) / 4).toString() + 'px'
 				});
 				monsterObject.append(aura);
 			}
@@ -670,8 +668,8 @@ function constructMapFromConfig() {
 		var z_index = 2;
 		allyObject.css({
 			'position' : 'absolute',
-			'left' : (ally.x * cellSize).toString() + 'px',
-			'top' : (ally.y * cellSize).toString() + 'px',
+			'left' : (ally.x * HCellSize).toString() + 'px',
+			'top' : (ally.y * VCellSize).toString() + 'px',
 			'z-index' : z_index
 		});
 		allyImage.attr('src', folder + urlize(ally.title) + '.png');
@@ -694,8 +692,8 @@ function constructMapFromConfig() {
 		if (lieutenant.direction == "V") folder += 'vertical/';
 		lieutenantObject.css({
 			'position' : 'absolute',
-			'left' : (lieutenant.x * cellSize).toString() + 'px',
-			'top' : (lieutenant.y * cellSize).toString() + 'px',
+			'left' : (lieutenant.x * HCellSize).toString() + 'px',
+			'top' : (lieutenant.y * VCellSize).toString() + 'px',
 			'z-index' : z_index
 		});
 
@@ -725,13 +723,13 @@ function constructMapFromConfig() {
 
 				aura.css({
 					'position' : 'absolute',
-					'left' : '-' + (auraRadius * cellSize).toString() + 'px',
-					'top' : '-' + (auraRadius * cellSize).toString() + 'px',
-					'width' : ((2 * auraRadius + xDelta) * cellSize).toString() + 'px',
-					'height' : ((2 * auraRadius + yDelta) * cellSize).toString() + 'px',
+					'left' : '-' + (auraRadius * HCellSize).toString() + 'px',
+					'top' : '-' + (auraRadius * VCellSize).toString() + 'px',
+					'width' : ((2 * auraRadius + xDelta) * HCellSize).toString() + 'px',
+					'height' : ((2 * auraRadius + yDelta) * VCellSize).toString() + 'px',
 					'background' : lieutenant.auras[j].color,
 					'opacity' : '0.2',
-					'border-radius' : (cellSize / 2).toString() + 'px'
+					'border-radius' : ((HCellSize + VCellSize) / 4).toString() + 'px'
 				});
 				lieutenantObject.append(aura);
 			}
@@ -756,8 +754,8 @@ function constructMapFromConfig() {
 		if (agent.direction == "V") folder += 'vertical/';
 		agentObject.css({
 			'position' : 'absolute',
-			'left' : (agent.x * cellSize).toString() + 'px',
-			'top' : (agent.y * cellSize).toString() + 'px',
+			'left' : (agent.x * HCellSize).toString() + 'px',
+			'top' : (agent.y * VCellSize).toString() + 'px',
 			'z-index' : z_index
 		});
 
@@ -787,13 +785,13 @@ function constructMapFromConfig() {
 
 				aura.css({
 					'position' : 'absolute',
-					'left' : '-' + (auraRadius * cellSize).toString() + 'px',
-					'top' : '-' + (auraRadius * cellSize).toString() + 'px',
-					'width' : ((2 * auraRadius + xDelta) * cellSize).toString() + 'px',
-					'height' : ((2 * auraRadius + yDelta) * cellSize).toString() + 'px',
+					'left' : '-' + (auraRadius * HCellSize).toString() + 'px',
+					'top' : '-' + (auraRadius * VCellSize).toString() + 'px',
+					'width' : ((2 * auraRadius + xDelta) * HCellSize).toString() + 'px',
+					'height' : ((2 * auraRadius + yDelta) * VCellSize).toString() + 'px',
 					'background' : agent.auras[j].color,
 					'opacity' : '0.2',
-					'border-radius' : (cellSize / 2).toString() + 'px'
+					'border-radius' : ((HCellSize + VCellSize) / 4).toString() + 'px'
 				});
 				agentObject.append(aura);
 			}
@@ -858,8 +856,8 @@ function addHeroToMap(hero) {
 	var folder = 'images/heroes_tokens/';
 	heroObject.css({
 		'position' : 'absolute',
-		'left' : (hero.x * cellSize).toString() + 'px',
-		'top' : (hero.y * cellSize).toString() + 'px',
+		'left' : (hero.x * HCellSize).toString() + 'px',
+		'top' : (hero.y * VCellSize).toString() + 'px',
 		'z-index' : z_index
 	});
 	heroImage.attr('src', folder + urlize(hero.title) + '.png');
@@ -868,13 +866,13 @@ function addHeroToMap(hero) {
 		var auraRadius = parseInt(hero.aura.radius);
 		aura.css({
 			'position' : 'absolute',
-			'left' : '-' + (auraRadius * cellSize).toString() + 'px',
-			'top' : '-' + (auraRadius * cellSize).toString() + 'px',
-			'width' : ((2 * auraRadius + 1) * cellSize).toString() + 'px',
-			'height' : ((2 * auraRadius + 1) * cellSize).toString() + 'px',
+			'left' : '-' + (auraRadius * HCellSize).toString() + 'px',
+			'top' : '-' + (auraRadius * VCellSize).toString() + 'px',
+			'width' : ((2 * auraRadius + 1) * HCellSize).toString() + 'px',
+			'height' : ((2 * auraRadius + 1) * VCellSize).toString() + 'px',
 			'background' : hero.aura.color,
 			'opacity' : '0.2',
-			'border-radius' : (cellSize / 2).toString() + 'px'
+			'border-radius' : ((HCellSize + VCellSize) / 4).toString() + 'px'
 		});
 		heroObject.append(aura);
 	}
@@ -1038,7 +1036,7 @@ function drawGrid() {
 		element.html(getAlphabetChar(i));
 		element.css({
 				'position' : 'absolute',
-				'left' : ((1 + i) * cellSize).toString() + 'px',
+				'left' : ((1 + i) * HCellSize).toString() + 'px',
 				'top' : '0'
 		});
 		$('.grid').append(element);
@@ -1049,7 +1047,7 @@ function drawGrid() {
 		element.css({
 				'position' : 'absolute',
 				'left' : '0',
-				'top' : ((1 + i) * cellSize).toString() + 'px'
+				'top' : ((1 + i) * VCellSize).toString() + 'px'
 		});
 		$('.grid').append(element);
 	}
