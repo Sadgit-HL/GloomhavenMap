@@ -30,8 +30,11 @@ for (var i = 0; i < MAP_TILES_LIST_COMPLETE.length; i++) {
 
 ANGLES_LIST = [
 	[0],
+	[60],
 	[120],
-	[240]
+	[180],
+	[240],
+	[300]
 ];
 
 
