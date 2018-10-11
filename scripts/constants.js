@@ -2,8 +2,8 @@ var MAPVERSION = "0.0.0";
 
 var ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-var HCellSize = 92;
-var VCellSize = 80;
+var HCellSize = 90;
+var VCellSize = 78;
 var cellType = "HEX"; // SQUARE - HEX
 
 function listsort(a, b) {
@@ -13,9 +13,9 @@ function listsort(a, b) {
 }
 
 MAP_TILES_LIST_COMPLETE = [
-	['a1',2,5,69,40],
+	['a1',2,5,68,39],
 	['i2',5,6,0,0],
-	['k1',6,8,92,120],
+	['k1',6,8,90,117],
 	['k2',6,8,0,0]
 ];
 

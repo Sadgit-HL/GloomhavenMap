@@ -459,10 +459,12 @@ function constructMapFromConfig() {
 		var folder = 'images/map_tiles/';
 		var angle = tile.angle;
 
+		var HexDelta = (1 - (tile.x % 2)) * (VCellSize/2);
+
 		tileObject.css({
 			'position' : 'absolute',
-			'left' : ((tile.x * HCellSize) - MAP_TILES_CENTER_ROTATE_CELL[tile.title].left + 46).toString()  + 'px',
-			'top' : ((tile.y * VCellSize) - MAP_TILES_CENTER_ROTATE_CELL[tile.title].top + 40).toString() + 'px'
+			'left' : ((Math.floor(tile.x * HCellSize * 3 / 4 )) - MAP_TILES_CENTER_ROTATE_CELL[tile.title].left + (HCellSize/2)).toString()  + 'px',
+			'top' : ((tile.y * VCellSize) - MAP_TILES_CENTER_ROTATE_CELL[tile.title].top + (VCellSize/2) + HexDelta).toString() + 'px'
 		});
 		tileImage.css({
 			'-ms-transform' : 'rotate(' + angle + 'deg)',
@@ -1036,8 +1038,8 @@ function drawGrid() {
 		element.html(getAlphabetChar(i));
 		element.css({
 				'position' : 'absolute',
-				'left' : ((1 + i) * HCellSize).toString() + 'px',
-				'top' : '0'
+				'left' : (Math.floor((1 + i) * HCellSize * 3 / 4)).toString() + 'px',
+				'top' : '-' + VCellSize + 'px'
 		});
 		$('.grid').append(element);
 	}
@@ -1046,8 +1048,8 @@ function drawGrid() {
 		element.html(i.toString());
 		element.css({
 				'position' : 'absolute',
-				'left' : '0',
-				'top' : ((1 + i) * VCellSize).toString() + 'px'
+				'left' : '-10px',
+				'top' : (i * VCellSize).toString() + 'px'
 		});
 		$('.grid').append(element);
 	}

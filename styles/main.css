@@ -476,12 +476,11 @@ img.familiar-image {
 }
 
 .grid div {
-	margin-top: -64px;
-	width: 64px;
-	height: 64px;
+	width: 77px;
+	height: 78px;
 	color: white;
 	font-weight: bold;
-	line-height: 64px;
+	line-height: 78px;
 	text-align: center;
 	font-size: 30px;
 }
