@@ -1049,7 +1049,7 @@ function drawGrid() {
 		element.css({
 				'position' : 'absolute',
 				'left' : '-10px',
-				'top' : (i * VCellSize).toString() + 'px'
+				'top' : Math.floor(((i * VCellSize) + (VCellSize/4))).toString() + 'px'
 		});
 		$('.grid').append(element);
 	}
