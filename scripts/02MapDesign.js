@@ -10,8 +10,8 @@ function InitializeWindowFor_MapDesign() {
 	html.append(CreateZone_Tiles());
 	//doors zone
 //	html.append(CreateZone_Doors());
-	//xMarks zone
-//	html.append(CreateZone_XMarks());
+	//OverlayTiles zone
+	html.append(CreateZone_OverlayTiles());
 }
 
 function UpdateWindow_MapDesign() {
@@ -23,7 +23,7 @@ function UpdateWindow_MapDesign() {
 function GetWindow_MapDesign(DataToUpdate) {
 	DataToUpdate = GetZone_Tiles(DataToUpdate);
 //	DataToUpdate = GetZone_Doors(DataToUpdate);
-//	DataToUpdate = GetZone_XMarks(DataToUpdate);
+	DataToUpdate = GetZone_OverlayTiles(DataToUpdate);
 	return DataToUpdate;
 }
 
@@ -31,13 +31,13 @@ function FillWindow_MapDesign(NewData, FromPreFilledMaps) {
 	//Fill_ActButton(); -> Common not Filled Here
 	FillZone_Tiles(NewData, FromPreFilledMaps);
 //	FillZone_Doors(NewData, FromPreFilledMaps);
-//	FillZone_XMarks(NewData, FromPreFilledMaps);
+	FillZone_OverlayTiles(NewData, FromPreFilledMaps);
 }
 
 function ResetWindow_MapDesign(FromPreFilledMaps) {
 	ResetZone_Tiles(FromPreFilledMaps);
 //	ResetZone_Doors(FromPreFilledMaps);
-//	ResetZone_XMarks(FromPreFilledMaps);
+	ResetZone_OverlayTiles(FromPreFilledMaps);
 }
 
 //pre-filled Maps zone
@@ -233,68 +233,68 @@ function UnSet_Door(element) {
 
 
 //X Marks zone
-function CreateZone_XMarks() {
+function CreateZone_OverlayTiles() {
 	var html = $('<div>');
-	var container = $('<div>').addClass('xs-container');
-	container.append('<h1>Xs</h1>');
+	var container = $('<div>').addClass('overlaytile-container');
+	container.append('<h1>Overlay Tiles</h1>');
 	html.append(container);
-	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="AddLine_XMarks();">Add X</button>');
+	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="AddLine_OverlayTiles();">Add Overlay Tile</button>');
 	//initialize LineClass
-	xMarkLine.NameListValues = Create_xMarkListValues();
+	OverlayTileLine.NameListValues = Create_OverlayTileListValues();
 	return html;
 }
 
-function GetZone_XMarks(DataToUpdate) {
+function GetZone_OverlayTiles(DataToUpdate) {
 	var result = [];
-	var xs = $('.xs-container .select-row');
-	for (var i = 0; i < xs.length; i++) {
-		var container = $(xs[i]);
+	var overlay = $('.overlaytile-container .select-row');
+	for (var i = 0; i < overlay.length; i++) {
+		var container = $(overlay[i]);
 		var x = {};
-		x = xMarkLine.GetOneLineData(container);
+		x = OverlayTileLine.GetOneLineData(container);
 		result.push(x);
 	}
-	DataToUpdate.xs = result;
+	DataToUpdate.overlaytiles = result;
 	return DataToUpdate;
 }
 
-function FillZone_XMarks(NewData, FromPreFilledMaps) {
-	ResetZone_XMarks(FromPreFilledMaps);
-	if (NewData.xs != undefined) {
-		for (var i = 0 ; i < NewData.xs.length; i++) {
-			xMarkLine.XYBase = BLOCKS[NewData.xs[i].title].width + 'x' + BLOCKS[NewData.xs[i].title].height;
-			var html = xMarkLine.AddOneLineWithData(NewData.xs[i]);
-			$('.xs-container').append(html);
+function FillZone_OverlayTiles(NewData, FromPreFilledMaps) {
+	ResetZone_OverlayTiles(FromPreFilledMaps);
+	if (NewData.overlaytiles != undefined) {
+		for (var i = 0 ; i < NewData.overlaytiles.length; i++) {
+			OverlayTileLine.XYBase = OVERLAYTILES[NewData.overlaytiles[i].title].width + 'x' + OVERLAYTILES[NewData.overlaytiles[i].title].height;
+			var html = OverlayTileLine.AddOneLineWithData(NewData.overlaytiles[i]);
+			$('.overlaytile-container').append(html);
 		}
 	}
 }
 
-function ResetZone_XMarks(FromPreFilledMaps) {
-	$('.xs-container .select-row').remove();
+function ResetZone_OverlayTiles(FromPreFilledMaps) {
+	$('.overlaytile-container .select-row').remove();
 }
 
-function AddLine_XMarks() {
-	xMarkLine.XYBase = "1x1";
-	var html = xMarkLine.AddOneEmptyLine()
-	$('.xs-container').append(html);
+function AddLine_OverlayTiles() {
+	OverlayTileLine.XYBase = "1x1";
+	var html = OverlayTileLine.AddOneEmptyLine()
+	$('.overlaytile-container').append(html);
 	return html;
 }
 
-function Create_xMarkListValues() {
-	var html = addOption('Clear', '', 'UnSet_XMarks(this);');
-	for (var i = 0; i < BLOCKS_LIST.length; i++) {
-		html += addOption(BLOCKS_LIST[i][0] + ' ', '', 'Set_XMarks(this, \'' + BLOCKS_LIST[i][0] + '\')');
+function Create_OverlayTileListValues() {
+	var html = addOption('Clear', '', 'UnSet_OverlayTiles(this);');
+	for (var i = 0; i < OVERLAYTILES_LIST.length; i++) {
+		html += addOption(OVERLAYTILES_LIST[i][0] + ' ', '', 'Set_OverlayTiles(this, \'' + OVERLAYTILES_LIST[i][0] + '\')');
 	}
 	return html;
 }
 
-function Set_XMarks(element, value) {
+function Set_OverlayTiles(element, value) {
 	var container = $(element).parents('.select-row');
-	xMarkLine.XYBase = BLOCKS[value].width + 'x' + BLOCKS[value].height;
-	xMarkLine.Set_MainElement(container, value);
+	OverlayTileLine.XYBase = OVERLAYTILES[value].width + 'x' + OVERLAYTILES[value].height;
+	OverlayTileLine.Set_MainElement(container, value);
 }
 
-function UnSet_XMarks(element) {
+function UnSet_OverlayTiles(element) {
 	var container = $(element).parents('.select-row');
-	xMarkLine.UnSet_MainElement(container);
+	OverlayTileLine.UnSet_MainElement(container);
 }
 

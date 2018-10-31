@@ -511,21 +511,34 @@ function constructMapFromConfig() {
 		doorObject.append(doorImage);
         map.append(doorObject);
 	}
+*/
 
-	for (var i = 0; config.xs != undefined && i < config.xs.length; i++) {
-		var xs = config.xs[i];
-		var xsObject = $('<div>');
-		var xsImage = $('<img>');
-		var folder = 'images/blocks/';
-		xsObject.css({
+	for (var i = 0; config.overlaytiles != undefined && i < config.overlaytiles.length; i++) {
+		var overlaytiles = config.overlaytiles[i];
+		var OverlayTileObject = $('<div>');
+		var OverlayTileImage = $('<img>');
+		var folder = 'images/overlay-tiles/';
+		var angle = overlaytiles.angle;
+
+		var HexDelta = (1 - (overlaytiles.x % 2)) * (VCellSize/2);
+
+		OverlayTileObject.css({
 			'position' : 'absolute',
-			'left' : (xs.x * HCellSize).toString() + 'px',
-			'top' : (xs.y * VCellSize).toString() + 'px'
+			'left' : ((Math.floor(overlaytiles.x * HCellSize * 3 / 4 )) - OVERLAYTILES[overlaytiles.title].left + (HCellSize/2)).toString()  + 'px',
+			'top' : ((overlaytiles.y * VCellSize) - OVERLAYTILES[overlaytiles.title].top + (VCellSize/2) + HexDelta).toString() + 'px'
 		});
-		xsImage.attr('src', folder + urlize(xs.title) + '.png');
-		xsObject.append(xsImage);
-        map.append(xsObject);
+		OverlayTileImage.css({
+			'-ms-transform' : 'rotate(' + angle + 'deg)',
+		    '-webkit-transform' : 'rotate(' + angle + 'deg)',
+		    'transform' : 'rotate(' + angle + 'deg)',
+			'transform-origin' : OVERLAYTILES[overlaytiles.title].left + 'px ' + OVERLAYTILES[overlaytiles.title].top + 'px'
+		});
+		OverlayTileImage.attr('src', folder + urlize(overlaytiles.title) + '.png');
+		OverlayTileObject.append(OverlayTileImage);
+        map.append(OverlayTileObject);
 	}
+
+/*
 
 	for (var i = 0; config.objectives != undefined && i < config.objectives.length; i++) {
 		var objective = config.objectives[i];

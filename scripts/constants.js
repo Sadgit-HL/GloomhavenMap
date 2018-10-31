@@ -1,5 +1,8 @@
 var MAPVERSION = "0.0.0";
 
+var mapWidth = 40;
+var mapHeight = 50;
+
 var ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 var HCellSize = 90;
@@ -66,11 +69,55 @@ ANGLES_LIST = [
 
 
 
+OVERLAYTILES_LIST = [
+	['corridor earth 1h',1,1,45,39],
+	['corridor earth 2h',1,2,45,39],
+	['corridor man made stone 1h',1,1,45,39],
+	['corridor man made stone 2h',1,2,45,39],
+	['corridor natural stone 1h',1,1,45,39],
+	['corridor natural stone 2h',1,2,45,39],
+	['corridor wood 1h',1,1,45,39],
+	['corridor wood 2h',1,2,45,39],
+	['pressure plate',1,1,45,39],
+	['dark fog',1,1,45,39],
+	['light fog',1,1,45,39],
+	['hot coals',1,1,45,39],
+	['hot coals 2h',1,2,45,39],
+	['hot coals 3h',2,2,45,39],
+	['log 2h',1,2,45,39],
+	['rubble',1,1,45,39],
+	['stairs',1,1,45,39],
+	['water',1,1,45,39]
+];
+OVERLAYTILES = {};
+for (var i = 0; i < OVERLAYTILES_LIST.length; i++) {
+	var overlay = {};
+	overlay.title = OVERLAYTILES_LIST[i][0];
+	overlay.width = OVERLAYTILES_LIST[i][1];
+	overlay.height = OVERLAYTILES_LIST[i][2];
+	overlay.left = OVERLAYTILES_LIST[i][3];
+	overlay.top = OVERLAYTILES_LIST[i][4];
+	OVERLAYTILES[OVERLAYTILES_LIST[i][0]] = overlay;
+}
 
 
 
+var mapObjects = [];
 
 
+//Initialize Global Data (Mainly LineClass)
+var tileLine = new LineClass('tile','tile','');
+tileLine.needSideList = true;
+tileLine.needCoordinates = true;
+tileLine.XYBase = '1x1';		//DefaultValue
+tileLine.needAngleList = true;
+tileLine.needRemoveButton = true;
+
+var OverlayTileLine = new LineClass('Overlay Tile','OverlayTile','');
+OverlayTileLine.needCoordinates = true;
+OverlayTileLine.XYBase = '1x1';		//DefaultValue
+OverlayTileLine.needAngleList = true;
+OverlayTileLine.needRemoveButton = true;
 
 
 
@@ -1818,34 +1865,18 @@ var MAP_HASES_LIST = [
 	['HM','VoD - Visions of Dawn *NOT AVAILABLE YET**','II', ""],
 ];
 
-var mapWidth = 40;
-var mapHeight = 50;
-
 var monsterList = [];
-var mapObjects = [];
 //var conditionsToShow = {};
 
 var overlordRelicNumber = 0;
 
 
-//Initialize Global Data (Mainly LineClass)
-var tileLine = new LineClass('tile','tile','');
-tileLine.needSideList = true;
-tileLine.needCoordinates = true;
-tileLine.XYBase = '1x1';		//DefaultValue
-tileLine.needAngleList = true;
-tileLine.needRemoveButton = true;
 
 var doorLine = new LineClass('door','door','');
 doorLine.needCoordinates = true;
 doorLine.XYBase = '1x2';		//DefaultValue
 doorLine.needOpenedCheckbox = true;
 doorLine.needRemoveButton = true;
-
-var xMarkLine = new LineClass('X Mark','xMark','');
-xMarkLine.needCoordinates = true;
-xMarkLine.XYBase = '1x1';		//DefaultValue
-xMarkLine.needRemoveButton = true;
 
 var monsterLine = new LineClass('monster','monster','RemoveLine_Monster(this);');
 monsterLine.needCoordinates = true;
