@@ -477,42 +477,6 @@ function constructMapFromConfig() {
         map.append(tileObject);
 	}
 
-/*
-	for (var i = 0; config.doors != undefined && i < config.doors.length; i++) {
-		var door = config.doors[i];
-		var doorObject = $('<div>');
-		var doorImage = $('<img>');
-		var folder = 'images/doors/';
-		doorObject.css({
-			'position' : 'absolute',
-			'left' : (door.x * HCellSize).toString() + 'px',
-			'top' : (door.y * VCellSize).toString() + 'px'
-		});
-		if (door.vertical) {
-			doorImage.css({
-				'-ms-transform' : 'rotate(90deg)',
-				'-webkit-transform' : 'rotate(90deg)',
-				'transform' : 'rotate(90deg)',
-				'transform-origin' : HCellSize.toString() + 'px'
-			});
-		}
-		if (door.direction == "V") {
-			doorImage.css({
-				'-ms-transform' : 'rotate(90deg)',
-				'-webkit-transform' : 'rotate(90deg)',
-				'transform' : 'rotate(90deg)',
-				'transform-origin' : HCellSize.toString() + 'px'
-			});
-		}
-		if (door.opened != undefined && door.opened) {
-			doorObject.addClass('opened');
-		}
-		doorImage.attr('src', folder + urlize(door.title) + '.png');
-		doorObject.append(doorImage);
-        map.append(doorObject);
-	}
-*/
-
 	for (var i = 0; config.overlaytiles != undefined && i < config.overlaytiles.length; i++) {
 		var overlaytiles = config.overlaytiles[i];
 		var OverlayTileObject = $('<div>');
@@ -536,6 +500,56 @@ function constructMapFromConfig() {
 		OverlayTileImage.attr('src', folder + urlize(overlaytiles.title) + '.png');
 		OverlayTileObject.append(OverlayTileImage);
         map.append(OverlayTileObject);
+	}
+
+	for (var i = 0; config.doors != undefined && i < config.doors.length; i++) {
+		var door = config.doors[i];
+		var doorObject = $('<div>');
+		var doorImage = $('<img>');
+		var folder = 'images/overlay-doors/';
+		var angle = door.angle;
+
+		var HexDelta = (1 - (door.x % 2)) * (VCellSize/2);
+
+
+		doorObject.css({
+			'position' : 'absolute',
+			'left' : ((Math.floor(door.x * HCellSize * 3 / 4 )) - DOORS[door.title].left + (HCellSize/2)).toString()  + 'px',
+			'top' : ((door.y * VCellSize) - DOORS[door.title].top + (VCellSize/2) + HexDelta).toString() + 'px'
+		});
+		doorImage.css({
+			'-ms-transform' : 'rotate(' + angle + 'deg)',
+		    '-webkit-transform' : 'rotate(' + angle + 'deg)',
+		    'transform' : 'rotate(' + angle + 'deg)',
+			'transform-origin' : DOORS[door.title].left + 'px ' + DOORS[door.title].top + 'px'
+		});
+		/*
+		if (door.vertical) {
+			doorImage.css({
+				'-ms-transform' : 'rotate(90deg)',
+				'-webkit-transform' : 'rotate(90deg)',
+				'transform' : 'rotate(90deg)',
+				'transform-origin' : HCellSize.toString() + 'px'
+			});
+		}
+		if (door.direction == "V") {
+			doorImage.css({
+				'-ms-transform' : 'rotate(90deg)',
+				'-webkit-transform' : 'rotate(90deg)',
+				'transform' : 'rotate(90deg)',
+				'transform-origin' : HCellSize.toString() + 'px'
+			});
+		}
+		*/
+		var doorStatus = " closed";
+
+		if (door.opened != undefined && door.opened) {
+			//doorObject.addClass('opened');
+			doorStatus = " opened";
+		}
+		doorImage.attr('src', folder + urlize(door.title + doorStatus) + '.png');
+		doorObject.append(doorImage);
+        map.append(doorObject);
 	}
 
 /*

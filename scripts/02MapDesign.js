@@ -8,10 +8,10 @@ function InitializeWindowFor_MapDesign() {
 //	html.append(CreateZone_PreFilledMaps());
 	//tiles zone
 	html.append(CreateZone_Tiles());
-	//doors zone
-//	html.append(CreateZone_Doors());
 	//OverlayTiles zone
 	html.append(CreateZone_OverlayTiles());
+	//doors zone
+	html.append(CreateZone_Doors());
 }
 
 function UpdateWindow_MapDesign() {
@@ -22,22 +22,22 @@ function UpdateWindow_MapDesign() {
 
 function GetWindow_MapDesign(DataToUpdate) {
 	DataToUpdate = GetZone_Tiles(DataToUpdate);
-//	DataToUpdate = GetZone_Doors(DataToUpdate);
 	DataToUpdate = GetZone_OverlayTiles(DataToUpdate);
+	DataToUpdate = GetZone_Doors(DataToUpdate);
 	return DataToUpdate;
 }
 
 function FillWindow_MapDesign(NewData, FromPreFilledMaps) {
 	//Fill_ActButton(); -> Common not Filled Here
 	FillZone_Tiles(NewData, FromPreFilledMaps);
-//	FillZone_Doors(NewData, FromPreFilledMaps);
 	FillZone_OverlayTiles(NewData, FromPreFilledMaps);
+	FillZone_Doors(NewData, FromPreFilledMaps);
 }
 
 function ResetWindow_MapDesign(FromPreFilledMaps) {
 	ResetZone_Tiles(FromPreFilledMaps);
-//	ResetZone_Doors(FromPreFilledMaps);
 	ResetZone_OverlayTiles(FromPreFilledMaps);
+	ResetZone_Doors(FromPreFilledMaps);
 }
 
 //pre-filled Maps zone
@@ -194,7 +194,7 @@ function FillZone_Doors(NewData, FromPreFilledMaps) {
 	ResetZone_Doors(FromPreFilledMaps);
 	if (NewData.doors != undefined) {
 		for (var i = 0 ; i < NewData.doors.length; i++) {
-			doorLine.XYBase = "1x2";
+			doorLine.XYBase = DOORS[NewData.doors[i].title].width + 'x' + DOORS[NewData.doors[i].title].height;
 			var html = doorLine.AddOneLineWithData(NewData.doors[i]);
 			$('.doors-container').append(html);
 		}
@@ -206,7 +206,7 @@ function ResetZone_Doors(FromPreFilledMaps) {
 }
 
 function AddLine_Door() {
-	doorLine.XYBase = "1x2";
+	doorLine.XYBase = "1x1";
 	var html = doorLine.AddOneEmptyLine()
 	$('.doors-container').append(html);
 	return html;
@@ -215,13 +215,13 @@ function AddLine_Door() {
 function Create_DoorListValues() {
 	var html = addOption('Clear', '', 'UnSet_Door(this);');
 	for (var i = 0; i < DOORS_LIST.length; i++) {
-		html += addOption(DOORS_LIST[i] + ' ', '', 'Set_Door(this, \'' + DOORS_LIST[i] + '\')');
+		html += addOption(DOORS_LIST[i][0] + ' ', '', 'Set_Door(this, \'' + DOORS_LIST[i][0] + '\')');
 	}
 	return html;
 }
 
 function Set_Door(element, value) {
-	doorLine.XYBase = "1x2";
+	doorLine.XYBase = "1x1";
 	var container = $(element).parents('.select-row');
 	doorLine.Set_MainElement(container, value);
 }

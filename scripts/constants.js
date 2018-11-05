@@ -87,7 +87,9 @@ OVERLAYTILES_LIST = [
 	['log 2h',1,2,45,39],
 	['rubble',1,1,45,39],
 	['stairs',1,1,45,39],
-	['water',1,1,45,39]
+	['water',1,1,45,39],
+	['water 2h',1,1,45,39],
+	['water 3h',1,1,45,39]
 ];
 OVERLAYTILES = {};
 for (var i = 0; i < OVERLAYTILES_LIST.length; i++) {
@@ -98,6 +100,23 @@ for (var i = 0; i < OVERLAYTILES_LIST.length; i++) {
 	overlay.left = OVERLAYTILES_LIST[i][3];
 	overlay.top = OVERLAYTILES_LIST[i][4];
 	OVERLAYTILES[OVERLAYTILES_LIST[i][0]] = overlay;
+}
+
+DOORS_LIST = [
+	['Stone Door H',1,1,45,39],
+	['Stone Door V',1,1,45,39],
+	['Wooden Door H',1,1,45,39],
+	['Wooden Door V',1,1,45,39]
+];
+DOORS = {};
+for (var i = 0; i < DOORS_LIST.length; i++) {
+	var door = {};
+	door.title = DOORS_LIST[i][0];
+	door.width = DOORS_LIST[i][1];
+	door.height = DOORS_LIST[i][2];
+	door.left = DOORS_LIST[i][3];
+	door.top = DOORS_LIST[i][4];
+	DOORS[DOORS_LIST[i][0]] = door;
 }
 
 
@@ -118,6 +137,13 @@ OverlayTileLine.needCoordinates = true;
 OverlayTileLine.XYBase = '1x1';		//DefaultValue
 OverlayTileLine.needAngleList = true;
 OverlayTileLine.needRemoveButton = true;
+
+var doorLine = new LineClass('door','door','');
+doorLine.needCoordinates = true;
+doorLine.XYBase = '1x1';		//DefaultValue
+doorLine.needAngleList = true;
+doorLine.needOpenedCheckbox = true;
+doorLine.needRemoveButton = true;
 
 
 
@@ -1172,14 +1198,6 @@ VILLAGERS_LIST = [
 	['Villager Male',false]
 ];
 
-DOORS_LIST = [
-	'Yellow Door',
-	'Red Door',
-	'Overgrowth',
-	'Portcullis',
-	'Old Wall'
-];
-
 BLOCKS_LIST = [
 	['1x1 blue',1,1],
 	['1x1 green',1,1],
@@ -1871,12 +1889,6 @@ var monsterList = [];
 var overlordRelicNumber = 0;
 
 
-
-var doorLine = new LineClass('door','door','');
-doorLine.needCoordinates = true;
-doorLine.XYBase = '1x2';		//DefaultValue
-doorLine.needOpenedCheckbox = true;
-doorLine.needRemoveButton = true;
 
 var monsterLine = new LineClass('monster','monster','RemoveLine_Monster(this);');
 monsterLine.needCoordinates = true;
