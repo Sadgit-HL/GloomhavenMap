@@ -1,8 +1,8 @@
 function InitializeWindowFor_MapDesign() {
 	var html = $('#map-controls');
 
-	//Act Button
-//	html.append(Create_ActButton());
+	//Level Button
+//	html.append(Create_LevelButton());
 
 	//pre-filled Maps zone
 //	html.append(CreateZone_PreFilledMaps());
@@ -15,8 +15,8 @@ function InitializeWindowFor_MapDesign() {
 }
 
 function UpdateWindow_MapDesign() {
-	//after Act Set
-	Update_EncounterList('', CurrentAct);
+	//after Level Set
+//	Update_EncounterList('', CurrentLevel);
 }
 
 
@@ -28,7 +28,7 @@ function GetWindow_MapDesign(DataToUpdate) {
 }
 
 function FillWindow_MapDesign(NewData, FromPreFilledMaps) {
-	//Fill_ActButton(); -> Common not Filled Here
+	//Fill_LevelButton(); -> Common not Filled Here
 	FillZone_Tiles(NewData, FromPreFilledMaps);
 	FillZone_OverlayTiles(NewData, FromPreFilledMaps);
 	FillZone_Doors(NewData, FromPreFilledMaps);
@@ -64,7 +64,7 @@ function Create_CampaignList() {
 
 function Create_EncounterList() {
 	var html = createInputSelect('Remove and replace current map with : Quest / Encounter ', 'encounter-title', 'select-encounter');
-	html.find('ul').addClass('showencounter ' + ALL_CAMPAIGNS_CLASSES + ' ' + ALL_ACTS);
+	html.find('ul').addClass('showencounter ' + ALL_CAMPAIGNS_CLASSES + ' ' + ALL_LEVELS);
 	for (var i = 0; i < MAP_HASES_LIST.length; i++) {
 		html.find('ul').append(addOption(MAP_HASES_LIST[i][1] + ' ',MAP_HASES_LIST[i][0] + ' ' + 'Act' + MAP_HASES_LIST[i][2], 'rebuildMap(this, \'' + i + '\', false);'));
 	}
@@ -75,7 +75,7 @@ function Set_Campaign(element, value) {
 	var container = $(element).parents('.full-maps-container');
 	container.find('.Campaign-Title').html(element.innerText + ' ');
 	container.find('.Campaign-Value').attr('value',value);
-	Update_EncounterList(value, CurrentAct);
+	Update_EncounterList(value, CurrentLevel);
 }
 
 function UnSet_Campaign(element, value) {
@@ -83,18 +83,18 @@ function UnSet_Campaign(element, value) {
 	container.find('.select-campaign ul').addClass(ALL_CAMPAIGNS_CLASSES);
 	container.find('.Campaign-Title').html('Select campaign ');
 	container.find('.Campaign-Value').attr('value',value);
-	Update_EncounterList(ALL_CAMPAIGNS_CLASSES, ALL_ACTS);
+	Update_EncounterList(ALL_CAMPAIGNS_CLASSES, ALL_LEVELS);
 }
 
-function Update_EncounterList(campaign, act) {
+function Update_EncounterList(campaign, Level) {
 	var container = $('.full-maps-container');
 	if (campaign != '') {
 		container.find('.select-encounter ul').removeClass(ALL_CAMPAIGNS_CLASSES).addClass(campaign);
 	}
-	if (act == "I" || act == "II") {
-		act = 'Act' + act;
+	if (Level == "I" || Level == "II") {
+		Level = 'Act' + Level;
 	}
-	container.find('.select-encounter ul').removeClass(ALL_ACTS).addClass(act);
+	container.find('.select-encounter ul').removeClass(ALL_LEVELS).addClass(Level);
 }
 
 //tiles zone

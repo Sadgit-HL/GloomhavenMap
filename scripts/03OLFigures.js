@@ -1,25 +1,27 @@
 function InitializeWindowFor_OLFigures() {
 	var html = $('#monsters');
 
-	html.append(Create_ActButton());
+	html.append(Create_LevelButton());
 
 	//tiles zone
 	html.append(CreateZone_Monsters());
 	//doors zone
-	html.append(CreateZone_Lieutenants());
+//	html.append(CreateZone_Lieutenants());
 	//xMarks zone
-	html.append(CreateZone_Agents());
+//	html.append(CreateZone_Agents());
 	//monsters traits
-	html.append(Create_MonsterTraitsList());
+//	html.append(Create_MonsterTraitsList());
 	//expansions
-	html.append(Create_ExpansionList());
+//	html.append(Create_ExpansionList());
 }
 
 function UpdateWindow_OLFigures() {
-	//after Act Set
+	//after Level Set
+
 	//Update_MonsterImages(RowElement);
 	Update_MonsterImages();
 
+/*
 	var LieutenantsList = $('.lieutenant-container .select-row');
 	for (var i = 0; i < LieutenantsList.length; i++) {
 		var container = $(LieutenantsList[i]);
@@ -31,33 +33,33 @@ function UpdateWindow_OLFigures() {
 		var container = $(AgentsList[i]);
 		Update_AgentImages(container);
 	}
-
+*/
 }
 
 function GetWindow_OLFigures(DataToUpdate) {
 	DataToUpdate = GetZone_Monsters(DataToUpdate);
-	DataToUpdate = GetZone_Lieutenants(DataToUpdate);
-	DataToUpdate = GetZone_Agents(DataToUpdate);
-	DataToUpdate = GetZone_MonsterTraits(DataToUpdate);
-	DataToUpdate = GetZone_Expansions(DataToUpdate);
+//	DataToUpdate = GetZone_Lieutenants(DataToUpdate);
+//	DataToUpdate = GetZone_Agents(DataToUpdate);
+//	DataToUpdate = GetZone_MonsterTraits(DataToUpdate);
+//	DataToUpdate = GetZone_Expansions(DataToUpdate);
 	return DataToUpdate;
 }
 
 function FillWindow_OLFigures(NewData, FromPreFilledMaps) {
-	//Fill_ActButton(); -> Common not Filled Here
+	//Fill_LevelButton(); -> Common not Filled Here
 	FillZone_Monsters(NewData, FromPreFilledMaps);
-	FillZone_Lieutenants(NewData, FromPreFilledMaps);
-	FillZone_Agents(NewData, FromPreFilledMaps);
-	FillZone_MonsterTraits(NewData, FromPreFilledMaps);
-	FillZone_Expansions(NewData, FromPreFilledMaps);
+//	FillZone_Lieutenants(NewData, FromPreFilledMaps);
+//	FillZone_Agents(NewData, FromPreFilledMaps);
+//	FillZone_MonsterTraits(NewData, FromPreFilledMaps);
+//	FillZone_Expansions(NewData, FromPreFilledMaps);
 }
 
 function ResetWindow_OLFigures(FromPreFilledMaps) {
 	ResetZone_Monsters(FromPreFilledMaps);
-	ResetZone_Lieutenants(FromPreFilledMaps);
-	ResetZone_Agents(FromPreFilledMaps);
-	ResetZone_MonsterTraits(FromPreFilledMaps);
-	ResetZone_Expansions(FromPreFilledMaps);
+//	ResetZone_Lieutenants(FromPreFilledMaps);
+//	ResetZone_Agents(FromPreFilledMaps);
+//	ResetZone_MonsterTraits(FromPreFilledMaps);
+//	ResetZone_Expansions(FromPreFilledMaps);
 }
 
 //monsters zone
@@ -95,7 +97,7 @@ function FillZone_Monsters(NewData, FromPreFilledMaps) {
 	ResetZone_Monsters(FromPreFilledMaps);
 	if (NewData.monsters != undefined) {
 		for (var i = 0 ; i < NewData.monsters.length; i++) {
-			monsterLine.XYBase = MONSTERS[NewData.monsters[i].title.replace(' master','').replace(' minion','')].width + 'x' + MONSTERS[NewData.monsters[i].title.replace(' master','').replace(' minion','')].height;
+			monsterLine.XYBase = MONSTERS[NewData.monsters[i].title.replace(MasterSuffix,'').replace(MinionSuffix,'')].width + 'x' + MONSTERS[NewData.monsters[i].title.replace(MasterSuffix,'').replace(MinionSuffix,'')].height;
 			var html = monsterLine.AddOneLineWithData(NewData.monsters[i]);
 			$('.monster-container').append(html);
 		}
@@ -121,17 +123,17 @@ function RemoveLine_Monster(Button) {
 function Create_MonsterListValues() {
 	var html = addOption('Clear', '', 'UnSet_Monster(this);');
 	for (var i = 0; i < MONSTERS_LIST.length; i++) {
-		var monsterClass = folderize(MONSTERS_LIST[i][4]);
-		for (var j = 0; j < MONSTERS_LIST[i][5].length; j++) {
+		var monsterClass = folderize(MONSTERS_LIST[i][6]);
+		for (var j = 0; j < MONSTERS_LIST[i][7].length; j++) {
 			monsterClass += ' ';
-			monsterClass += urlize(MONSTERS_LIST[i][5][j]);
+			monsterClass += urlize(MONSTERS_LIST[i][7][j]);
 		}
 		var monsterTitle = MONSTERS_LIST[i][0];
 		var monsterVisible = (monsterTraits[MONSTERS[monsterTitle].traits[0]] != undefined || monsterTraits[MONSTERS[monsterTitle].traits[1]] != undefined) && selectedExpansions[MONSTERS[monsterTitle].expansion] != undefined;
-		var option = $(addOption(monsterTitle + ' master', monsterClass, 'Set_Monster(this, \'' + monsterTitle + ' master' + '\');'));
+		var option = $(addOption(monsterTitle + MasterSuffix, monsterClass, 'Set_Monster(this, \'' + monsterTitle + MasterSuffix + '\');'));
 		option.css('display', monsterVisible ? 'block' : 'none');
 		html += option[0].outerHTML;
-		option = $(addOption(monsterTitle + ' minion', monsterClass, 'Set_Monster(this, \'' + monsterTitle + ' minion' + '\');'));
+		option = $(addOption(monsterTitle + MinionSuffix, monsterClass, 'Set_Monster(this, \'' + monsterTitle + MinionSuffix + '\');'));
 		option.css('display', monsterVisible ? 'block' : 'none');
 		html += option[0].outerHTML;
 	}
@@ -141,24 +143,24 @@ function Create_MonsterListValues() {
 function Set_Monster(element, value) {
 	var container = $(element).parents('.select-row');
 	//for copatibility
-	if (value.indexOf(" minion") < 0 && value.indexOf(" master") < 0)
+	if (value.indexOf(MinionSuffix) < 0 && value.indexOf(MasterSuffix) < 0)
 	{
 		//by default minion
-		value = value + ' minion';
+		value = value + MinionSuffix;
 	}
-	var OneMonsterValue = value.replace(' master','').replace(' minion','');
+	var OneMonsterValue = value.replace(MasterSuffix,'').replace(MinionSuffix,'');
 	monsterLine.XYBase = MONSTERS[OneMonsterValue].width + 'x' + MONSTERS[OneMonsterValue].height;
 	monsterLine.Set_MainElement(container, value);
 
 	var monsterHp;
-	if (value.indexOf(" master") > -1) {
-		if (CurrentAct == "I") {
+	if (value.indexOf(MasterSuffix) > -1) {
+		if (CurrentLevel == "I") {
 			monsterHp = MONSTERS[OneMonsterValue].masterHpActI;
 		} else {
 			monsterHp = MONSTERS[OneMonsterValue].masterHpActII;
 		}
 	} else {
-		if (CurrentAct == "I") {
+		if (CurrentLevel == "I") {
 			monsterHp = MONSTERS[OneMonsterValue].minionHpActI;
 		} else {
 			monsterHp = MONSTERS[OneMonsterValue].minionHpActII;
@@ -179,18 +181,18 @@ function Update_MonsterImages(RowElement) {
 	var MonsterImageContainer = $('.monsters-cards');
 	var MonsterList = $('.monster-container').find('.MainElement-Value');
 	Reset_MonsterImages(RowElement);
-	var actAddition = (CurrentAct == "I") ? '_act1' : '_act2';
+	var LevelAddition = '_' + CurrentLevel;
 	for (var i = 0; i < MonsterList.length; i++) {
-		var OneMonsterValue = $(MonsterList[i]).attr('value').replace(' master','').replace(' minion','');
+		var OneMonsterValue = $(MonsterList[i]).attr('value').replace(MasterSuffix,'').replace(MinionSuffix,'');
 		if (OneMonsterValue == undefined || OneMonsterValue == '') continue;
 		if (MonsterImageContainer.find('.' + urlize(OneMonsterValue)).length == 0)
 		{
 			var MonsterImage = $('<img>');
-			MonsterImage.attr('src', 'images/monster_cards/' + urlize(OneMonsterValue) + actAddition + '.png').addClass('monster').addClass(urlize(OneMonsterValue));
+			MonsterImage.attr('src', 'images/monster-stat-cards/' + urlize(OneMonsterValue) + LevelAddition + '.png').addClass('monster').addClass(urlize(OneMonsterValue));
 			MonsterImageContainer.append(MonsterImage);
 			if (MONSTERS[OneMonsterValue].hasBack) {
 				var monsterCardBack = $('<img>');
-				monsterCardBack.attr('src', 'images/monster_cards/' + urlize(OneMonsterValue) + '_back' + actAddition + '.png');
+				monsterCardBack.attr('src', 'images/monster-stat-cards/' + urlize(OneMonsterValue) + '_back' + LevelAddition + '.png');
 				MonsterImageContainer.append(monsterCardBack);
 			}
 		}
@@ -285,7 +287,7 @@ function UnSet_Lieutenant(element) {
 function Update_LieutenantImages(RowElement) {
 	var LieutenantImageContainer = RowElement.find('.Row-cards');
 	Reset_LieutenantImages(RowElement);
-	var actAddition = (CurrentAct == "I") ? '_act1' : '_act2';
+	var LevelAddition = (CurrentLevel == "I") ? '_act1' : '_act2';
 
 	var OneLieutenantValue = RowElement.find('.MainElement-Value').val();
 	if (OneLieutenantValue == undefined || OneLieutenantValue == '') return;
@@ -293,11 +295,11 @@ function Update_LieutenantImages(RowElement) {
 	if (LieutenantImageContainer.find('.' + urlize(OneLieutenantValue)).length == 0)
 	{
 		var LieutenantImage = $('<img>');
-		LieutenantImage.attr('src', 'images/lieutenant_cards/' + urlize(OneLieutenantValue) + actAddition + '.png').addClass('lieutenant').addClass(urlize(OneLieutenantValue));
+		LieutenantImage.attr('src', 'images/lieutenant_cards/' + urlize(OneLieutenantValue) + LevelAddition + '.png').addClass('lieutenant').addClass(urlize(OneLieutenantValue));
 		LieutenantImageContainer.append(LieutenantImage);
 		if (LIEUTENANTS[OneLieutenantValue].hasBack) {
 			var LieutenantCardBack = $('<img>');
-			LieutenantCardBack.attr('src', 'images/lieutenant_cards/' + urlize(OneLieutenantValue) + actAddition + '_back' + '.png');
+			LieutenantCardBack.attr('src', 'images/lieutenant_cards/' + urlize(OneLieutenantValue) + LevelAddition + '_back' + '.png');
 			LieutenantImageContainer.append(LieutenantCardBack);
 		}
 	}
@@ -385,7 +387,7 @@ function UnSet_Agent(element) {
 function Update_AgentImages(RowElement) {
 	var AgentImageContainer = RowElement.find('.Row-cards');
 	Reset_AgentImages(RowElement);
-	var actAddition = (CurrentAct == "I") ? '_act1' : '_act2';
+	var LevelAddition = (CurrentLevel == "I") ? '_act1' : '_act2';
 
 	var OneAgentValue = RowElement.find('.MainElement-Value').val();
 	if (OneAgentValue == undefined || OneAgentValue == '') return;
@@ -393,11 +395,11 @@ function Update_AgentImages(RowElement) {
 	if (AgentImageContainer.find('.' + urlize(OneAgentValue)).length == 0)
 	{
 		var AgentImage = $('<img>');
-		AgentImage.attr('src', 'images/plot_cards/agents/' + urlize(OneAgentValue) + actAddition + '.png').addClass('agent').addClass(urlize(OneAgentValue));
+		AgentImage.attr('src', 'images/plot_cards/agents/' + urlize(OneAgentValue) + LevelAddition + '.png').addClass('agent').addClass(urlize(OneAgentValue));
 		AgentImageContainer.append(AgentImage);
 		if (LIEUTENANTS[OneAgentValue].hasBack) {
 			var AgentCardBack = $('<img>');
-			AgentCardBack.attr('src', 'images/plot_cards/agents/' + urlize(OneAgentValue) + actAddition + '_back' + '.png');
+			AgentCardBack.attr('src', 'images/plot_cards/agents/' + urlize(OneAgentValue) + LevelAddition + '_back' + '.png');
 			AgentImageContainer.append(AgentCardBack);
 		}
 	}
@@ -534,16 +536,16 @@ function adjustMonsterList() {
 			monsterList.push(title);
 		}
 	}
-	var actAddition = (CurrentAct == "I") ? '_act1' : '_act2';
+	var LevelAddition = (CurrentLevel == "I") ? '_act1' : '_act2';
 	for (var i = 0; i < monsterList.length; i++) {
 		var monster = monsterList[i];
 		if (monster == '') continue;
 		var monsterCard = $('<img>');
-		monsterCard.attr('src', 'images/monster_cards/' + urlize(monster) + actAddition + '.png');
+		monsterCard.attr('src', 'images/monster-stat-cards/' + urlize(monster) + LevelAddition + '.png');
 		monsterCardsContainer.append(monsterCard);
 		if (MONSTERS[monster].hasBack) {
 			var monsterCardBack = $('<img>');
-			monsterCardBack.attr('src', 'images/monster_cards/' + urlize(monster) + '_back' + actAddition + '.png');
+			monsterCardBack.attr('src', 'images/monster-stat-cards/' + urlize(monster) + '_back' + LevelAddition + '.png');
 			monsterCardsContainer.append(monsterCardBack);
 		}
 	}

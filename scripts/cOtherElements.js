@@ -1,50 +1,57 @@
-//Act Button Element
-function Create_ActButton()
+//Level Button Element
+function Create_LevelButton()
 {
-	var DisplayAct = "II";
-	if (CurrentAct == "I")
+	/*
+	var DisplayLevel = "II";
+	if (CurrentLevel == "I")
 	{
-		DisplayAct = "I";
+		DisplayLevel = "I";
 	}
+	*/
 
 	var html;
-	html = $('<div>').addClass('SelectAct');
-	html.append('<input type="image" src="images/misc/Act' + DisplayAct + '.png" class="ImgAct" onclick="SwitchAct();" />');
+	html = $('<div>').addClass('SelectLevel');
+	html.append('<input type="image" src="images/misc/Level' + CurrentLevel + '.png" class="ImgLevel" onclick="SwitchLevel();" />');
 	return html;
 }
 
-function Fill_ActButton()
+function Fill_LevelButton()
 {
-	var ActImg = $('.ImgAct');
-	var ActImgSrc = ActImg.attr('src');
-	ActImgSrc = ActImgSrc.replace('ActII','ActI');
-	ActImgSrc = ActImgSrc.replace('ActI', 'Act' + CurrentAct);
-	ActImg.attr('src', ActImgSrc);
+	var LevelImg = $('.ImgLevel');
+	var LevelImgSrc = LevelImg.attr('src');
+	LevelImgSrc = 'images/misc/Level' + CurrentLevel + ".png";
+	LevelImg.attr('src', LevelImgSrc);
 }
 
-function SwitchAct()
+function SwitchLevel()
 {
-	var SwitcToAct = "I";
-	if (CurrentAct == "I")
+	var SwitcToLevel = CurrentLevel + 1;
+	if (SwitcToLevel == 8)
 	{
-		SwitcToAct = "II";
+		SwitcToLevel= 0
 	}
+	/*
+	if (CurrentLevel == "I")
+	{
+		SwitcToLevel = "II";
+	}
+	*/
 
-	var ActImg = $('.ImgAct');
-	var ActImgSrc = ActImg.attr('src');
-	ActImgSrc = ActImgSrc.replace('Act' + CurrentAct, 'Act' + SwitcToAct)
-	ActImg.attr('src', ActImgSrc);
+	var LevelImg = $('.ImgLevel');
+	var LevelImgSrc = LevelImg.attr('src');
+	LevelImgSrc = LevelImgSrc.replace('Level' + CurrentLevel, 'Level' + SwitcToLevel)
+	LevelImg.attr('src', LevelImgSrc);
 
-	//new current Act
-	CurrentAct = SwitcToAct;
+	//new current Level
+	CurrentLevel = SwitcToLevel;
 
 	UpdateWindow_OLFigures();
 	UpdateWindow_MapDesign();
 }
 
-function updateAct(NewAct) {
-	CurrentAct = NewAct;
-	Fill_ActButton();
+function updateLevel(NewLevel) {
+	CurrentLevel = NewLevel;
+	Fill_LevelButton();
 	//Data Linked
 	UpdateWindow_OLFigures();
 }

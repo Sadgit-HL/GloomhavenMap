@@ -63,7 +63,7 @@ html body {
 	z-index: 200;
 }
 
-.SelectAct {
+.SelectLevel {
     position: absolute;
     top: 60px;
     right: 17px;
@@ -138,6 +138,14 @@ li.H, li.V
 .MoB,
 .CTR,
 .HM,
+.Level0
+.Level1
+.Level2
+.Level3
+.Level4
+.Level5
+.Level6
+.Level7
 .ActI
 .ActII
 .Custom,

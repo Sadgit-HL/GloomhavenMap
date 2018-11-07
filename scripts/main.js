@@ -24,20 +24,20 @@ function updateOption(element, value, isMonster) {
 		var monsterTitle = $(element).html();
 		if (value != 'Clear')
 		{
-			container.find('input[name="master"]').attr('value', monsterTitle.indexOf('master') > -1);
+			container.find('input[name="master"]').attr('value', monsterTitle.indexOf(MasterSuffix) > -1);
 		}
 		var xYSelects = $(container).find('.select-x, .select-y');
 
 		if (isMonster) {
 			var monsterHp;
-			if (monsterTitle.indexOf('master') > -1) {
-				if (CurrentAct == "I") {
+			if (monsterTitle.indexOf(MasterSuffix) > -1) {
+				if (CurrentLevel == "I") {
 					monsterHp = MONSTERS[value].masterHpI;
 				} else {
 					monsterHp = MONSTERS[value].masterHpII;
 				}
 			} else {
-				if (CurrentAct == "I") {
+				if (CurrentLevel == "I") {
 					monsterHp = MONSTERS[value].minionHpI;
 				} else {
 					monsterHp = MONSTERS[value].minionHpII;
@@ -65,8 +65,8 @@ function updateOption(element, value, isMonster) {
 			value = container.find('.monster-title').html();
 			value = value.substring(0, value.length - 1);
 			//remove type : master / minion
-			value = value.replace(" master", "");
-			value = value.replace(" minion", "");
+			value = value.replace(MasterSuffix, "");
+			value = value.replace(MinionSuffix, "");
 		}
 
 		var firstClass = SHOWING_CLASSES[MONSTERS[value].width];
@@ -263,8 +263,8 @@ function RetroCompatibility(OldConfig) {
 	var NewConfig = OldConfig
 
 	//initialize values if needed
-	if (NewConfig.currentAct == undefined) {
-		NewConfig.currentAct = 'I';
+	if (NewConfig.CurrentLevel == undefined) {
+		NewConfig.CurrentLevel = 'I';
 	}
 
 	// previous to 1.5.0
@@ -275,10 +275,10 @@ function RetroCompatibility(OldConfig) {
 		if (NewConfig.monsters != undefined) {
 			for (var i = 0; NewConfig.monsters != undefined && i < NewConfig.monsters.length; i++) {
 				if (NewConfig.monsters[i].master) {
-					NewConfig.monsters[i].title = NewConfig.monsters[i].title + " master";
+					NewConfig.monsters[i].title = NewConfig.monsters[i].title + MaserSuffix;
 				}
 				else {
-					NewConfig.monsters[i].title = NewConfig.monsters[i].title + " minion";
+					NewConfig.monsters[i].title = NewConfig.monsters[i].title + MinionSuffixMinionSuffix;
 				}
 //				if (monster.vertical) folder += 'vertical/';
 //				if (monster.direction == "V") folder += 'vertical/';
@@ -300,15 +300,15 @@ function RetroCompatibility(OldConfig) {
 			}
 		}
 
-		//change Act
-		// FROM "actOne":true TO "currentAct":"I"
-		// FROM "actOne":false TO "currentAct":"II"
+		//change Level
+		// FROM "actOne":true TO "CurrentLevel":"I"
+		// FROM "actOne":false TO "CurrentLevel":"II"
 		if (NewConfig.actOne != undefined) {
 			if (NewConfig.actOne) {
-				NewConfig.currentAct = "I";
+				NewConfig.CurrentLevel = "I";
 			}
 			else {
-				NewConfig.currentAct = "II";
+				NewConfig.CurrentLevel = "II";
 			}
 		}
 
@@ -331,7 +331,7 @@ function rebuildMap(element, mapNb) {
 	config.lieutenants = mapConfig.lieutenants;
 	config.allies = mapConfig.allies;
 	config.villagers = mapConfig.villagers;
-	config.currentAct = mapConfig.currentAct;
+	config.CurrentLevel = mapConfig.CurrentLevel;
 	config.questObjectives = mapConfig.questObjectives;
 	config.monsterTraits = mapConfig.monsterTraits;
 
@@ -339,7 +339,7 @@ function rebuildMap(element, mapNb) {
 	clearVillagers();
 //	clearLieutenants();
 
-	updateAct(config.currentAct);
+	updateLevel(config.CurrentLevel);
 	FillWindow_QuestObjectives(config, true);
 	FillWindow_MapDesign(config, true);
 	FillWindow_OLFigures(config, true);
@@ -624,24 +624,35 @@ function constructMapFromConfig() {
 		addMapObject(villager.x, villager.y, villagerObject, z_index);
         figures.append(villagerObject);
 	}
+*/
 
 	for (var i = 0; config.monsters != undefined && i < config.monsters.length; i++) {
 		var monster = config.monsters[i];
 		var monsterObject = $('<div>');
 		var monsterImage = $('<img>');
 		var monsterHp = $('<div>').addClass('hit-points');
+		var monsterStamina = $('<div>').addClass('stamina');
 		var z_index = 2;
 		monsterHp.html(monster.hp == undefined ? '' : monster.hp.toString());
-		var folder = 'images/monster_tokens/';
-		if (monster.vertical) folder += 'vertical/';
-		if (monster.direction == "V") folder += 'vertical/';
+		monsterStamina.html(monster.stamina == undefined ? '' : monster.stamina.toString());
+
+		var folder = 'images/monster-tokens/';
+//		var angle = door.angle;
+
+		var HexDelta = (1 - (monster.x % 2)) * (VCellSize/2);
+
+
+
+//		if (monster.vertical) folder += 'vertical/';
+//		if (monster.direction == "V") folder += 'vertical/';
 		monsterObject.css({
 			'position' : 'absolute',
-			'left' : (monster.x * HCellSize).toString() + 'px',
-			'top' : (monster.y * VCellSize).toString() + 'px',
+			'left' : ((Math.floor(monster.x * HCellSize * 3 / 4 )) - MONSTERS[monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'')].left + (HCellSize/2)).toString()  + 'px',
+			'top' : ((monster.y * VCellSize) - MONSTERS[monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'')].top + (VCellSize/2) + HexDelta).toString() + 'px',
 			'z-index' : z_index
 		});
 
+/*
 		if (monster.auras != undefined) {
 			for (var j = 0; j < monster.auras.length; j++) {
 				var aura = $('<div>');
@@ -650,20 +661,20 @@ function constructMapFromConfig() {
 				var xDelta;
 				var yDelta;
 				if (monster.vertical) {
-					xDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].width;
-					yDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].height;
+					xDelta = MONSTERS[monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'')].width;
+					yDelta = MONSTERS[monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'')].height;
 					}
 				else {
-					xDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].height;
-					yDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].width;
+					xDelta = MONSTERS[monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'')].height;
+					yDelta = MONSTERS[monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'')].width;
 					}
 				if (monster.direction == "V") {
-					xDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].width;
-					yDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].height;
+					xDelta = MONSTERS[monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'')].width;
+					yDelta = MONSTERS[monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'')].height;
 					}
 				else {
-					xDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].height;
-					yDelta = MONSTERS[monster.title.replace(' master','').replace(' minion','')].width;
+					xDelta = MONSTERS[monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'')].height;
+					yDelta = MONSTERS[monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'')].width;
 					}
 
 				aura.css({
@@ -679,14 +690,21 @@ function constructMapFromConfig() {
 				monsterObject.append(aura);
 			}
 		}
-		monsterImage.attr('src', folder + urlize(monster.title.replace(' master','').replace(' minion','')) + ((monster.master || monster.title.indexOf(" master") > 0) ? '_master.png' : '.png'));
+		*/
+		monsterImage.attr('src', folder + urlize(monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'') + ((monster.master || monster.title.indexOf(MasterSuffix) > 0) ? MasterSuffix : '')) + '.png' );
 		monsterObject.append(monsterImage);
 		monsterObject.append(monsterHp);
-		addConditionsToImage(monsterObject, monster.conditions);
+		monsterObject.append(monsterStamina);
+		if (monsterLine.needAddTokenButton == true)
+		{
+			addConditionsToImage(monsterObject, monster.conditions);
+		}
 		addMapObject(monster.x, monster.y, monsterObject, z_index);
         figures.append(monsterObject);
 	}
 
+
+/*
 	for (var i = 0; config.allies != undefined && i < config.allies.length; i++) {
 		var ally = config.allies[i];
 		var allyObject = $('<div>');
@@ -934,12 +952,12 @@ function adjustOverlappingImages() {
 }
 
 function constructSettingsFromConfig() {
-//	updateAct(config.currentAct);
+//	updateLevel(config.CurrentLevel);
 	FillWindow_QuestObjectives(config, false);
 	FillWindow_MapDesign(config, false);
+	FillWindow_OLFigures(config, false);
 
 /*
-	FillWindow_OLFigures(config, false);
 
 	constructHeroesTabsFromConfig();
 	constructAlliesAndFamiliarsTabFromConfig();
@@ -1036,12 +1054,12 @@ function updateConfig() {
 
 function collectData() {
 	config.mapVersion = MAPVERSION;
-//	config.currentAct = CurrentAct;
+//	config.CurrentLevel = CurrentLevel;
 //	config.expansions = selectedExpansions;
 	config = GetWindow_QuestObjectives(config);
 	config = GetWindow_MapDesign(config);
-/*
 	config = GetWindow_OLFigures(config);
+/*
 
 	config.hero1 = hero($('#hero1 .select-row'));
 	config.hero2 = hero($('#hero2 .select-row'));
@@ -1162,8 +1180,8 @@ function LoadSubScripts(){
 	LoadOneSubScripts("scripts/00MapControls.js");
 	LoadOneSubScripts("scripts/01QuestObjectives.js");
 	LoadOneSubScripts("scripts/02MapDesign.js");
-	/*
 	LoadOneSubScripts("scripts/03OLFigures.js");
+	/*
 	LoadOneSubScripts("scripts/04Heroes.js");
 	LoadOneSubScripts("scripts/08Familiers.js");
 	LoadOneSubScripts("scripts/09OLCards.js");
@@ -1179,8 +1197,8 @@ function InitializeAllWindows() {
 
 	InitializeWindowFor_QuestObjectives();
 	InitializeWindowFor_MapDesign();
-/*
 	InitializeWindowFor_OLFigures();
+/*
 	//InitializeWindowFor_Heroes();
 	InitializeWindowFor_Familiars();
 	InitializeWindowFor_OLCards();

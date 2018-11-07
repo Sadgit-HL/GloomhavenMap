@@ -15,6 +15,25 @@ function listsort(a, b) {
 	return 0;
 }
 
+//expansions short name
+var bg = 'Base Game'
+
+var EXPANSIONS = [
+	[bg,'Big']];
+var selectedExpansions = {};
+var EXPANSION_GROUPS = {};
+for (var i=0; i < EXPANSIONS.length; i++) {
+	selectedExpansions[folderize(EXPANSIONS[i][0])] = folderize(EXPANSIONS[i][0]);
+
+	if (EXPANSION_GROUPS[EXPANSIONS[i][1]] == undefined) {
+		EXPANSION_GROUPS[EXPANSIONS[i][1]] = [];
+	}
+	EXPANSION_GROUPS[EXPANSIONS[i][1]].push(EXPANSIONS[i][0]);
+}
+
+var CurrentLevel = 0; // values 0 to 7
+var ALL_LEVELS = 'Lvl0 Lvl1 Lvl2 Lvl3 Lvl4 Lvl5 Lvl6 Lvl7'
+
 MAP_TILES_LIST_COMPLETE = [
 	['a1',2,5,68,39],
 	['a2',2,5,68,39],
@@ -119,6 +138,101 @@ for (var i = 0; i < DOORS_LIST.length; i++) {
 	DOORS[DOORS_LIST[i][0]] = door;
 }
 
+// -----------------------------------------------
+
+var MasterSuffix = ' elite' //' master';
+var MinionSuffix = ' normal' //' minion';
+
+//monster traits short name
+// NOT USED here
+var dummy = 'dummy';
+/*
+var Building = 'Building',
+	Cave = 'Cave',
+	Civilized = 'Civilized',
+	Cold = 'Cold',
+	Cursed = 'Cursed',
+	Dark = 'Dark',
+	Hot = 'Hot',
+	Mountain = 'Mountain',
+	Water = 'Water',
+	Wilderness = 'Wilderness';
+var MONSTER_TRAITS = [Building,Cave,Civilized,Cold,Cursed,Dark,Hot,Mountain,Water,Wilderness];
+*/
+var MONSTER_TRAITS = [dummy];
+var monsterTraits = {};
+for (var i=0; i < MONSTER_TRAITS.length; i++) {
+	monsterTraits[urlize(MONSTER_TRAITS[i])] = urlize(MONSTER_TRAITS[i]);
+}
+
+var MONSTERS_LIST = [
+	['ancient artillery',1,1,31,41,false,bg,[dummy],false],
+	['bandit archer',1,1,31,41,false,bg,[dummy],false],
+	['bandit guard',1,1,31,41,false,bg,[dummy],false],
+	['black imp',1,1,31,41,false,bg,[dummy],false],
+	['cave bear',1,1,31,41,false,bg,[dummy],false],
+	['city archer',1,1,31,41,false,bg,[dummy],false],
+	['city guard',1,1,31,41,false,bg,[dummy],false],
+	['cultist',1,1,31,41,false,bg,[dummy],false],
+	['deep terror',1,1,31,41,false,bg,[dummy],false],
+	['earth demon',1,1,31,41,false,bg,[dummy],false],
+	['flame demon',1,1,31,41,false,bg,[dummy],false],
+	['forest imp',1,1,31,41,false,bg,[dummy],false],
+	['frost demon',1,1,31,41,false,bg,[dummy],false],
+	['giant viper',1,1,31,41,false,bg,[dummy],false],
+	['harrower infester',1,1,31,41,false,bg,[dummy],false],
+	['hound',1,1,31,41,false,bg,[dummy],false],
+	['inox archer',1,1,31,41,false,bg,[dummy],false],
+	['inox bodyguard',1,1,31,41,false,bg,[dummy],false],
+	['inox guard',1,1,31,41,false,bg,[dummy],false],
+	['inox shaman',1,1,31,41,false,bg,[dummy],false],
+	['living bones',1,1,31,41,false,bg,[dummy],false],
+	['living corpse',1,1,31,41,false,bg,[dummy],false],
+	['living spirit',1,1,31,41,false,bg,[dummy],false],
+	['lurker',1,1,31,41,false,bg,[dummy],false],
+	['night demon',1,1,31,41,false,bg,[dummy],false],
+	['ooze',1,1,31,41,false,bg,[dummy],false],
+	['rending drake',1,1,31,41,false,bg,[dummy],false],
+	['savaas icestorm',1,1,31,41,false,bg,[dummy],false],
+	['savaas lavaflow',1,1,31,41,false,bg,[dummy],false],
+	['spitting drake',1,1,31,41,false,bg,[dummy],false],
+	['stone golem',1,1,31,41,false,bg,[dummy],false],
+	['sun demon',1,1,31,41,false,bg,[dummy],false],
+	['vermling scout',1,1,31,41,false,bg,[dummy],false],
+	['vermling shaman',1,1,31,41,false,bg,[dummy],false],
+	['wind demon',1,1,31,41,false,bg,[dummy],false]
+];
+
+
+MONSTERS = {};
+
+function getMonsterTraits(i) {
+	var traitsArray = MONSTERS_LIST[i][7];
+	var result = [];
+	for (var j = 0; j < traitsArray.length; j++) {
+		result.push(urlize(traitsArray[j]));
+	}
+	return result;
+}
+
+for (var i = 0; i < MONSTERS_LIST.length; i++) {
+	var monster = {};
+	monster.title = MONSTERS_LIST[i][0];
+	monster.width = MONSTERS_LIST[i][1];
+	monster.height = MONSTERS_LIST[i][2];
+	monster.top = MONSTERS_LIST[i][3];
+	monster.left = MONSTERS_LIST[i][4];
+	monster.ranged = MONSTERS_LIST[i][5];
+	monster.expansion = folderize(MONSTERS_LIST[i][6]);
+	monster.traits = getMonsterTraits(i);
+	monster.hasBack = MONSTERS_LIST[i][8];
+//	monster.minionHpActI = MONSTERS_HP[i][1];
+//	monster.masterHpActI = MONSTERS_HP[i][2];
+//	monster.minionHpActII = MONSTERS_HP[i][3];
+//	monster.masterHpActII = MONSTERS_HP[i][4];
+	MONSTERS[MONSTERS_LIST[i][0]] = monster;
+}
+
 
 
 var mapObjects = [];
@@ -145,6 +259,15 @@ doorLine.needAngleList = true;
 doorLine.needOpenedCheckbox = true;
 doorLine.needRemoveButton = true;
 
+var monsterLine = new LineClass('monster','monster','RemoveLine_Monster(this);');
+monsterLine.needCoordinates = true;
+monsterLine.XYBase = '1x1';		//DefaultValue
+monsterLine.needHPInput = true;
+monsterLine.needFatigueInput = true;
+//monsterLine.needAddTokenButton = true;
+//monsterLine.needAddRelicButton = true;
+//monsterLine.needAddAuraButton = true;
+monsterLine.needRemoveButton = true;
 
 
 
@@ -171,115 +294,9 @@ doorLine.needRemoveButton = true;
 
 
 
-var bg2e = 'Second Edition Base Game', BoW = 'Bonds of the Wild', CoD = 'Crown of Destiny', CotF = 'Crusade of the Forgotten', GoD = 'Guardians of Deephall',
-	LoR = 'Labyrinth of Ruin', LoW = 'Lair of the Wyrm', MoR = 'Manor of Ravens', OotO = 'Oath of the Outcast',
-	SoE = 'Shards of Everdark', SoN = 'Shadow of Narekhall', SotS = 'Stewards of the Secret', TF = 'The Trollfens', ToC = 'Treaty of Champions',
-	VoD = 'Visions of Dawn', CK = 'Conversion Kit', MoB = 'Mists of Bilehall', CtR = 'The Chains that Rust';
-var Building = 'Building',
-	Cave = 'Cave',
-	Civilized = 'Civilized',
-	Cold = 'Cold',
-	Cursed = 'Cursed',
-	Dark = 'Dark',
-	Hot = 'Hot',
-	Mountain = 'Mountain',
-	Water = 'Water',
-	Wilderness = 'Wilderness';
-var MONSTER_TRAITS = [Building,Cave,Civilized,Cold,Cursed,Dark,Hot,Mountain,Water,Wilderness];
-var monsterTraits = {};
-for (var i=0; i < MONSTER_TRAITS.length; i++) {
-	monsterTraits[urlize(MONSTER_TRAITS[i])] = urlize(MONSTER_TRAITS[i]);
-}
 
-var MONSTERS_LIST = [
-	['Arachyura',2,2,false,LoR,[Wilderness,Cursed],true],
-	['Bandit',1,1,true,MoR,[Wilderness,Building],true],
-	['Bane Spider',2,2,true,OotO,[Dark,Cave],true],
-	['Barghest',1,2,false,bg2e,[Wilderness,Dark],true],
-	['Beastman',1,1,false,OotO,[Mountain,Wilderness],true],
-	['Blood Ape',2,2,false,SotS,[Hot,Cave],true],
-	['Bone Horror',1,1,false,MoB,[Cave,Cursed],true],
-	['Broodwalker',1,1,false,MoB,[Dark,Building],true],
-	['Carrion Drake',1,1,false,LoR,[Water,Dark],true],
-	['Cave Spider',1,1,false,bg2e,[Wilderness,Cave],true],
-	['Changeling',1,1,false,SoN,[Civilized,Cursed],true],
-	['Chaos Beast',2,2,false,CoD,[Dark,Cursed],true],
-	['Crow Hag',1,1,true,ToC,[Dark,Civilized],true],
-	['Crypt Dragon',2,3,true,GoD,[Dark,Cursed],true],
-	['Dark Minotaur',1,1,true,SoE,[Dark,Civilized],true],
-	['Dark Priest',1,1,true,GoD,[Civilized,Cursed],true],
-	['Deep Elf',1,1,false,BoW,[Dark,Cave],true],
-	['Demon Lord',2,2,false,ToC,[Hot,Cursed],true],
-	['Elemental',2,2,true,bg2e,[Cold,Hot],true],
-	['Ettin',2,2,false,bg2e,[Mountain,Cave],true],
-	['Ferrox',1,1,false,SotS,[Cave,Water],true],
-	['Fire Imps',1,1,true,LoW,[Hot,Cursed],true],
-	['Flesh Moulder',1,1,true,bg2e,[Cursed,Civilized],true],
-	['Giant',2,2,false,CoD,[Mountain,Wilderness],true],
-	['Goblin Archer',1,1,true,bg2e,[Building,Cave],true],
-	['Goblin Witcher',1,1,true,LoR,[Building,Cursed],true],
-	['Golem',2,2,false,CotF,[Mountain,Building],true],
-	['Harpy',1,1,false,TF,[Wilderness,Mountain],true],
-	['Hellhound',1,2,false,BoW,[Hot,Cursed],true],
-	['Hybrid Sentinel',1,1,false,LoW,[Mountain,Cave],true],
-	['Ice Wyrm',2,3,false,SoE,[Cold,Cave],true],
-	['Ironbound',1,1,false,SoN,[Civilized,Building],true],
-	['Kobold',1,1,false,BoW,[Building,Cave],true],
-	['Lava Beetle',1,1,true,CoD,[Hot,Cave],true],
-	['Manticore',1,2,true,VoD,[Wilderness,Dark],true],
-	['Marrow Priest',1,1,false,CtR,[Dark, Building],true],
-	['Medusa',1,1,true,CotF,[Cursed,Building],true],
-	['Merriod',2,2,false,bg2e,[Wilderness,Water],true],
-	['Naga',2,2,true,SotS,[Water,Cave],true],
-	['Ogre',2,2,false,VoD,[Building,Cave],true],
-	['Plague Worm',1,2,false,TF,[Water,Cave],true],
-	['Rat Swarm',1,2,false,SoN,[Building,Dark],true],
-	['Razorwing',1,1,false,OotO,[Wilderness,Cave],true],
-	['Reanimate',1,1,false,MoB,[Civilized,Cursed],true],
-	['Shade',1,1,false,SoE,[Dark,Cursed],true],
-	['Shadow Dragon',2,3,false,bg2e,[Dark,Cave],true],
-	['Shambling Colossus',1,2,false,CtR,[Cursed,Wilderness],true],
-	['Skeleton Archer',1,1,true,ToC,[Cursed,Civilized],true],
-	['Sorcerer',1,1,true,CotF,[Civilized,Building],true],
-	['The Dispossessed',1,1,false,CtR,[Civilized,Cursed],true],
-	['Troll',2,2,false,VoD,[Mountain,Cave],true],
-	['Volucrix Reaver',1,1,false,LoR,[Building,Mountain],true],
-	['Wendigo',2,2,false,GoD,[Cold,Cave],true],
-	['Wraith',1,1,true,MoR,[Civilized,Cursed],true],
-	['Ynfernael Hulk',2,2,false,SoN,[Hot,Cursed],true],
-	['Zombie',1,1,false,bg2e,[Cursed,Building],true],
-	['Open Group',1,1,false,bg2e,[Cursed,Building],false]
-];
 
-var EXPANSIONS = [
-	[bg2e,'Big'],
-	[LoR,'Big'],
-	[SoN,'Big'],
-	[LoW,'Small'],
-	[MoR,'Small'],
-	[TF,'Small'],
-	[MoB,'Small'],
-	[CtR,'Small'],
-	[BoW,'H&M'],
-	[CoD,'H&M'],
-	[CotF,'H&M'],
-	[GoD,'H&M'],
-	[OotO,'H&M'],
-	[SoE,'H&M'],
-	[SotS,'H&M'],
-	[ToC,'H&M'],
-	[VoD,'H&M'],
-	[CK,'CK']];
-var selectedExpansions = {};
-var EXPANSION_GROUPS = {};
-for (var i=0; i < EXPANSIONS.length; i++) {
-	selectedExpansions[folderize(EXPANSIONS[i][0])] = folderize(EXPANSIONS[i][0]);
 
-	if (EXPANSION_GROUPS[EXPANSIONS[i][1]] == undefined) {
-		EXPANSION_GROUPS[EXPANSIONS[i][1]] = [];
-	}
-	EXPANSION_GROUPS[EXPANSIONS[i][1]].push(EXPANSIONS[i][0]);
-}
 
 
 
@@ -371,33 +388,6 @@ var MONSTERS_HP = [
 	['Zombie',3,6,5,9],
 	['Open Group',0,0,0,0]
 ];
-
-MONSTERS = {};
-
-function getMonsterTraits(i) {
-	var traitsArray = MONSTERS_LIST[i][5];
-	var result = [];
-	for (var j = 0; j < traitsArray.length; j++) {
-		result.push(urlize(traitsArray[j]));
-	}
-	return result;
-}
-
-for (var i = 0; i < MONSTERS_LIST.length; i++) {
-	var monster = {};
-	monster.title = MONSTERS_LIST[i][0];
-	monster.width = MONSTERS_LIST[i][1];
-	monster.height = MONSTERS_LIST[i][2];
-	monster.ranged = MONSTERS_LIST[i][3];
-	monster.expansion = folderize(MONSTERS_LIST[i][4]);
-	monster.traits = getMonsterTraits(i);
-	monster.hasBack = MONSTERS_LIST[i][6];
-	monster.minionHpActI = MONSTERS_HP[i][1];
-	monster.masterHpActI = MONSTERS_HP[i][2];
-	monster.minionHpActII = MONSTERS_HP[i][3];
-	monster.masterHpActII = MONSTERS_HP[i][4];
-	MONSTERS[MONSTERS_LIST[i][0]] = monster;
-}
 
 SEARCH_ITEMS_LIST = [
 	'Curse Doll',
@@ -1665,8 +1655,6 @@ var sackNumber = 1;
 var config = {};
 
 var defaultConfig = 'eyJtb25zdGVycyI6W3sidGl0bGUiOiJFdHRpbiIsIm1hc3RlciI6dHJ1ZSwieCI6IjEwIiwieSI6IjAiLCJ2ZXJ0aWNhbCI6ZmFsc2UsImhwIjoiMTYiLCJjb25kaXRpb25zIjpbXX0seyJ0aXRsZSI6IkV0dGluIiwibWFzdGVyIjpmYWxzZSwieCI6IjEwIiwieSI6IjIiLCJ2ZXJ0aWNhbCI6ZmFsc2UsImhwIjoiNSIsImNvbmRpdGlvbnMiOltdfSx7InRpdGxlIjoiR29ibGluIEFyY2hlciIsIm1hc3RlciI6dHJ1ZSwieCI6IjEzIiwieSI6IjQiLCJ2ZXJ0aWNhbCI6ZmFsc2UsImhwIjoiNCIsImNvbmRpdGlvbnMiOltdfSx7InRpdGxlIjoiR29ibGluIEFyY2hlciIsIm1hc3RlciI6ZmFsc2UsIngiOiIxNCIsInkiOiI0IiwidmVydGljYWwiOmZhbHNlLCJocCI6IjIiLCJjb25kaXRpb25zIjpbXX0seyJ0aXRsZSI6IkdvYmxpbiBBcmNoZXIiLCJtYXN0ZXIiOmZhbHNlLCJ4IjoiMTQiLCJ5IjoiNSIsInZlcnRpY2FsIjpmYWxzZSwiaHAiOiIyIiwiY29uZGl0aW9ucyI6W119LHsidGl0bGUiOiJHb2JsaW4gQXJjaGVyIiwibWFzdGVyIjpmYWxzZSwieCI6IjE0IiwieSI6IjYiLCJ2ZXJ0aWNhbCI6ZmFsc2UsImhwIjoiMiIsImNvbmRpdGlvbnMiOltdfSx7InRpdGxlIjoiR29ibGluIEFyY2hlciIsIm1hc3RlciI6ZmFsc2UsIngiOiIxNCIsInkiOiI3IiwidmVydGljYWwiOmZhbHNlLCJocCI6IjIiLCJjb25kaXRpb25zIjpbXX1dLCJoZXJvMSI6eyJ0aXRsZSI6IkFzaHJpYW4iLCJ4IjoiMTIiLCJ5IjoiOCIsImhwIjoiMTAiLCJzdGFtaW5hIjoiNCIsImNsYXNzTmFtZSI6IkRpc2NpcGxlIiwiZmVhdFVzZWQiOmZhbHNlLCJza2lsbHMiOltbIkFybW9yIE9mIEZhaXRoIixmYWxzZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJCbGVzc2VkIFN0cmlrZSIsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2VdLFsiQ2xlYW5zaW5nIFRvdWNoIixmYWxzZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJEaXZpbmUgRnVyeSIsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2VdLFsiSG9seSBQb3dlciIsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2VdLFsiUHJheWVyIE9mIEhlYWxpbmciLHRydWUsZmFsc2UsZmFsc2UsZmFsc2VdLFsiUHJheWVyIE9mIFBlYWNlIixmYWxzZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJSYWRpYW50IExpZ2h0IixmYWxzZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJUaW1lIE9mIE5lZWQiLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlXV0sIml0ZW1zIjp7ImhhbmQiOiJJcm9uIE1hY2UiLCJoYW5kMiI6Ildvb2RlbiBTaGllbGQiLCJhcm1vciI6IiIsIml0ZW0iOiIiLCJpdGVtMiI6IiJ9LCJzYWNrIjpbXSwiY29uZGl0aW9ucyI6W119LCJoZXJvMiI6eyJ0aXRsZSI6IlN5bmRyYWVsIiwieCI6IjEyIiwieSI6IjkiLCJocCI6IjEyIiwic3RhbWluYSI6IjQiLCJjbGFzc05hbWUiOiJLbmlnaHQiLCJmZWF0VXNlZCI6ZmFsc2UsInNraWxscyI6W1siQWR2YW5jZSIsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2VdLFsiQ2hhbGxlbmdlIixmYWxzZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJEZWZlbmQiLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlXSxbIkRlZmVuc2UgVHJhaW5pbmciLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlXSxbIkd1YXJkIixmYWxzZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJJbnNwaXJhdGlvbiIsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2VdLFsiT2F0aCBPZiBIb25vciIsdHJ1ZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJTaGllbGQgU2xhbSIsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2VdLFsiU3RhbHdhcnQiLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlXV0sIml0ZW1zIjp7ImhhbmQiOiJJcm9uIExvbmdzd29yZCIsImhhbmQyIjoiV29vZGVuIFNoaWVsZCIsImFybW9yIjoiIiwiaXRlbSI6IiIsIml0ZW0yIjoiIn0sInNhY2siOltdLCJjb25kaXRpb25zIjpbXX0sImhlcm8zIjp7InRpdGxlIjoiTGVvcmljIG9mIHRoZSBCb29rIiwieCI6IjEyIiwieSI6IjEwIiwiaHAiOiI4Iiwic3RhbWluYSI6IjUiLCJjbGFzc05hbWUiOiJSdW5lbWFzdGVyIiwiZmVhdFVzZWQiOmZhbHNlLCJza2lsbHMiOltbIkJyZWFrIFRoZSBSdW5lIixmYWxzZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJFeHBsb2RpbmcgUnVuZSIsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2VdLFsiR2hvc3QgQXJtb3IiLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlXSxbIkluc2NyaWJlIFJ1bmUiLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlXSxbIklyb24gV2lsbCIsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2VdLFsiUXVpY2sgQ2FzdGluZyIsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2VdLFsiUnVuZSBNYXN0ZXJ5IixmYWxzZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJSdW5pYyBLbm93bGVkZ2UiLHRydWUsZmFsc2UsZmFsc2UsZmFsc2VdLFsiUnVuaWMgU29yY2VyeSIsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2VdXSwiaXRlbXMiOnsiaGFuZCI6IkFyY2FuZSBCb2x0IiwiaGFuZDIiOiIiLCJhcm1vciI6IiIsIml0ZW0iOiIiLCJpdGVtMiI6IiJ9LCJzYWNrIjpbXSwiY29uZGl0aW9ucyI6W119LCJoZXJvNCI6eyJ0aXRsZSI6IkphaW4gRmFpcndvb2QiLCJ4IjoiMTIiLCJ5IjoiMTEiLCJocCI6IjgiLCJzdGFtaW5hIjoiNSIsImNsYXNzTmFtZSI6IldpbGRsYW5kZXIiLCJmZWF0VXNlZCI6ZmFsc2UsInNraWxscyI6W1siQWNjdXJhdGUiLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlXSxbIkJsYWNrIEFycm93IixmYWxzZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJCb3cgTWFzdGVyeSIsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2VdLFsiRGFuZ2VyIFNlbnNlIixmYWxzZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJFYWdsZSBFeWVzIixmYWxzZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJGaXJzdCBTdHJpa2UiLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlXSxbIkZsZWV0IE9mIEZvb3QiLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlXSxbIk5pbWJsZSIsdHJ1ZSxmYWxzZSxmYWxzZSxmYWxzZV0sWyJSdW5uaW5nIFNob3QiLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlXV0sIml0ZW1zIjp7ImhhbmQiOiJZZXcgU2hvcnRib3ciLCJoYW5kMiI6IiIsImFybW9yIjoiIiwiaXRlbSI6IiIsIml0ZW0yIjoiIn0sInNhY2siOltdLCJjb25kaXRpb25zIjpbXX0sInRpbGVzIjpbeyJ0aXRsZSI6IjgiLCJzaWRlIjoiQSIsIngiOiI2IiwieSI6IjAiLCJhbmdsZSI6IjE4MCJ9LHsidGl0bGUiOiJFbmQiLCJzaWRlIjoiQSIsIngiOiI1IiwieSI6IjEiLCJhbmdsZSI6IjkwIn0seyJ0aXRsZSI6IjE2Iiwic2lkZSI6IkEiLCJ4IjoiNiIsInkiOiI0IiwiYW5nbGUiOiIwIn0seyJ0aXRsZSI6IjEyIiwic2lkZSI6IkEiLCJ4IjoiMSIsInkiOiIzIiwiYW5nbGUiOiIyNzAifSx7InRpdGxlIjoiRXhpdCIsInNpZGUiOiJBIiwieCI6IjIiLCJ5IjoiMSIsImFuZ2xlIjoiOTAifSx7InRpdGxlIjoiMjYiLCJzaWRlIjoiQSIsIngiOiIxMCIsInkiOiI0IiwiYW5nbGUiOiIyNzAifSx7InRpdGxlIjoiOSIsInNpZGUiOiJBIiwieCI6IjYiLCJ5IjoiOCIsImFuZ2xlIjoiMCJ9LHsidGl0bGUiOiJFbmQiLCJzaWRlIjoiQSIsIngiOiI1IiwieSI6IjkiLCJhbmdsZSI6IjkwIn0seyJ0aXRsZSI6IkVudHJhbmNlIiwic2lkZSI6IkEiLCJ4IjoiMTAiLCJ5IjoiOSIsImFuZ2xlIjoiMTgwIn0seyJ0aXRsZSI6IkVuZCIsInNpZGUiOiJBIiwieCI6IjEzIiwieSI6IjUiLCJhbmdsZSI6IjI3MCJ9XSwiZG9vcnMiOltdLCJ4cyI6W10sImFsbGllcyI6W10sImZhbWlsaWFycyI6W10sIm9iamVjdGl2ZXMiOlt7InRpdGxlIjoiU2VhcmNoIiwieCI6IjEiLCJ5IjoiNyJ9LHsidGl0bGUiOiJTZWFyY2giLCJ4IjoiNSIsInkiOiI5In0seyJ0aXRsZSI6IlNlYXJjaCIsIngiOiIxMyIsInkiOiI1In0seyJ0aXRsZSI6IlNlYXJjaCIsIngiOiI1IiwieSI6IjEifV0sIm92ZXJsb3JkIjp7ImNhcmRzIjpbXX0sImxpZXV0ZW5hbnRzIjpbXSwiY3VycmVudEFjdCI6IkkiLCJtYXBXaWR0aCI6NDAsIm1hcEhlaWdodCI6NTB9';
-var CurrentAct = "I"; // values I or II
-var ALL_ACTS = 'ActI ActII'
 
 var CAMPAIGNS = [
 		['The Shadow Rune','TSR'],
@@ -1889,15 +1877,6 @@ var monsterList = [];
 var overlordRelicNumber = 0;
 
 
-
-var monsterLine = new LineClass('monster','monster','RemoveLine_Monster(this);');
-monsterLine.needCoordinates = true;
-monsterLine.XYBase = '1x1';		//DefaultValue
-monsterLine.needHPInput = true;
-monsterLine.needAddTokenButton = true;
-monsterLine.needAddRelicButton = true;
-monsterLine.needAddAuraButton = true;
-monsterLine.needRemoveButton = true;
 
 var lieutenantLine = new LineClass('lieutenant','lieutenant','RemoveLine_Lieutenant(this);');
 lieutenantLine.needCoordinates = true;
