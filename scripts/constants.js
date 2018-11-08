@@ -33,6 +33,10 @@ for (var i=0; i < EXPANSIONS.length; i++) {
 
 var CurrentLevel = 0; // values 0 to 7
 var ALL_LEVELS = 'Lvl0 Lvl1 Lvl2 Lvl3 Lvl4 Lvl5 Lvl6 Lvl7'
+var ImagePathLevel = "";
+
+// ------------------------------------------------------
+var ImagePathMapTile = "";
 
 MAP_TILES_LIST_COMPLETE = [
 	['a1',2,5,68,39],
@@ -88,6 +92,7 @@ ANGLES_LIST = [
 
 
 
+var ImagePathOverlayTile = "";
 OVERLAYTILES_LIST = [
 	['corridor earth 1h',1,1,45,39],
 	['corridor earth 2h',1,1,45,39],
@@ -121,6 +126,7 @@ for (var i = 0; i < OVERLAYTILES_LIST.length; i++) {
 	OVERLAYTILES[OVERLAYTILES_LIST[i][0]] = overlay;
 }
 
+var ImagePathDoor = "";
 DOORS_LIST = [
 	['Stone Door H',1,1,45,39],
 	['Stone Door V',1,1,45,39],
@@ -139,6 +145,34 @@ for (var i = 0; i < DOORS_LIST.length; i++) {
 }
 
 // -----------------------------------------------
+
+var ImagePathConditionImagge = "images/conditions_tokens/";
+var ImagePathConditionFigureToken = "images/conditions_tokens/";
+CONDITIONS_INITIAL = [
+	['Bless',true],
+	['Curse',true],
+	['Disarm',true],
+	['Immobilize',true],
+	['Invisible',true],
+	['Muddle',true],
+	['Poison',true],
+	['Strengthen',true],
+	['Stun',true],
+	['Wound',true]
+];
+
+var CONDITIONS = {};
+var CONDITIONS_LIST = [];
+
+for (var i = 0; i < CONDITIONS_INITIAL.length; i++) {
+	CONDITIONS_LIST.push(CONDITIONS_INITIAL[i][0]);
+	CONDITIONS[CONDITIONS_INITIAL[i][0]] = {'hasConditionCard' : CONDITIONS_INITIAL[i][1]};
+}
+
+// -----------------------------------------------
+
+var ImagePathMonsterImage = "";
+var ImagePathMonsterMapToken = "";
 
 var MasterSuffix = ' elite' //' master';
 var MinionSuffix = ' normal' //' minion';
@@ -166,41 +200,41 @@ for (var i=0; i < MONSTER_TRAITS.length; i++) {
 }
 
 var MONSTERS_LIST = [
-	['ancient artillery',1,1,31,41,false,bg,[dummy],false],
-	['bandit archer',1,1,31,41,false,bg,[dummy],false],
-	['bandit guard',1,1,31,41,false,bg,[dummy],false],
-	['black imp',1,1,31,41,false,bg,[dummy],false],
-	['cave bear',1,1,31,41,false,bg,[dummy],false],
-	['city archer',1,1,31,41,false,bg,[dummy],false],
-	['city guard',1,1,31,41,false,bg,[dummy],false],
-	['cultist',1,1,31,41,false,bg,[dummy],false],
-	['deep terror',1,1,31,41,false,bg,[dummy],false],
-	['earth demon',1,1,31,41,false,bg,[dummy],false],
-	['flame demon',1,1,31,41,false,bg,[dummy],false],
-	['forest imp',1,1,31,41,false,bg,[dummy],false],
-	['frost demon',1,1,31,41,false,bg,[dummy],false],
-	['giant viper',1,1,31,41,false,bg,[dummy],false],
-	['harrower infester',1,1,31,41,false,bg,[dummy],false],
-	['hound',1,1,31,41,false,bg,[dummy],false],
-	['inox archer',1,1,31,41,false,bg,[dummy],false],
-	['inox bodyguard',1,1,31,41,false,bg,[dummy],false],
-	['inox guard',1,1,31,41,false,bg,[dummy],false],
-	['inox shaman',1,1,31,41,false,bg,[dummy],false],
-	['living bones',1,1,31,41,false,bg,[dummy],false],
-	['living corpse',1,1,31,41,false,bg,[dummy],false],
-	['living spirit',1,1,31,41,false,bg,[dummy],false],
-	['lurker',1,1,31,41,false,bg,[dummy],false],
-	['night demon',1,1,31,41,false,bg,[dummy],false],
-	['ooze',1,1,31,41,false,bg,[dummy],false],
-	['rending drake',1,1,31,41,false,bg,[dummy],false],
-	['savaas icestorm',1,1,31,41,false,bg,[dummy],false],
-	['savaas lavaflow',1,1,31,41,false,bg,[dummy],false],
-	['spitting drake',1,1,31,41,false,bg,[dummy],false],
-	['stone golem',1,1,31,41,false,bg,[dummy],false],
-	['sun demon',1,1,31,41,false,bg,[dummy],false],
-	['vermling scout',1,1,31,41,false,bg,[dummy],false],
-	['vermling shaman',1,1,31,41,false,bg,[dummy],false],
-	['wind demon',1,1,31,41,false,bg,[dummy],false]
+	['ancient artillery',1,1,35,41,false,bg,[dummy],false],
+	['bandit archer',1,1,35,41,false,bg,[dummy],false],
+	['bandit guard',1,1,35,41,false,bg,[dummy],false],
+	['black imp',1,1,35,41,false,bg,[dummy],false],
+	['cave bear',1,1,35,41,false,bg,[dummy],false],
+	['city archer',1,1,35,41,false,bg,[dummy],false],
+	['city guard',1,1,35,41,false,bg,[dummy],false],
+	['cultist',1,1,35,41,false,bg,[dummy],false],
+	['deep terror',1,1,35,41,false,bg,[dummy],false],
+	['earth demon',1,1,35,41,false,bg,[dummy],false],
+	['flame demon',1,1,35,41,false,bg,[dummy],false],
+	['forest imp',1,1,35,41,false,bg,[dummy],false],
+	['frost demon',1,1,35,41,false,bg,[dummy],false],
+	['giant viper',1,1,35,41,false,bg,[dummy],false],
+	['harrower infester',1,1,35,41,false,bg,[dummy],false],
+	['hound',1,1,35,41,false,bg,[dummy],false],
+	['inox archer',1,1,35,41,false,bg,[dummy],false],
+	['inox bodyguard',1,1,35,41,false,bg,[dummy],false],
+	['inox guard',1,1,35,41,false,bg,[dummy],false],
+	['inox shaman',1,1,35,41,false,bg,[dummy],false],
+	['living bones',1,1,35,41,false,bg,[dummy],false],
+	['living corpse',1,1,35,41,false,bg,[dummy],false],
+	['living spirit',1,1,35,41,false,bg,[dummy],false],
+	['lurker',1,1,35,41,false,bg,[dummy],false],
+	['night demon',1,1,35,41,false,bg,[dummy],false],
+	['ooze',1,1,35,41,false,bg,[dummy],false],
+	['rending drake',1,1,35,41,false,bg,[dummy],false],
+	['savaas icestorm',1,1,35,41,false,bg,[dummy],false],
+	['savaas lavaflow',1,1,35,41,false,bg,[dummy],false],
+	['spitting drake',1,1,35,41,false,bg,[dummy],false],
+	['stone golem',1,1,35,41,false,bg,[dummy],false],
+	['sun demon',1,1,35,41,false,bg,[dummy],false],
+	['vermling scout',1,1,35,41,false,bg,[dummy],false],
+	['vermling shaman',1,1,35,41,false,bg,[dummy],false],
+	['wind demon',1,1,35,41,false,bg,[dummy],false]
 ];
 
 
@@ -264,7 +298,7 @@ monsterLine.needCoordinates = true;
 monsterLine.XYBase = '1x1';		//DefaultValue
 monsterLine.needHPInput = true;
 monsterLine.needFatigueInput = true;
-//monsterLine.needAddTokenButton = true;
+monsterLine.needAddTokenButton = true;
 //monsterLine.needAddRelicButton = true;
 //monsterLine.needAddAuraButton = true;
 monsterLine.needRemoveButton = true;
@@ -1224,65 +1258,7 @@ MISCELLANEOUS_LIST = [
 	'Sun Stone'
 ];
 
-CONDITIONS_INITIAL = [
-	['Bleeding',true],
-	['Burning',true],
-	['Cursed',true],
-	['Diseased',true],
-	['Doomed',true],
-	['Immobilized',true],
-	['Poisoned',true],
-	['Stunned',true],
-	['Terrified',true],
-	['Weakened',true],
-	['Elixir',false],
-	['Fortune',false],
-	['Hexed',false],
-	['Infected',false],
-	['Insight',false],
-	['Tracked',false],
-	['Objective',false],
-	['Threat',false],
-	['Valor',false]
-];
 
-var CONDITIONS = {};
-var CONDITIONS_LIST = [];
-
-for (var i = 0; i < CONDITIONS_INITIAL.length; i++) {
-	CONDITIONS_LIST.push(CONDITIONS_INITIAL[i][0]);
-	CONDITIONS[CONDITIONS_INITIAL[i][0]] = {'hasConditionCard' : CONDITIONS_INITIAL[i][1]};
-}
-
-TRACKING_TOKENS_INITIAL = [
-	['Bleeding',true],
-	['Burning',true],
-	['Cursed',true],
-	['Diseased',true],
-	['Doomed',true],
-	['Immobilized',true],
-	['Poisoned',true],
-	['Stunned',true],
-	['Terrified',true],
-	['Weakened',true],
-	['Elixir',false],
-	['Fortune',false],
-	['Hexed',false],
-	['Infected',false],
-	['Insight',false],
-	['Tracked',false],
-	['Objective',false],
-	['Threat',false],
-	['Valor',false]
-];
-
-var TRACKING_TOKENS = {};
-var TRACKING_TOKENS_LIST = [];
-
-for (var i = 0; i < TRACKING_TOKENS_INITIAL.length; i++) {
-	TRACKING_TOKENS_LIST.push(TRACKING_TOKENS_INITIAL[i][0]);
-	TRACKING_TOKENS[TRACKING_TOKENS_INITIAL[i][0]] = {'hasConditionCard' : TRACKING_TOKENS_INITIAL[i][1]};
-}
 
 
 OVERLORD_CARDS_LIST = [

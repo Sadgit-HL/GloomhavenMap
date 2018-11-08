@@ -462,7 +462,7 @@ img.familiar-image {
 .hit-points,
 .stamina {
 	position: absolute;
-	left: 0;
+	left: 15;
 	color: white;
 	font-weight: bold;
 	font-size: 14px;
@@ -474,12 +474,12 @@ img.familiar-image {
 }
 
 .hit-points {
-	top: 0;
+	top: -1;
 	background: red;
 }
 
 .stamina {
-	bottom: 0;
+	bottom: -1;
 	background: rgb(184, 157, 10);
 }
 
@@ -524,7 +524,7 @@ img.familiar-image {
 
 .conditions {
 	position: absolute;
-	right: -5px;
+	right: 0px;
 	top: -5px;
 }
 .conditions img {
@@ -710,7 +710,7 @@ ul#tabs > li > a {
 }
 
 .condition {
-	height: 300px;
+	/*height: 300px;*/
 }
 .select-row .condition {
 	display: inline-block;

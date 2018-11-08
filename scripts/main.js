@@ -158,7 +158,7 @@ function addConditions(conditions, container) {
 	for (var condition in conditions) {
 		if (condition == undefined || condition == '' || !CONDITIONS[condition].hasConditionCard) continue;
 		var conditionImage = $('<img>');
-		conditionImage.attr('src', 'images/conditions_cards/' + urlize(condition) + '.png').addClass('condition');
+		conditionImage.attr('src', ImagePathConditionImagge + urlize(condition) + '.png').addClass('condition');
 		container.append(conditionImage);
 	}
 }
@@ -881,7 +881,7 @@ function addConditionsToImage(sourcesObject, sourceConfig) {
 	var updatedSourceConfig = getConditionsArrayFromObjectOrArray(sourceConfig);
 	var interval = updatedSourceConfig != undefined && updatedSourceConfig.length > 3 ? Math.floor(50 / updatedSourceConfig.length) : 20;
 	for (var j = 0; updatedSourceConfig != undefined && j < updatedSourceConfig.length; j++) {
-		var conditionObject = $('<img>').attr('src', 'images/conditions_tokens/' + urlize(updatedSourceConfig[j]) + '.png');
+		var conditionObject = $('<img>').attr('src', ImagePathConditionFigureToken + urlize(updatedSourceConfig[j]) + '.png');
 		if (j > 0) conditionObject.css({
 			'position' : 'absolute',
 			'top' : (interval * j).toString() + 'px'

@@ -517,7 +517,7 @@ function Add_TokenImage(RowElement, NewValue) {
 		if (TokenImageContainer.find('.' + urlize(NewValue)).length == 0)
 		{
 			var TokenImage = $('<img>');
-			TokenImage.attr('src', 'images/conditions_cards/' + urlize(NewValue) + '.png').addClass('condition').addClass(urlize(NewValue));
+			TokenImage.attr('src', ImagePathConditionImagge + urlize(NewValue) + '.png').addClass('condition').addClass(urlize(NewValue));
 			TokenImageContainer.append(TokenImage);
 		}
 	}
