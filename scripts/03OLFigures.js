@@ -6,7 +6,7 @@ function InitializeWindowFor_OLFigures() {
 	//tiles zone
 	html.append(CreateZone_Monsters());
 	//doors zone
-//	html.append(CreateZone_Lieutenants());
+	html.append(CreateZone_Lieutenants());
 	//xMarks zone
 //	html.append(CreateZone_Agents());
 	//monsters traits
@@ -21,13 +21,13 @@ function UpdateWindow_OLFigures() {
 	//Update_MonsterImages(RowElement);
 	Update_MonsterImages();
 
-/*
 	var LieutenantsList = $('.lieutenant-container .select-row');
 	for (var i = 0; i < LieutenantsList.length; i++) {
 		var container = $(LieutenantsList[i]);
 		Update_LieutenantImages(container);
 	}
 
+/*
 	var AgentsList = $('.agent-container .select-row');
 	for (var i = 0; i < AgentsList.length; i++) {
 		var container = $(AgentsList[i]);
@@ -38,7 +38,7 @@ function UpdateWindow_OLFigures() {
 
 function GetWindow_OLFigures(DataToUpdate) {
 	DataToUpdate = GetZone_Monsters(DataToUpdate);
-//	DataToUpdate = GetZone_Lieutenants(DataToUpdate);
+	DataToUpdate = GetZone_Lieutenants(DataToUpdate);
 //	DataToUpdate = GetZone_Agents(DataToUpdate);
 //	DataToUpdate = GetZone_MonsterTraits(DataToUpdate);
 //	DataToUpdate = GetZone_Expansions(DataToUpdate);
@@ -48,7 +48,7 @@ function GetWindow_OLFigures(DataToUpdate) {
 function FillWindow_OLFigures(NewData, FromPreFilledMaps) {
 	//Fill_LevelButton(); -> Common not Filled Here
 	FillZone_Monsters(NewData, FromPreFilledMaps);
-//	FillZone_Lieutenants(NewData, FromPreFilledMaps);
+	FillZone_Lieutenants(NewData, FromPreFilledMaps);
 //	FillZone_Agents(NewData, FromPreFilledMaps);
 //	FillZone_MonsterTraits(NewData, FromPreFilledMaps);
 //	FillZone_Expansions(NewData, FromPreFilledMaps);
@@ -56,7 +56,7 @@ function FillWindow_OLFigures(NewData, FromPreFilledMaps) {
 
 function ResetWindow_OLFigures(FromPreFilledMaps) {
 	ResetZone_Monsters(FromPreFilledMaps);
-//	ResetZone_Lieutenants(FromPreFilledMaps);
+	ResetZone_Lieutenants(FromPreFilledMaps);
 //	ResetZone_Agents(FromPreFilledMaps);
 //	ResetZone_MonsterTraits(FromPreFilledMaps);
 //	ResetZone_Expansions(FromPreFilledMaps);
@@ -188,11 +188,11 @@ function Update_MonsterImages(RowElement) {
 		if (MonsterImageContainer.find('.' + urlize(OneMonsterValue)).length == 0)
 		{
 			var MonsterImage = $('<img>');
-			MonsterImage.attr('src', 'images/monster-stat-cards/' + urlize(OneMonsterValue) + LevelAddition + '.png').addClass('monster').addClass(urlize(OneMonsterValue));
+			MonsterImage.attr('src', ImagePathMonsterImage + urlize(OneMonsterValue) + LevelAddition + '.png').addClass('monster').addClass(urlize(OneMonsterValue));
 			MonsterImageContainer.append(MonsterImage);
 			if (MONSTERS[OneMonsterValue].hasBack) {
 				var monsterCardBack = $('<img>');
-				monsterCardBack.attr('src', 'images/monster-stat-cards/' + urlize(OneMonsterValue) + '_back' + LevelAddition + '.png');
+				monsterCardBack.attr('src', ImagePathMonsterImage + urlize(OneMonsterValue) + '_back' + LevelAddition + '.png');
 				MonsterImageContainer.append(monsterCardBack);
 			}
 		}
@@ -287,7 +287,7 @@ function UnSet_Lieutenant(element) {
 function Update_LieutenantImages(RowElement) {
 	var LieutenantImageContainer = RowElement.find('.Row-cards');
 	Reset_LieutenantImages(RowElement);
-	var LevelAddition = (CurrentLevel == "I") ? '_act1' : '_act2';
+	var LevelAddition = '_' + CurrentLevel;
 
 	var OneLieutenantValue = RowElement.find('.MainElement-Value').val();
 	if (OneLieutenantValue == undefined || OneLieutenantValue == '') return;
@@ -295,11 +295,11 @@ function Update_LieutenantImages(RowElement) {
 	if (LieutenantImageContainer.find('.' + urlize(OneLieutenantValue)).length == 0)
 	{
 		var LieutenantImage = $('<img>');
-		LieutenantImage.attr('src', 'images/lieutenant_cards/' + urlize(OneLieutenantValue) + LevelAddition + '.png').addClass('lieutenant').addClass(urlize(OneLieutenantValue));
+		LieutenantImage.attr('src', ImagePathMonsterBossImage + urlize(OneLieutenantValue) + LevelAddition + '.png').addClass('lieutenant').addClass(urlize(OneLieutenantValue));
 		LieutenantImageContainer.append(LieutenantImage);
 		if (LIEUTENANTS[OneLieutenantValue].hasBack) {
 			var LieutenantCardBack = $('<img>');
-			LieutenantCardBack.attr('src', 'images/lieutenant_cards/' + urlize(OneLieutenantValue) + LevelAddition + '_back' + '.png');
+			LieutenantCardBack.attr('src', ImagePathMonsterBossImage + urlize(OneLieutenantValue) + LevelAddition + '_back' + '.png');
 			LieutenantImageContainer.append(LieutenantCardBack);
 		}
 	}
@@ -536,16 +536,16 @@ function adjustMonsterList() {
 			monsterList.push(title);
 		}
 	}
-	var LevelAddition = (CurrentLevel == "I") ? '_act1' : '_act2';
+	var LevelAddition = '_' + CurrentLevel;
 	for (var i = 0; i < monsterList.length; i++) {
 		var monster = monsterList[i];
 		if (monster == '') continue;
 		var monsterCard = $('<img>');
-		monsterCard.attr('src', 'images/monster-stat-cards/' + urlize(monster) + LevelAddition + '.png');
+		monsterCard.attr('src', ImagePathMonsterImage + urlize(monster) + LevelAddition + '.png');
 		monsterCardsContainer.append(monsterCard);
 		if (MONSTERS[monster].hasBack) {
 			var monsterCardBack = $('<img>');
-			monsterCardBack.attr('src', 'images/monster-stat-cards/' + urlize(monster) + '_back' + LevelAddition + '.png');
+			monsterCardBack.attr('src', ImagePathMonsterImage + urlize(monster) + '_back' + LevelAddition + '.png');
 			monsterCardsContainer.append(monsterCardBack);
 		}
 	}

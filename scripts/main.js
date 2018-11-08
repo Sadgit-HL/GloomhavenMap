@@ -636,7 +636,7 @@ function constructMapFromConfig() {
 		monsterHp.html(monster.hp == undefined ? '' : monster.hp.toString());
 		monsterStamina.html(monster.stamina == undefined ? '' : monster.stamina.toString());
 
-		var folder = 'images/monster-tokens/';
+		var folder = ImagePathMonsterMapToken;
 //		var angle = door.angle;
 
 		var HexDelta = (1 - (monster.x % 2)) * (VCellSize/2);
@@ -726,24 +726,33 @@ function constructMapFromConfig() {
 		addMapObject(ally.x, ally.y, allyObject, z_index);
         figures.append(allyObject);
 	}
+*/
 
 	for (var i = 0; config.lieutenants != undefined && i < config.lieutenants.length; i++) {
 		var lieutenant = config.lieutenants[i];
 		var lieutenantObject = $('<div>');
 		var lieutenantImage = $('<img>');
 		var lieutenantHp = $('<div>').addClass('hit-points');
-		lieutenantHp.html(lieutenant.hp.toString());
-		var folder = 'images/monster_tokens/';
+		var lieutenantStamina = $('<div>').addClass('stamina');
 		var z_index = 2;
-		if (lieutenant.vertical != undefined && lieutenant.vertical) folder += 'vertical/';
-		if (lieutenant.direction == "V") folder += 'vertical/';
+		lieutenantHp.html(lieutenant.hp == undefined ? '' : lieutenant.hp.toString());
+		lieutenantStamina.html(lieutenant.stamina == undefined ? '' : lieutenant.stamina.toString());
+
+		var folder = ImagePathMonsterBossMapToken;
+//		var angle = door.angle;
+
+		var HexDelta = (1 - (lieutenant.x % 2)) * (VCellSize/2);
+
+//		if (lieutenant.vertical != undefined && lieutenant.vertical) folder += 'vertical/';
+//		if (lieutenant.direction == "V") folder += 'vertical/';
 		lieutenantObject.css({
 			'position' : 'absolute',
-			'left' : (lieutenant.x * HCellSize).toString() + 'px',
-			'top' : (lieutenant.y * VCellSize).toString() + 'px',
+			'left' : ((Math.floor(lieutenant.x * HCellSize * 3 / 4 )) - LIEUTENANTS[lieutenant.title].left + (HCellSize/2)).toString()  + 'px',
+			'top' : ((lieutenant.y * VCellSize) - LIEUTENANTS[lieutenant.title].top + (VCellSize/2) + HexDelta).toString() + 'px',
 			'z-index' : z_index
 		});
 
+/*
 		if (lieutenant.auras != undefined) {
 			for (var j = 0; j < lieutenant.auras.length; j++) {
 				var aura = $('<div>');
@@ -781,14 +790,21 @@ function constructMapFromConfig() {
 				lieutenantObject.append(aura);
 			}
 		}
+*/
+
 		lieutenantImage.attr('src', folder + urlize(lieutenant.title) + '.png');
 		lieutenantObject.append(lieutenantImage);
 		lieutenantObject.append(lieutenantHp);
-		addConditionsToImage(lieutenantObject, lieutenant.conditions);
+		lieutenantObject.append(lieutenantStamina);
+		if (lieutenantLine.needAddTokenButton == true)
+		{
+			addConditionsToImage(lieutenantObject, lieutenant.conditions);
+		}
 		addMapObject(lieutenant.x, lieutenant.y, lieutenantObject, z_index);
         figures.append(lieutenantObject);
 	}
 
+/*
 	for (var i = 0; config.agents != undefined && i < config.agents.length; i++) {
 		var agent = config.agents[i];
 		var agentObject = $('<div>');

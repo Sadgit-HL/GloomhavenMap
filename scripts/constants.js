@@ -171,8 +171,8 @@ for (var i = 0; i < CONDITIONS_INITIAL.length; i++) {
 
 // -----------------------------------------------
 
-var ImagePathMonsterImage = "";
-var ImagePathMonsterMapToken = "";
+var ImagePathMonsterImage = "images/monster-stat-cards/";
+var ImagePathMonsterMapToken = "images/monster-tokens/";
 
 var MasterSuffix = ' elite' //' master';
 var MinionSuffix = ' normal' //' minion';
@@ -268,8 +268,43 @@ for (var i = 0; i < MONSTERS_LIST.length; i++) {
 }
 
 
+var ImagePathMonsterBossImage = "images/monsterboss-stat-cards/";
+var ImagePathMonsterBossMapToken = "images/monsterboss-tokens/";
+
+var LIEUTENANTS_LIST = [
+	['Bandit Commander',1,1,35,41,false,bg],
+	['Captain of the Guard',1,1,35,41,false,bg],
+	['Dark Rider',1,1,35,41,false,bg],
+	['Elder Drake',1,1,35,41,false,bg],
+	['Inox Bodyguard',1,1,35,41,false,bg],
+	['Jekserah',1,1,35,41,false,bg],
+	['Merciless Overseer',1,1,35,41,false,bg],
+	['Prime Demon',1,1,35,41,false,bg],
+	['The Betrayer',1,1,35,41,false,bg],
+	['The Colorless',1,1,35,41,false,bg],
+	['The Gloom',1,1,35,41,false,bg],
+	['The Sightless Eye',1,1,35,41,false,bg],
+	['Winged Horror',1,1,35,41,false,bg]
+];
+
+var LIEUTENANTS = {};
+
+for (var i = 0; i < LIEUTENANTS_LIST.length; i++) {
+	var lieutenant = {};
+	lieutenant.title = LIEUTENANTS_LIST[i][0];
+	lieutenant.width = LIEUTENANTS_LIST[i][1];
+	lieutenant.height = LIEUTENANTS_LIST[i][2];
+	lieutenant.top = LIEUTENANTS_LIST[i][3];
+	lieutenant.left = LIEUTENANTS_LIST[i][4];
+	lieutenant.hasBack = LIEUTENANTS_LIST[i][5];
+	lieutenant.expansion = folderize(LIEUTENANTS_LIST[i][6]);
+	LIEUTENANTS[LIEUTENANTS_LIST[i][0]] = lieutenant;
+}
+
+// ------------------------------------------------------
 
 var mapObjects = [];
+var monsterList = [];
 
 
 //Initialize Global Data (Mainly LineClass)
@@ -303,6 +338,16 @@ monsterLine.needAddTokenButton = true;
 //monsterLine.needAddAuraButton = true;
 monsterLine.needRemoveButton = true;
 
+var lieutenantLine = new LineClass('lieutenant','lieutenant','RemoveLine_Lieutenant(this);');
+lieutenantLine.needCoordinates = true;
+lieutenantLine.XYBase = '1x1';		//DefaultValue
+lieutenantLine.needHPInput = true;
+lieutenantLine.needFatigueInput = true;
+lieutenantLine.needAddTokenButton = true;
+//lieutenantLine.needAddRelicButton = true;
+//lieutenantLine.needAddAuraButton = true;
+lieutenantLine.needRemoveButton = true;
+lieutenantLine.UsesMainCommonImages = true;
 
 
 
@@ -333,35 +378,6 @@ monsterLine.needRemoveButton = true;
 
 
 
-
-var LIEUTENANTS_LIST = [
-	['Ardus IxErebus', true, 1, 1],
-	['Ariad', true, 1, 1],
-	['Baron Zachareth', true, 1, 1],
-	['Belthir', true, 1, 1],
-	['Bolgoreth', true, 2, 2],
-	['Kyndrithul', true, 1, 1],
-	['Lady Eliza Farrow', true, 1, 1],
-	['Lord Merick Farrow', true, 1, 1],
-	['Gargan Mirklace', true, 2, 2],
-	['Queen Ariad', true, 2, 2],
-	['Raythen', true, 1, 1],
-	['Rylan Olliven', true, 1, 1],
-	['Serena', true, 1, 1],
-	['Skarn', true, 2, 2],
-	['Sir Alric Farrow', true, 1, 1],
-	['Splig', true, 1, 1],
-	['Tristayne Olliven', true, 1, 1],
-	['Valyndra', true, 2, 3],
-	['Verminous', true, 1, 2],
-	['Zarihell', true, 1, 1]
-];
-
-var LIEUTENANTS = {};
-
-for (var i = 0; i < LIEUTENANTS_LIST.length; i++) {
-	LIEUTENANTS[LIEUTENANTS_LIST[i][0]] = {'hasBack':LIEUTENANTS_LIST[i][1], 'width':LIEUTENANTS_LIST[i][2], 'height':LIEUTENANTS_LIST[i][3]};
-}
 
 var MONSTERS_HP = [
 	['Arachyura',5,7,7,9],
@@ -1847,22 +1863,11 @@ var MAP_HASES_LIST = [
 	['HM','VoD - Visions of Dawn *NOT AVAILABLE YET**','II', ""],
 ];
 
-var monsterList = [];
 //var conditionsToShow = {};
 
 var overlordRelicNumber = 0;
 
 
-
-var lieutenantLine = new LineClass('lieutenant','lieutenant','RemoveLine_Lieutenant(this);');
-lieutenantLine.needCoordinates = true;
-lieutenantLine.XYBase = '1x1';		//DefaultValue
-lieutenantLine.needHPInput = true;
-lieutenantLine.needAddTokenButton = true;
-lieutenantLine.needAddRelicButton = true;
-lieutenantLine.needAddAuraButton = true;
-lieutenantLine.needRemoveButton = true;
-lieutenantLine.UsesMainCommonImages = true;
 
 var agentLine = new LineClass('agent','agent','RemoveLine_Agent(this);');
 agentLine.needCoordinates = true;
