@@ -415,6 +415,7 @@ function hero(element) {
 	if (hero.title != "") {
 		hero.x = container.find('[name="hero-x"]').val();
 		hero.y = container.find('[name="hero-y"]').val();
+/*
 		hero.hp = container.find('[name="hero-hp"]').val();
 		hero.stamina = container.find('[name="hero-stamina"]').val();
 		hero.className = container.find('[name="class-title"]').val();
@@ -426,6 +427,8 @@ function hero(element) {
 		hero.conditions = getConditions(container);
 		hero.aura = getAura(container);
 		hero.tainted = getTainted(container);
+*/
+
 	}
 	return hero;
 }
@@ -867,11 +870,12 @@ function constructMapFromConfig() {
         figures.append(agentObject);
 	}
 
+*/
 	addHeroToMap(config.hero1);
 	addHeroToMap(config.hero2);
 	addHeroToMap(config.hero3);
 	addHeroToMap(config.hero4);
-*/
+
 	adjustOverlappingImages();
 
 	setShortLink();
@@ -912,10 +916,12 @@ function addHeroToMap(hero) {
 	var heroObject = $('<div>');
 	var heroImage = $('<img>');
 	var z_index = 2;
+/*
 	var heroHp = $('<div>').addClass('hit-points');
 	heroHp.html(hero.hp.toString());
 	var heroStamina = $('<div>').addClass('stamina');
 	heroStamina.html(hero.stamina.toString());
+*/
 	var folder = 'images/heroes_tokens/';
 	heroObject.css({
 		'position' : 'absolute',
@@ -924,6 +930,7 @@ function addHeroToMap(hero) {
 		'z-index' : z_index
 	});
 	heroImage.attr('src', folder + urlize(hero.title) + '.png');
+/*
 	if (hero.aura != undefined) {
 		var aura = $('<div>');
 		var auraRadius = parseInt(hero.aura.radius);
@@ -939,11 +946,14 @@ function addHeroToMap(hero) {
 		});
 		heroObject.append(aura);
 	}
+*/
 	heroObject.append(heroImage);
+	/*
 	heroObject.append(heroHp);
 	heroObject.append(heroStamina);
 	if (hero.hp == 0) heroObject.addClass('secondary');
 	addConditionsToImage(heroObject, hero.conditions);
+	*/
 	addMapObject(hero.x, hero.y, heroObject, z_index);
 	$('#map .figures').append(heroObject);
 }
@@ -972,10 +982,10 @@ function constructSettingsFromConfig() {
 	FillWindow_QuestObjectives(config, false);
 	FillWindow_MapDesign(config, false);
 	FillWindow_OLFigures(config, false);
+	constructHeroesTabsFromConfig();
 
 /*
 
-	constructHeroesTabsFromConfig();
 	constructAlliesAndFamiliarsTabFromConfig();
 	constructMiscellaneousObjectsTabFromConfig();
 	constructOverlordCardsTabFromConfig();
@@ -999,12 +1009,13 @@ function constructHeroesTabsFromConfig() {
 		if (heroConfig.title != "" && heroConfig.title != undefined) {
 			var heroSelector = '#hero' + i.toString();
 			updateHero($(heroSelector + ' .select-hero li')[0],heroConfig.title);
-			$(heroSelector + ' [name="hero-hp"]').val(heroConfig.hp);
-			$(heroSelector + ' [name="hero-stamina"]').val(heroConfig.stamina);
 			$(heroSelector + ' [name="hero-x"]').val(heroConfig.x);
 			$(heroSelector + ' .x-title').html(getAlphabetChar(heroConfig.x - 1) + ' ');
 			$(heroSelector + ' [name="hero-y"]').val(heroConfig.y);
 			$(heroSelector + ' .y-title').html(heroConfig.y.toString() + ' ');
+			/*
+			$(heroSelector + ' [name="hero-hp"]').val(heroConfig.hp);
+			$(heroSelector + ' [name="hero-stamina"]').val(heroConfig.stamina);
 			if (heroConfig.className != undefined) {
 				updateClass($(heroSelector + ' .select-class li')[0], heroConfig.className.toString(), true, false);
 			}
@@ -1052,6 +1063,7 @@ function constructHeroesTabsFromConfig() {
 				var tainted = addTainted($(heroSelector + ' .tainted-container').find('button'));
 				updateTainted($(heroSelector + ' .tainted-container a')[0], heroConfig.tainted);
 			}
+			*/
 		}
 	}
 }
@@ -1075,12 +1087,12 @@ function collectData() {
 	config = GetWindow_QuestObjectives(config);
 	config = GetWindow_MapDesign(config);
 	config = GetWindow_OLFigures(config);
-/*
-
 	config.hero1 = hero($('#hero1 .select-row'));
 	config.hero2 = hero($('#hero2 .select-row'));
 	config.hero3 = hero($('#hero3 .select-row'));
 	config.hero4 = hero($('#hero4 .select-row'));
+/*
+
 	config.allies = getAllies();
 	config.familiars = getFamiliars();
 	config.villagers = getVillagers();
@@ -1197,8 +1209,8 @@ function LoadSubScripts(){
 	LoadOneSubScripts("scripts/01QuestObjectives.js");
 	LoadOneSubScripts("scripts/02MapDesign.js");
 	LoadOneSubScripts("scripts/03OLFigures.js");
-	/*
 	LoadOneSubScripts("scripts/04Heroes.js");
+	/*
 	LoadOneSubScripts("scripts/08Familiers.js");
 	LoadOneSubScripts("scripts/09OLCards.js");
 	LoadOneSubScripts("scripts/10Tokens.js");
@@ -1214,8 +1226,9 @@ function InitializeAllWindows() {
 	InitializeWindowFor_QuestObjectives();
 	InitializeWindowFor_MapDesign();
 	InitializeWindowFor_OLFigures();
-/*
 	//InitializeWindowFor_Heroes();
+
+/*
 	InitializeWindowFor_Familiars();
 	InitializeWindowFor_OLCards();
 	InitializeWindowFor_MapTokens();
@@ -1227,11 +1240,11 @@ $(function() {
 //	LoadSubScripts();
 
 	InitializeAllWindows();
-
-/*
 	for (var i = 1; i <= 4; i++) {
 		addHeroLine(i);
 	}
+
+/*
 	createFamiliarsImagesBlock();
 	createOverlordCardsBlock();
 	createPlotDeckBlock();

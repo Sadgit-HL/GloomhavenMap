@@ -301,7 +301,48 @@ for (var i = 0; i < LIEUTENANTS_LIST.length; i++) {
 	LIEUTENANTS[LIEUTENANTS_LIST[i][0]] = lieutenant;
 }
 
+MONSTERS_LIST.sort(listsort);
+
 // ------------------------------------------------------
+
+
+var HEROES_LIST = [
+	['Beast Tyrant',10,4,rog],
+	['Berserker',10,5,rog],
+//	['Bladeswarm',8,5,sup],
+	['Brute',12,3,war],
+	['Cragheart',12,5,war],
+	['Doomstalker',12,3,sup],
+	['Elementalist',12,3,rog],
+	['Mindthief',10,4,wiz],
+	['Nightshroud',8,3,wiz],
+	['Plagueherald',8,5,rog],
+	['Quartermaster',12,3,rog],
+	['Sawbones',12,3,war],
+	['Scoundrel',10,4,sup],
+	['Sunkeeper',14,4,war],
+	['Soothsinger',8,5,rog],
+	['Summoner',8,5,wiz],
+	['Spellweaver',12,4,sup],
+	['Tinkerer',12,4,war]
+];
+
+var HEROES = {};
+
+for (var i = 0; i < HEROES_LIST.length; i++) {
+	var hero = {};
+	hero.title = HEROES_LIST[i][0];
+	hero.hp = HEROES_LIST[i][1];
+	hero.stamina = HEROES_LIST[i][2];
+	hero.archetype = HEROES_LIST[i][3];
+	HEROES[HEROES_LIST[i][0]] = hero;
+}
+
+HEROES_LIST.sort(listsort);
+
+
+// ------------------------------------------------------
+
 
 var mapObjects = [];
 var monsterList = [];
@@ -1121,94 +1162,6 @@ steelcaster.newArchetype = wiz;
 battlemage.newArchetype = war;
 var HYBRID_CLASSES = [monk, steelcaster, battlemage, watchman];
 
-var HEROES_LIST = [
-	['Ronan of the Wild',10,5,rog],
-	['Hugo the Glorious',12,3,war],
-	['Aurim',8,5,sup],
-	['Bogran the Shadow',10,4,rog],
-	['Eliam',12,5,war],
-	['Brother Glyr',12,3,sup],
-	['Kirga',12,3,rog],
-	['Landrec the Wise',10,4,wiz],
-	['Mad Carthos',8,3,wiz],
-	['Red Scorpion',8,5,rog],
-	['Tobin Farslayer',12,3,rog],
-	['Varikas the Dead',12,3,war],
-	['Ashrian',10,4,sup],
-	['Grisban the Thirsty',14,4,war],
-	['Jain Fairwood',8,5,rog],
-	['Leoric of the Book',8,5,wiz],
-	['Avric Albright',12,4,sup],
-	['Syndrael',12,4,war],
-	['Tomble Burrowell',8,5,rog],
-	['Widow Tarha',10,4,wiz],
-	['Elder Mok',10,4,sup],
-	['Laurel of Bloodwood',8,5,rog],
-	['Shiver',10,4,wiz],
-	['Trenloe the Strong',12,3,war],
-	['Brother Gherinn',12,4,sup],
-	['Corbin',12,5,war],
-	['Jaes the Exile',12,3,wiz],
-	['Lindel',10,5,rog],
-	['Andira Runehand',12,4,sup],
-	['Astarra',10,5,wiz],
-	['Tahlia',14,4,war],
-	['Tetherys',10,4,rog],
-	['Sahla',10,4,sup],
-	['Mordrog',14,4,war],
-	['Silhouette',10,4,rog],
-	['Lord Hawthorne',12,4,war],
-	['Ispher',10,4,sup],
-	['Master Thorn',8,4,wiz],
-	['Nanok of the Blade',12,4,war],
-	['Nara the Fang',10,4,war],
-	['Sir Valadir',12,4,war],
-	['Challara',10,4,wiz],
-	['High Mage Quellen',10,4,wiz],
-	['Reynhart the Worthy',12,4,war],
-	['Alys Raine',12,4,war],
-	['Thaiden Mistpeak',10,5,rog],
-	['Ulma Grimstone',8,5,sup],
-	['Pathfinder Durik',10,4,war],
-	['Logan Lashley',10,4,rog],
-	['Dezra the Vile',8,4,wiz],
-	['Serena',8,6,sup],
-	['Rendiel',10,4,sup],
-	['Orkell the Swift',10,5,war],
-	['Tinashi the Wanderer',12,4,rog],
-	['Ravaella Lightfoot',8,5,wiz],
-	['Roganna the Shade',10,4,rog],
-	['Augur Grisom',12,5,sup],
-	['Raythen',14,4,rog],
-	['Grey Ker',12,5,rog],
-	['Seer Kel',10,4,wiz],
-	['One Fist',10,4,war],
-	['Arvel Worldwalker',10,4,rog],
-	['Karnon',14,3,war],
-	['Steelhorns',14,3,war],
-	['Vyrah the Falconer',10,4,rog],
-	['Lyssa',8,5,wiz],
-	['Zyla',8,5,wiz],
-	['Tatianna',12,4,rog],
-	['Okaluk and Rakash',8,3,sup],
-	['Krutzbeck',12,4,war],
-	['Jonas the Kind',10,4,sup],
-	['Laughin Buldar',14,3,war]
-];
-
-var HEROES = {};
-
-for (var i = 0; i < HEROES_LIST.length; i++) {
-	var hero = {};
-	hero.title = HEROES_LIST[i][0];
-	hero.hp = HEROES_LIST[i][1];
-	hero.stamina = HEROES_LIST[i][2];
-	hero.archetype = HEROES_LIST[i][3];
-	HEROES[HEROES_LIST[i][0]] = hero;
-}
-
-MONSTERS_LIST.sort(listsort);
-HEROES_LIST.sort(listsort);
 
 ALLIES_LIST = [
 	'Serena',

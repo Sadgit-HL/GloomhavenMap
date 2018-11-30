@@ -8,20 +8,24 @@ function addHeroLine(number) {
 	heroLine.find('.select-x ul').append(createXSelectContent(true));
 	heroLine.find('.select-x ul').addClass('showOneCell');
 	heroLine.find('.select-y ul').addClass('showOneCell').append(createYSelectContent(true));
+/*
 	heroLine.append(createInputSelect('Select Archetype ', 'archetype-title', 'select-archetype'));
 	heroLine.find('.select-archetype ul').addClass(ARCHETYPE_CLASSES + ' showarch').append(createArchetypeSelectContent());
 	heroLine.append($('<input type="hidden" name="archetype-title" value=""/>'));
 	heroLine.append(createInputSelect('Select Class ', 'class-title', 'select-class'));
 	heroLine.find('.select-class ul').addClass(ARCHETYPE_CLASSES + ' showarch').append(createClassSelectContent(false));
 	heroLine.append($('<input type="hidden" name="class-title" value=""/>'));
+	*/
 	heroLine.append($('<button type="button" class="btn btn-warning" aria-expanded="false" onclick="addCondition(this);">Add token</button>'));
 	heroLine.append($('<button type="button" class="btn btn-default" aria-expanded="false" onclick="addAura(this);">Add aura</button>'));
 	heroLine.append(createConditionsBlock());
+	/*
 	heroLine.append(createSkillsBlock(number));
 	heroLine.append(createItemsBlock());
 	heroLine.append(createSackAndSearchBlock());
+	*/
 	heroLine.append(getHeroImage());
-	heroLine.append(buildTaintedBlock());
+//	heroLine.append(buildTaintedBlock());
 	$('#hero' + number.toString()).append(heroLine);
 }
 
@@ -40,8 +44,10 @@ function updateHero(element, value) {
 	container.find('input[name="hero-title"]').attr('value',value);
 	container.find('input[name="hero-x"]').attr('value','');
 	container.find('input[name="hero-y"]').attr('value','');
+	/*
 	container.find('input[name="hero-hp"]').val(HEROES[value].hp);
 	container.find('input[name="hero-stamina"]').val(HEROES[value].stamina);
+	*/
 	container.find('.hero-image-container').children('img').attr('src', 'images/heroes_cards/' + urlize(value) + '.png');
 	var heroId = container.parent().attr('id');
 	var heroImage = $('<img>');
@@ -49,7 +55,7 @@ function updateHero(element, value) {
 	var heroMenuIcon = $('[href="#' + heroId + '"]');
 	heroMenuIcon.html('');
 	heroMenuIcon.append(heroImage);
-	updateArchetype(element, HEROES[value].archetype.title);
+	//updateArchetype(element, HEROES[value].archetype.title);
 }
 
 function adjustHero(element, archetype) {
@@ -700,11 +706,11 @@ function updateSackItem(element, value) {
 
 function getHeroImage() {
 	var heroImage = $('<img>');
-	var heroImageFeat = $('<div>').addClass('hero-image-feat');
+	//var heroImageFeat = $('<div>').addClass('hero-image-feat');
 	var heroImageContainer = $('<div>').addClass('hero-image-container');
 	heroImageContainer.append(heroImage);
-	heroImageContainer.append(heroImageFeat);
-	heroImage.attr('src', '').attr('onclick',"$(this).parent().toggleClass('feat-used')");
+	//heroImageContainer.append(heroImageFeat);
+	//heroImage.attr('src', '').attr('onclick',"$(this).parent().toggleClass('feat-used')");
 	return heroImageContainer;
 }
 
