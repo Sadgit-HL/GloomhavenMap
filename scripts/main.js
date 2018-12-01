@@ -415,16 +415,16 @@ function hero(element) {
 	if (hero.title != "") {
 		hero.x = container.find('[name="hero-x"]').val();
 		hero.y = container.find('[name="hero-y"]').val();
-/*
 		hero.hp = container.find('[name="hero-hp"]').val();
 		hero.stamina = container.find('[name="hero-stamina"]').val();
+		hero.conditions = getConditions(container);
+/*
 		hero.className = container.find('[name="class-title"]').val();
 		if (CLASSES[hero.className].allowHybrid) hero.hybridClassName = container.find('[name="hybrid-class-title"]').val();
 		hero.featUsed = container.find('.hero-image-container img').parent().hasClass('feat-used');
 		hero.skills = getSkills(container, hero.className, hero.hybridClassName);
 		hero.items = getItems(container);
 		hero.sack = getSackAndSearch(container);
-		hero.conditions = getConditions(container);
 		hero.aura = getAura(container);
 		hero.tainted = getTainted(container);
 */
@@ -643,7 +643,6 @@ function constructMapFromConfig() {
 //		var angle = door.angle;
 
 		var HexDelta = (1 - (monster.x % 2)) * (VCellSize/2);
-
 
 
 //		if (monster.vertical) folder += 'vertical/';
@@ -915,21 +914,23 @@ function addHeroToMap(hero) {
 	if (hero.title == '' || hero.title == undefined) return;
 	var heroObject = $('<div>');
 	var heroImage = $('<img>');
-	var z_index = 2;
-/*
 	var heroHp = $('<div>').addClass('hit-points');
-	heroHp.html(hero.hp.toString());
 	var heroStamina = $('<div>').addClass('stamina');
-	heroStamina.html(hero.stamina.toString());
-*/
-	var folder = 'images/heroes_tokens/';
+	var z_index = 2;
+	heroHp.html(hero.hp == undefined ? '' : hero.hp.toString());
+	heroStamina.html(hero.stamina == undefined ? '' : hero.stamina.toString());
+
+	var folder = ImagePathHeroesMapToken;
+//		var angle = door.angle;
+
+	var HexDelta = (1 - (hero.x % 2)) * (VCellSize/2);
+
 	heroObject.css({
 		'position' : 'absolute',
-		'left' : (hero.x * HCellSize).toString() + 'px',
-		'top' : (hero.y * VCellSize).toString() + 'px',
+		'left' : ((Math.floor(hero.x * HCellSize * 3 / 4 )) - HEROES[hero.title].left + (HCellSize/2)).toString()  + 'px',
+		'top' : ((hero.y * VCellSize) - HEROES[hero.title].top + (VCellSize/2) + HexDelta).toString() + 'px',
 		'z-index' : z_index
 	});
-	heroImage.attr('src', folder + urlize(hero.title) + '.png');
 /*
 	if (hero.aura != undefined) {
 		var aura = $('<div>');
@@ -947,13 +948,14 @@ function addHeroToMap(hero) {
 		heroObject.append(aura);
 	}
 */
+	heroImage.attr('src', folder + urlize(hero.title) + '.png');
 	heroObject.append(heroImage);
-	/*
 	heroObject.append(heroHp);
 	heroObject.append(heroStamina);
 	if (hero.hp == 0) heroObject.addClass('secondary');
-	addConditionsToImage(heroObject, hero.conditions);
-	*/
+	if (hero.conditions != undefined) {
+		addConditionsToImage(heroObject, hero.conditions);
+	}
 	addMapObject(hero.x, hero.y, heroObject, z_index);
 	$('#map .figures').append(heroObject);
 }
@@ -1013,9 +1015,9 @@ function constructHeroesTabsFromConfig() {
 			$(heroSelector + ' .x-title').html(getAlphabetChar(heroConfig.x - 1) + ' ');
 			$(heroSelector + ' [name="hero-y"]').val(heroConfig.y);
 			$(heroSelector + ' .y-title').html(heroConfig.y.toString() + ' ');
-			/*
 			$(heroSelector + ' [name="hero-hp"]').val(heroConfig.hp);
 			$(heroSelector + ' [name="hero-stamina"]').val(heroConfig.stamina);
+			/*
 			if (heroConfig.className != undefined) {
 				updateClass($(heroSelector + ' .select-class li')[0], heroConfig.className.toString(), true, false);
 			}

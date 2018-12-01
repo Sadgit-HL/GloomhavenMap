@@ -305,26 +305,28 @@ MONSTERS_LIST.sort(listsort);
 
 // ------------------------------------------------------
 
+var ImagePathHeroesImage = "images/heroes_cards/";
+var ImagePathHeroesMapToken = "images/heroes_tokens/";
 
 var HEROES_LIST = [
-	['Beast Tyrant',10,4,rog],
-	['Berserker',10,5,rog],
-//	['Bladeswarm',8,5,sup],
-	['Brute',12,3,war],
-	['Cragheart',12,5,war],
-	['Doomstalker',12,3,sup],
-	['Elementalist',12,3,rog],
-	['Mindthief',10,4,wiz],
-	['Nightshroud',8,3,wiz],
-	['Plagueherald',8,5,rog],
-	['Quartermaster',12,3,rog],
-	['Sawbones',12,3,war],
-	['Scoundrel',10,4,sup],
-	['Sunkeeper',14,4,war],
-	['Soothsinger',8,5,rog],
-	['Summoner',8,5,wiz],
-	['Spellweaver',12,4,sup],
-	['Tinkerer',12,4,war]
+	['Beast Tyrant',1,1,35,41,,,rog],
+	['Berserker',1,1,35,41,1,1,35,41,,,rog],
+//	['Bladeswarm',1,1,35,41,,,sup],
+	['Brute',1,1,35,41,,,war],
+	['Cragheart',1,1,35,41,,,war],
+	['Doomstalker',1,1,35,41,,,sup],
+	['Elementalist',1,1,35,41,,,rog],
+	['Mindthief',1,1,35,41,,,wiz],
+	['Nightshroud',1,1,35,41,,,wiz],
+	['Plagueherald',1,1,35,41,,,rog],
+	['Quartermaster',1,1,35,41,,,rog],
+	['Sawbones',1,1,35,41,,,war],
+	['Scoundrel',1,1,35,41,,,sup],
+	['Sunkeeper',1,1,35,41,,,war],
+	['Soothsinger',1,1,35,41,,,rog],
+	['Summoner',1,1,35,41,,,wiz],
+	['Spellweaver',1,1,35,41,,,sup],
+	['Tinkerer',1,1,35,41,,,war]
 ];
 
 var HEROES = {};
@@ -332,9 +334,13 @@ var HEROES = {};
 for (var i = 0; i < HEROES_LIST.length; i++) {
 	var hero = {};
 	hero.title = HEROES_LIST[i][0];
-	hero.hp = HEROES_LIST[i][1];
-	hero.stamina = HEROES_LIST[i][2];
-	hero.archetype = HEROES_LIST[i][3];
+	hero.width = HEROES_LIST[i][1];
+	hero.height = HEROES_LIST[i][2];
+	hero.top = HEROES_LIST[i][3];
+	hero.left = HEROES_LIST[i][4];
+	hero.hp = HEROES_LIST[i][5];
+	hero.stamina = HEROES_LIST[i][6];
+	hero.archetype = HEROES_LIST[i][7];
 	HEROES[HEROES_LIST[i][0]] = hero;
 }
 

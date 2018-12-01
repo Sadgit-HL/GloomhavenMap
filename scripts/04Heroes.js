@@ -44,10 +44,12 @@ function updateHero(element, value) {
 	container.find('input[name="hero-title"]').attr('value',value);
 	container.find('input[name="hero-x"]').attr('value','');
 	container.find('input[name="hero-y"]').attr('value','');
-	/*
-	container.find('input[name="hero-hp"]').val(HEROES[value].hp);
-	container.find('input[name="hero-stamina"]').val(HEROES[value].stamina);
-	*/
+	if (HEROES[value].hp != undefined) {
+		container.find('input[name="hero-hp"]').val(HEROES[value].hp);
+	}
+	if (HEROES[value].stamina != undefined) {
+		container.find('input[name="hero-stamina"]').val(HEROES[value].stamina);
+	}
 	container.find('.hero-image-container').children('img').attr('src', 'images/heroes_cards/' + urlize(value) + '.png');
 	var heroId = container.parent().attr('id');
 	var heroImage = $('<img>');
