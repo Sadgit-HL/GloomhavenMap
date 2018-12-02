@@ -2,7 +2,9 @@
 function addHeroLine(number) {
 	var heroLine = $('<div>').attr('id','hero' + number.toString() + 'wrapper');
 	addUnitLine(heroLine, 'hero');
-	heroLine.append($('<input type="text" name="hero-stamina" class="form-control" placeholder="Set stamina" value=""/>'));
+	heroLine.append(Create_CustomInput(1));
+	heroLine.append(Create_CustomInput(3));
+	heroLine.append(Create_CustomInput(4));
 
 	heroLine.find('.select-hero ul').append(createHeroSelectContent());
 	heroLine.find('.select-x ul').append(createXSelectContent(true));
@@ -44,6 +46,8 @@ function updateHero(element, value) {
 	container.find('input[name="hero-title"]').attr('value',value);
 	container.find('input[name="hero-x"]').attr('value','');
 	container.find('input[name="hero-y"]').attr('value','');
+
+	//OLD !!
 	if (HEROES[value].hp != undefined) {
 		container.find('input[name="hero-hp"]').val(HEROES[value].hp);
 	}

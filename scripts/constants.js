@@ -9,6 +9,15 @@ var HCellSize = 90;
 var VCellSize = 78;
 var cellType = "HEX"; // SQUARE - HEX
 
+//Custom Inputs
+var MAX_CustomInputs = 5
+var CustomInput_SetTexts = [MAX_CustomInputs-1];
+CustomInput_SetTexts[0] = 'Set HP';
+CustomInput_SetTexts[1] = 'Set init';
+CustomInput_SetTexts[2] = 'Set seq nb';	//BEWARE :  2 & 3 should be exclusive here as they are on the same space !
+CustomInput_SetTexts[3] = 'Set Gold';
+CustomInput_SetTexts[4] = 'Set XP';
+
 function listsort(a, b) {
 	if(a[0] < b[0]) return -1;
 	if(a[0] > b[0]) return 1;
@@ -378,8 +387,9 @@ doorLine.needRemoveButton = true;
 var monsterLine = new LineClass('monster','monster','RemoveLine_Monster(this);');
 monsterLine.needCoordinates = true;
 monsterLine.XYBase = '1x1';		//DefaultValue
-monsterLine.needHPInput = true;
-monsterLine.needFatigueInput = true;
+monsterLine.needCustomInput[0] = true;
+monsterLine.needCustomInput[1] = true;
+monsterLine.needCustomInput[2] = true;
 monsterLine.needAddTokenButton = true;
 //monsterLine.needAddRelicButton = true;
 //monsterLine.needAddAuraButton = true;
@@ -388,8 +398,8 @@ monsterLine.needRemoveButton = true;
 var lieutenantLine = new LineClass('lieutenant','lieutenant','RemoveLine_Lieutenant(this);');
 lieutenantLine.needCoordinates = true;
 lieutenantLine.XYBase = '1x1';		//DefaultValue
-lieutenantLine.needHPInput = true;
-lieutenantLine.needFatigueInput = true;
+lieutenantLine.needCustomInput[0] = true;
+lieutenantLine.needCustomInput[1] = true;
 lieutenantLine.needAddTokenButton = true;
 //lieutenantLine.needAddRelicButton = true;
 //lieutenantLine.needAddAuraButton = true;

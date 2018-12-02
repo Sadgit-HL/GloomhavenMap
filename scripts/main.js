@@ -376,7 +376,7 @@ function addUnitLine(line, title) {
 	line.append(createInputSelect('Select ' + title, folderize(title).toLowerCase() + '-title', 'select-' + folderize(title).toLowerCase()));
 	line.append(createInputSelect('Select X coordinate', 'x-title', 'select-x'));
 	line.append(createInputSelect('Select Y coordinate', 'y-title', 'select-y'));
-	line.append($('<input type="text" name="' + folderize(title).toLowerCase() + '-hp" class="form-control" placeholder="Set HP" value=""/>'));
+	line.append(Create_CustomInput(0));
 	line.append($('<input type="hidden" name="' + folderize(title).toLowerCase() + '-title" value=""/>'));
 	line.append($('<input type="hidden" name="' + folderize(title).toLowerCase() + '-x" value=""/>'));
 	line.append($('<input type="hidden" name="' + folderize(title).toLowerCase() + '-y" value=""/>'));
@@ -415,8 +415,15 @@ function hero(element) {
 	if (hero.title != "") {
 		hero.x = container.find('[name="hero-x"]').val();
 		hero.y = container.find('[name="hero-y"]').val();
-		hero.hp = container.find('[name="hero-hp"]').val();
-		hero.stamina = container.find('[name="hero-stamina"]').val();
+
+		hero.ci = [];
+		for (i=0;i<MAX_CustomInputs;i++){
+			hero.ci[i] = Get_CustomInput(i, container);
+		}
+
+		//OLD
+		//hero.hp = container.find('[name="hero-hp"]').val();
+		//hero.stamina = container.find('[name="hero-stamina"]').val();
 		hero.conditions = getConditions(container);
 /*
 		hero.className = container.find('[name="class-title"]').val();
@@ -633,11 +640,13 @@ function constructMapFromConfig() {
 		var monster = config.monsters[i];
 		var monsterObject = $('<div>');
 		var monsterImage = $('<img>');
-		var monsterHp = $('<div>').addClass('hit-points');
-		var monsterStamina = $('<div>').addClass('stamina');
+		var monsterCustomInput0 = $('<div>').addClass('ci0');			//HP
+		var monsterCustomInput1 = $('<div>').addClass('ci1');			//Initiative
+		var monsterCustomInput2 = $('<div>').addClass('ci2');			//Sequential
 		var z_index = 2;
-		monsterHp.html(monster.hp == undefined ? '' : monster.hp.toString());
-		monsterStamina.html(monster.stamina == undefined ? '' : monster.stamina.toString());
+		monsterCustomInput0.html((monster.ci == undefined || monster.ci[0] == undefined) ? '' : monster.ci[0].toString());
+		monsterCustomInput1.html((monster.ci == undefined || monster.ci[1] == undefined) ? '' : monster.ci[1].toString());
+		monsterCustomInput2.html((monster.ci == undefined || monster.ci[2] == undefined) ? '' : monster.ci[2].toString());
 
 		var folder = ImagePathMonsterMapToken;
 //		var angle = door.angle;
@@ -695,8 +704,9 @@ function constructMapFromConfig() {
 		*/
 		monsterImage.attr('src', folder + urlize(monster.title.replace(MasterSuffix,'').replace(MinionSuffix,'') + ((monster.master || monster.title.indexOf(MasterSuffix) > 0) ? MasterSuffix : '')) + '.png' );
 		monsterObject.append(monsterImage);
-		monsterObject.append(monsterHp);
-		monsterObject.append(monsterStamina);
+		monsterObject.append(monsterCustomInput0);
+		monsterObject.append(monsterCustomInput1);
+		monsterObject.append(monsterCustomInput2);
 		if (monsterLine.needAddTokenButton == true)
 		{
 			addConditionsToImage(monsterObject, monster.conditions);
@@ -734,11 +744,11 @@ function constructMapFromConfig() {
 		var lieutenant = config.lieutenants[i];
 		var lieutenantObject = $('<div>');
 		var lieutenantImage = $('<img>');
-		var lieutenantHp = $('<div>').addClass('hit-points');
-		var lieutenantStamina = $('<div>').addClass('stamina');
+		var lieutenantCustomInput0 = $('<div>').addClass('ci0');
+		var lieutenantCustomInput1 = $('<div>').addClass('ci1');
 		var z_index = 2;
-		lieutenantHp.html(lieutenant.hp == undefined ? '' : lieutenant.hp.toString());
-		lieutenantStamina.html(lieutenant.stamina == undefined ? '' : lieutenant.stamina.toString());
+		lieutenantCustomInput0.html((lieutenant.ci == undefined || lieutenant.ci[0] == undefined) ? '' : lieutenant.ci[0].toString());
+		lieutenantCustomInput1.html((lieutenant.ci == undefined || lieutenant.ci[1] == undefined) ? '' : lieutenant.ci[1].toString());
 
 		var folder = ImagePathMonsterBossMapToken;
 //		var angle = door.angle;
@@ -796,8 +806,8 @@ function constructMapFromConfig() {
 
 		lieutenantImage.attr('src', folder + urlize(lieutenant.title) + '.png');
 		lieutenantObject.append(lieutenantImage);
-		lieutenantObject.append(lieutenantHp);
-		lieutenantObject.append(lieutenantStamina);
+		lieutenantObject.append(lieutenantCustomInput0);
+		lieutenantObject.append(lieutenantCustomInput1);
 		if (lieutenantLine.needAddTokenButton == true)
 		{
 			addConditionsToImage(lieutenantObject, lieutenant.conditions);
@@ -914,11 +924,17 @@ function addHeroToMap(hero) {
 	if (hero.title == '' || hero.title == undefined) return;
 	var heroObject = $('<div>');
 	var heroImage = $('<img>');
-	var heroHp = $('<div>').addClass('hit-points');
-	var heroStamina = $('<div>').addClass('stamina');
+	var heroCustomInput0 = $('<div>').addClass('ci0');
+	var heroCustomInput1 = $('<div>').addClass('ci1');
+	var heroCustomInput3 = $('<div>').addClass('ci3');
+	var heroCustomInput4 = $('<div>').addClass('ci4');
 	var z_index = 2;
-	heroHp.html(hero.hp == undefined ? '' : hero.hp.toString());
-	heroStamina.html(hero.stamina == undefined ? '' : hero.stamina.toString());
+	//heroCustomInput0.html(hero.hp == undefined ? '' : hero.hp.toString());
+	//heroCustomInput1.html(hero.stamina == undefined ? '' : hero.stamina.toString());
+	heroCustomInput0.html((hero.ci == undefined || hero.ci[0] == undefined) ? '' : hero.ci[0].toString());
+	heroCustomInput1.html((hero.ci == undefined || hero.ci[1] == undefined) ? '' : hero.ci[1].toString());
+	heroCustomInput3.html((hero.ci == undefined || hero.ci[3] == undefined) ? '' : hero.ci[3].toString());
+	heroCustomInput4.html((hero.ci == undefined || hero.ci[4] == undefined) ? '' : hero.ci[4].toString());
 
 	var folder = ImagePathHeroesMapToken;
 //		var angle = door.angle;
@@ -950,8 +966,10 @@ function addHeroToMap(hero) {
 */
 	heroImage.attr('src', folder + urlize(hero.title) + '.png');
 	heroObject.append(heroImage);
-	heroObject.append(heroHp);
-	heroObject.append(heroStamina);
+	heroObject.append(heroCustomInput0);
+	heroObject.append(heroCustomInput1);
+	heroObject.append(heroCustomInput3);
+	heroObject.append(heroCustomInput4);
 	if (hero.hp == 0) heroObject.addClass('secondary');
 	if (hero.conditions != undefined) {
 		addConditionsToImage(heroObject, hero.conditions);
@@ -1015,8 +1033,15 @@ function constructHeroesTabsFromConfig() {
 			$(heroSelector + ' .x-title').html(getAlphabetChar(heroConfig.x - 1) + ' ');
 			$(heroSelector + ' [name="hero-y"]').val(heroConfig.y);
 			$(heroSelector + ' .y-title').html(heroConfig.y.toString() + ' ');
-			$(heroSelector + ' [name="hero-hp"]').val(heroConfig.hp);
-			$(heroSelector + ' [name="hero-stamina"]').val(heroConfig.stamina);
+
+			updateConditionsInSettings(heroConfig.conditions, $(heroSelector));
+
+			for (j=0;j<MAX_CustomInputs;j++){
+				if (heroConfig.ci != undefined && heroConfig.ci.length > i && heroConfig.ci[j] != undefined){
+					Set_CustomInput(j, $(heroSelector).find('.select-row'), heroConfig.ci[j]);
+				}
+			}
+
 			/*
 			if (heroConfig.className != undefined) {
 				updateClass($(heroSelector + ' .select-class li')[0], heroConfig.className.toString(), true, false);
@@ -1055,7 +1080,6 @@ function constructHeroesTabsFromConfig() {
 			if (heroConfig.featUsed != undefined && heroConfig.featUsed) {
 				$(heroSelector + '> .select-row > .hero-image-container > img').parent().addClass('feat-used');
 			}
-			updateConditionsInSettings(heroConfig.conditions, $(heroSelector));
 			if (heroConfig.aura != undefined) {
 				var aura = addAura($(heroSelector + ' [onclick="addAura(this);"]'));
 				aura.find('[name="aura-radius"]').val(heroConfig.aura.radius);

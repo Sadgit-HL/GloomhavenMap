@@ -459,8 +459,19 @@ img.familiar-image {
 	display: inline-block;
 }
 
-.hit-points,
-.stamina {
+.ci0,
+.ci1,
+.ci2,
+.ci3,
+.ci4,
+.ci5,
+.ci6,
+.ci7,
+.ci8,
+.ci9,
+.ci10,
+.ci11,
+.ci12 {
 	position: absolute;
 	left: 15;
 	color: white;
@@ -473,14 +484,32 @@ img.familiar-image {
 	border-radius: 10px;
 }
 
-.hit-points {
+.ci0 {
 	top: -1;
 	background: red;
 }
 
-.stamina {
-	bottom: -1;
+.ci1 {
+	top: 15;
+	left: 2;
+	background: blue;
+}
+
+.ci2 {
+	bottom: 15;
+	left: 2;
+	background: lightblue;
+	color: black;
+}
+.ci3 {
+	bottom: 15;
+	left: 2;
 	background: rgb(184, 157, 10);
+}
+
+.ci4 {
+	bottom: -1;
+	background: green;
 }
 
 .grid div {

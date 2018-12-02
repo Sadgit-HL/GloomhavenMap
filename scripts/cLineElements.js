@@ -7,8 +7,15 @@ function LineClass(elementName, elementID, RemoveCallBack) {
 	this.needCoordinates = false;
 	this.needAngleList = false;
 	this.needOpenedCheckbox = false;
-	this.needHPInput = false;
-	this.needFatigueInput = false;
+
+	this.needCustomInput = [];
+	this.needAddCustomInputButton = [];
+	//Custom Inputs
+	for (i=0;i<MAX_CustomInputs;i++){
+		this.needCustomInput[i] = false;
+		this.needAddCustomInputButton[i] = false;
+	}
+
 	this.needArchetypeList = false;
 	this.needClassList = false;
 	this.UsesMainCommonImages = false;
@@ -53,11 +60,10 @@ function LineClass(elementName, elementID, RemoveCallBack) {
 			if (this.needAngleList == true) {
 				lineHTML.append(Create_AngleList());
 			}
-			if (this.needHPInput == true) {
-				lineHTML.append(Create_HPInput());
-			}
-			if (this.needFatigueInput == true) {
-				lineHTML.append(Create_FatigueInput());
+			for (i=0;i<MAX_CustomInputs;i++){
+				if (this.needCustomInput[i] == true) {
+					lineHTML.append(Create_CustomInput(i));
+				}
 			}
 			if (this.needArchetypeList == true) {
 			}
@@ -114,11 +120,12 @@ function LineClass(elementName, elementID, RemoveCallBack) {
 			if (this.needAngleList == true) {
 				Set_Angle(lineHTMLwithData, NewData.angle);
 			}
-			if (this.needHPInput == true) {
-				Set_HP(lineHTMLwithData, NewData.hp);
-			}
-			if (this.needFatigueInput == true) {
-				Set_Fatigue(lineHTMLwithData, NewData.stamina);
+			for (i=0;i<MAX_CustomInputs;i++){
+				if (this.needCustomInput[i] == true) {
+					if (NewData.ci != undefined && NewData.ci.length > i && NewData.ci[i] != undefined){
+						Set_CustomInput(i, lineHTMLwithData, NewData.ci[i]);
+					}
+				}
 			}
 			if (this.needArchetypeList == true) {
 			}
@@ -159,11 +166,11 @@ function LineClass(elementName, elementID, RemoveCallBack) {
 			if (this.needAngleList == true) {
 				LineData.angle = Get_Angle(RowElement);
 			}
-			if (this.needHPInput == true) {
-				LineData.hp = Get_HP(RowElement);
-			}
-			if (this.needFatigueInput == true) {
-				LineData.stamina = Get_Fatigue(RowElement);
+			LineData.ci = [];
+			for (i=0;i<MAX_CustomInputs;i++){
+				if (this.needCustomInput[i] == true) {
+					LineData.ci[i] = Get_CustomInput(i, RowElement);
+				}
 			}
 			if (this.needArchetypeList == true) {
 			}
@@ -340,13 +347,13 @@ function Get_Angle(RowElement) {
 	return RowElement.find('.Angle-Value').val();
 }
 
-// HP Element
-function Create_HPInput(elementTitle) {
-	var html = $('<input type="text" name="HP-Value" class="form-control HP-Value" placeholder="Set HP" value=""/>');
+// Custom Input x -> cf constants for definition
+function Create_CustomInput(nb, elementTitle) {
+	var html = $('<input type="text" name="CI' + nb + '-Value" class="form-control CI' + nb + '-Value" placeholder="' + CustomInput_SetTexts[nb] + '" value=""/>');
 	return html;
 }
 
-function Set_HP(element, value) {
+function Set_CustomInput(nb, element, value) {
 	var container;
 	if ($(element).hasClass('select-row')) {
 		container = element
@@ -354,10 +361,10 @@ function Set_HP(element, value) {
 	else {
 		container = $(element).parents('.select-row');
 	}
-	container.find('.HP-Value').attr('value',value);
+	container.find('.CI' + nb + '-Value').attr('value',value);
 }
 
-function UnSet_HP(element) {
+function UnSet_CustomInput(nb, element) {
 	var container;
 	if ($(element).hasClass('select-row')) {
 		container = element
@@ -365,43 +372,11 @@ function UnSet_HP(element) {
 	else {
 		container = $(element).parents('.select-row');
 	}
-	container.find('.HP-Value').attr('value','');
+	container.find('.CI' + nb + '-Value').attr('value','');
 }
 
-function Get_HP(RowElement) {
-	return RowElement.find('.HP-Value').val();
-}
-
-// Fatigue Element
-function Create_FatigueInput(elementTitle) {
-	var html = $('<input type="text" name="Stamina-Value" class="form-control Stamina-Value" placeholder="Set stamina" value=""/>');
-	return html;
-}
-
-function Set_Fatigue(element, value) {
-	var container;
-	if ($(element).hasClass('select-row')) {
-		container = element
-	}
-	else {
-		container = $(element).parents('.select-row');
-	}
-	container.find('.Stamina-Value').attr('value',value);
-}
-
-function UnSet_Fatigue(element) {
-	var container;
-	if ($(element).hasClass('select-row')) {
-		container = element
-	}
-	else {
-		container = $(element).parents('.select-row');
-	}
-	container.find('.Stamina-Value').attr('value','');
-}
-
-function Get_Fatigue(RowElement) {
-	return RowElement.find('.Stamina-Value').val();
+function Get_CustomInput(nb, RowElement) {
+	return RowElement.find('.CI' + nb + '-Value').val();
 }
 
 // Archetype Element
