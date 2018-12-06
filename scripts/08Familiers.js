@@ -1,15 +1,19 @@
 function InitializeWindowFor_Familiars() {
 	var html = $('#familiars');
 
+/*
 	//allies zone
 	html.append('<div id="allies-container"><h1>Allies</h1></div>');
 	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addAllyLine();">Add Ally</button>');
+*/
 	//familiars zone
-	html.append('<div id="familiars-container"><h1>Familiars</h1></div>');
-	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addFamiliarLine();">Add Familiar</button>');
+	html.append('<div id="familiars-container"><h1>Summons</h1></div>');
+	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addFamiliarLine();">Add Summons</button>');
+/*
 	//villagers zone
 	html.append('<div id="villagers-container"><h1>Villagers</h1></div>');
 	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addVillagerLine();">Add Villager</button>');
+*/
 }
 
 //allies zone

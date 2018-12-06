@@ -155,6 +155,63 @@ for (var i = 0; i < DOORS_LIST.length; i++) {
 
 // -----------------------------------------------
 
+MOVABLE_OBJECTS_LIST = [
+	['Altar',1,1,45,39],
+	['Barrel',1,1,45,39],
+	['Bear trap',1,1,45,39],
+	['Bookcase',1,1,45,39],
+	['Boulder 1H',1,1,45,39],
+	['Boulder 2H',1,1,45,39],
+	['Boulder 3H',1,1,45,39],
+	['Bush',1,1,45,39],
+	['Cabinet',1,1,45,39],
+	['Crate',1,1,45,39],
+	['Crystal',1,1,45,39],
+	['Dark Pit 2H',1,1,45,39],
+	['Fountain',1,1,45,39],
+	['Nest',1,1,45,39],
+	['Poison Gas Trap',1,1,45,39],
+	['Rock Column',1,1,45,39],
+	['Sarcophagus 2H',1,1,45,39],
+	['Shelf 2H',1,1,45,39],
+	['Spike Trap',1,1,45,39],
+	['Stalagmites',1,1,45,39],
+	['Stone Pillar',1,1,45,39],
+	['Stump',1,1,45,39],
+	['Table 2H',1,1,45,39],
+	['Totem',1,1,45,39],
+	['Treasure Tile',1,1,45,39],
+	['Tree 3H',1,1,45,39],
+	['Wall Section 2H',1,1,45,39]
+];
+MOVABLE_OBJECTS = {};
+for (var i = 0; i < MOVABLE_OBJECTS_LIST.length; i++) {
+	var mobject = {};
+	mobject.title = MOVABLE_OBJECTS_LIST[i][0];
+	mobject.width = MOVABLE_OBJECTS_LIST[i][1];
+	mobject.height = MOVABLE_OBJECTS_LIST[i][2];
+	mobject.left = MOVABLE_OBJECTS_LIST[i][3];
+	mobject.top = MOVABLE_OBJECTS_LIST[i][4];
+	MOVABLE_OBJECTS[MOVABLE_OBJECTS_LIST[i][0]] = mobject;
+}
+
+MOVABLE_TOKENS_LIST = [
+	['Coin1',1,1,45,39],
+	['Coin5',1,1,45,39]
+];
+MOVABLE_TOKENS = {};
+for (var i = 0; i < MOVABLE_TOKENS_LIST.length; i++) {
+	var mtoken = {};
+	mtoken.title = MOVABLE_TOKENS_LIST[i][0];
+	mtoken.width = MOVABLE_TOKENS_LIST[i][1];
+	mtoken.height = MOVABLE_TOKENS_LIST[i][2];
+	mtoken.left = MOVABLE_TOKENS_LIST[i][3];
+	mtoken.top = MOVABLE_TOKENS_LIST[i][4];
+	MOVABLE_TOKENS[MOVABLE_TOKENS_LIST[i][0]] = mtoken;
+}
+
+// -----------------------------------------------
+
 var ImagePathConditionImagge = "images/conditions_tokens/";
 var ImagePathConditionFigureToken = "images/conditions_tokens/";
 CONDITIONS_INITIAL = [
@@ -358,6 +415,51 @@ HEROES_LIST.sort(listsort);
 
 // ------------------------------------------------------
 
+FAMILIARS_LIST = [
+	['Blue1',1,1,35,35,false],
+	['Blue2',1,1,35,35,false],
+	['Blue3',1,1,35,35,false],
+	['Blue4',1,1,35,35,false],
+	['Green1',1,1,35,35,false],
+	['Green2',1,1,35,35,false],
+	['Green3',1,1,35,35,false],
+	['Green4',1,1,35,35,false],
+	['Grey1',1,1,35,35,false],
+	['Grey2',1,1,35,35,false],
+	['Grey3',1,1,35,35,false],
+	['Magenta1',1,1,35,35,false],
+	['Magenta2',1,1,35,35,false],
+	['Magenta3',1,1,35,35,false],
+	['Magenta4',1,1,35,35,false],
+	['Orange1',1,1,35,35,false],
+	['Orange2',1,1,35,35,false],
+	['Orange3',1,1,35,35,false],
+	['Orange4',1,1,35,35,false],
+	['Purple1',1,1,35,35,false],
+	['Purple2',1,1,35,35,false],
+	['Purple3',1,1,35,35,false],
+	['Purple4',1,1,35,35,false],
+	['Red1',1,1,35,35,false],
+	['Red2',1,1,35,35,false],
+	['Red3',1,1,35,35,false],
+	['Red4',1,1,35,35,false]
+];
+
+var FAMILIARS = {};
+
+for (var i = 0; i < FAMILIARS_LIST.length; i++) {
+	var summon = {};
+	summon.title = FAMILIARS_LIST[i][0];
+	summon.width = FAMILIARS_LIST[i][1];
+	summon.height = FAMILIARS_LIST[i][2];
+	summon.top = FAMILIARS_LIST[i][3];
+	summon.left = FAMILIARS_LIST[i][4];
+	FAMILIARS[FAMILIARS_LIST[i][0]] = summon;
+}
+
+
+// ------------------------------------------------------
+
 
 var mapObjects = [];
 var monsterList = [];
@@ -383,6 +485,12 @@ doorLine.XYBase = '1x1';		//DefaultValue
 doorLine.needAngleList = true;
 doorLine.needOpenedCheckbox = true;
 doorLine.needRemoveButton = true;
+
+var MovableMapTokenLine = new LineClass('Map Token','MapToken','');
+MovableMapTokenLine.needCoordinates = true;
+MovableMapTokenLine.XYBase = '1x1';		//DefaultValue
+MovableMapTokenLine.needAngleList = true;
+MovableMapTokenLine.needRemoveButton = true;
 
 var monsterLine = new LineClass('monster','monster','RemoveLine_Monster(this);');
 monsterLine.needCoordinates = true;
@@ -1188,59 +1296,10 @@ ALLIES_SKILLS = {};
 ALLIES_SKILLS['Serena'] = ['Aura Of Might', 'Healing Aura', 'Holy Hammer'];
 ALLIES_SKILLS['Raythen'] = ['Back Strike', 'Night Prowler', 'Sharp Eyes'];
 
-FAMILIARS_LIST = [
-	['Brightblaze',true],
-	['Mirror Image',false],
-	['Pico',true],
-	['Raven Flock',true],
-	['Reanimate',true],
-	['Scourge',true],
-	['Shadow Soul',true],
-	['Skye',true],
-	['Summoned Stone',true],
-	['Trap',false],
-	['Wolf',true],
-];
 
 VILLAGERS_LIST = [
 	['Villager Female',false],
 	['Villager Male',false]
-];
-
-BLOCKS_LIST = [
-	['1x1 blue',1,1],
-	['1x1 green',1,1],
-	['1x1 red',1,1],
-	['1x1 yellow',1,1],
-	['2x2 blue',2,2],
-	['2x2 green',2,2],
-	['2x2 red',2,2],
-	['2x2 yellow',2,2]
-];
-BLOCKS = {};
-for (var i = 0; i < BLOCKS_LIST.length; i++) {
-	var block = {};
-	block.title = BLOCKS_LIST[i][0];
-	block.width = BLOCKS_LIST[i][1];
-	block.height = BLOCKS_LIST[i][2];
-	BLOCKS[BLOCKS_LIST[i][0]] = block;
-}
-
-
-OBJECTIVES_LIST = [
-	'Green',
-	'Blue',
-	'Red',
-	'White',
-	'Unknown'
-];
-
-MISCELLANEOUS_LIST = [
-	'Challenge',
-	'Search',
-	'Secret Entrance Indoors',
-	'Secret Entrance Outdoors',
-	'Sun Stone'
 ];
 
 

@@ -19,17 +19,84 @@ function Initialize_MapControls() {
 }
 
 function moveObjectsOnMap(right, down) {
+	var HexDelta = 0;
+	var DeltaApply = 0;
+	var Value = 0;
+	var minX = 9999;
+	var minY = 9999;
+
+	if (cellType == "HEX")
+	{
+		for (var n in config) {
+			var configPart = config[n];
+			if (configPart == undefined) continue;
+			if (configPart.x != undefined) {
+				if (minX > parseInt(configPart.x))
+				{
+					minX = parseInt(configPart.x);
+//					minY = parseInt(configPart.y);
+				}
+//				else if (minX == parseInt(configPart.x))
+//				{
+//					if (minY > parseInt(configPart.y))
+//					{
+//						minY = parseInt(configPart.y);
+//					}
+//				}
+			}
+			else {
+				for (var i = 0; i < configPart.length && configPart.length != undefined; i++) {
+					if (configPart[i].x != undefined) {
+						if (minX > parseInt(configPart[i].x))
+						{
+							minX = parseInt(configPart[i].x);
+//							minY = parseInt(configPart[i].y);
+						}
+//						else if (minX == parseInt(configPart[i].x))
+//						{
+//							if (minY > parseInt(configPart[i].y))
+//							{
+//								minY = parseInt(configPart[i].y);
+//							}
+//						}
+					}
+				}
+			}
+		}
+		if (minX % 2 == 1)
+		{
+			DeltaApply = 0; //when x is odd (before update)
+			Value = 1;
+		}
+		else
+		{
+			DeltaApply = 1;	//when x is even (before update)
+			Value = -1;
+		}
+	}
+
 	for (var n in config) {
 		var configPart = config[n];
 		if (configPart == undefined) continue;
 		if (configPart.x != undefined) {
+			HexDelta = 0;
+			if (cellType == "HEX" && down == 0 && (parseInt(configPart.x) % 2) == DeltaApply)
+			{
+				HexDelta = Value;
+			}
 			configPart.x = (parseInt(configPart.x) + right).toString();
-			configPart.y = (parseInt(configPart.y) + down).toString();
-		} else {
+			configPart.y = (parseInt(configPart.y) + down + HexDelta).toString();
+		}
+		else {
 			for (var i = 0; i < configPart.length && configPart.length != undefined; i++) {
 				if (configPart[i].x != undefined) {
+					HexDelta = 0;
+					if (cellType == "HEX" && down == 0 && (parseInt(configPart[i].x) % 2) == DeltaApply)
+					{
+						HexDelta = Value;
+					}
 					configPart[i].x = (parseInt(configPart[i].x) + right).toString();
-					configPart[i].y = (parseInt(configPart[i].y) + down).toString();;
+					configPart[i].y = (parseInt(configPart[i].y) + down + HexDelta).toString();;
 				}
 			}
 

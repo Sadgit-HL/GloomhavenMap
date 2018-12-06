@@ -1,9 +1,32 @@
 function InitializeWindowFor_MapTokens() {
 	var html = $('#map-tokens');
-	html.append('<div id="maptoken-container"><h1>Map Tokens</h1></div>');
-	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addObjectiveLine();">Add map token</button>');
+
+	//OverlayTiles zone
+	html.append(CreateZone_MovableMapTokens());
+
 }
 
+function UpdateWindow_MapTokens() {
+	//after Level Set
+//	Update_EncounterList('', CurrentLevel);
+}
+
+
+function GetWindow_MapTokens(DataToUpdate) {
+	DataToUpdate = GetZone_MovableMapTokens(DataToUpdate);
+	return DataToUpdate;
+}
+
+function FillWindow_MapTokens(NewData, FromPreFilledMaps) {
+	//Fill_LevelButton(); -> Common not Filled Here
+	FillZone_MovableMapTokens(NewData, FromPreFilledMaps);
+}
+
+function ResetWindow_MapTokens(FromPreFilledMaps) {
+	ResetZone_MovableMapTokens(FromPreFilledMaps);
+}
+
+/*
 
 function constructMiscellaneousObjectsTabFromConfig() {
 	if (config.objectives != undefined) {
@@ -25,12 +48,12 @@ function constructMiscellaneousObjectsTabFromConfig() {
 
 function createObjectiveSelectContent() {
 	var html = addOption('Clear', '', 'clearObjective(this);');
-	for (var i = 0; i < OBJECTIVES_LIST.length; i++) {
-		html += addOption(OBJECTIVES_LIST[i] + ' ', '', 'updateObjective(this, \'' + OBJECTIVES_LIST[i] + '\')');
+	for (var i = 0; i < MOVABLE_TOKENS_LIST.length; i++) {
+		html += addOption(MOVABLE_TOKENS_LIST[i][0] + ' ', '', 'updateObjective(this, \'' + MOVABLE_TOKENS_LIST[i][0] + '\')');
 	}
 	html += '<li role="separator" class="divider"></li>';
-	for (var i = 0; i < MISCELLANEOUS_LIST.length; i++) {
-		html += addOption(MISCELLANEOUS_LIST[i] + ' ', '', 'updateObjective(this, \'' + MISCELLANEOUS_LIST[i] + '\')');
+	for (var i = 0; i < MOVABLE_OBJECTS_LIST.length; i++) {
+		html += addOption(MOVABLE_OBJECTS_LIST[i][0] + ' ', '', 'updateObjective(this, \'' + MOVABLE_OBJECTS_LIST[i][0] + '\')');
 	}
 	return html;
 }
@@ -82,3 +105,92 @@ function getObjectives() {
 	}
 	return result;
 }
+*/
+
+
+//Movable Map Tokens zone
+function CreateZone_MovableMapTokens() {
+	var html = $('<div>');
+	var container = $('<div>').addClass('maptoken-container');
+	container.append('<h1>Movable Map Tokens</h1>');
+	html.append(container);
+	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="AddLine_MovableMapTokens();">Add Map Token</button>');
+	//initialize LineClass
+	MovableMapTokenLine.NameListValues = Create_MovableMapTokenListValues();
+	return html;
+}
+
+function GetZone_MovableMapTokens(DataToUpdate) {
+	var result = [];
+	var overlay = $('.maptoken-container .select-row');
+	for (var i = 0; i < overlay.length; i++) {
+		var container = $(overlay[i]);
+		var x = {};
+		x = MovableMapTokenLine.GetOneLineData(container);
+		result.push(x);
+	}
+	DataToUpdate.maptokens = result;
+	return DataToUpdate;
+}
+
+function FillZone_MovableMapTokens(NewData, FromPreFilledMaps) {
+	ResetZone_MovableMapTokens(FromPreFilledMaps);
+	if (NewData.maptokens != undefined) {
+		for (var i = 0 ; i < NewData.maptokens.length; i++) {
+			if (MOVABLE_TOKENS[NewData.maptokens[i].title] != undefined)
+			{
+				MovableMapTokenLine.XYBase = MOVABLE_TOKENS[NewData.maptokens[i].title].width + 'x' + MOVABLE_TOKENS[NewData.maptokens[i].title].height;
+			}
+			if (MOVABLE_OBJECTS[NewData.maptokens[i].title] != undefined)
+			{
+				MovableMapTokenLine.XYBase = MOVABLE_OBJECTS[NewData.maptokens[i].title].width + 'x' + MOVABLE_OBJECTS[NewData.maptokens[i].title].height;
+			}
+			var html = MovableMapTokenLine.AddOneLineWithData(NewData.maptokens[i]);
+			$('.maptoken-container').append(html);
+		}
+	}
+}
+
+function ResetZone_MovableMapTokens(FromPreFilledMaps) {
+	$('.maptoken-container .select-row').remove();
+}
+
+function AddLine_MovableMapTokens() {
+	MovableMapTokenLine.XYBase = "1x1";
+	var html = MovableMapTokenLine.AddOneEmptyLine()
+	$('.maptoken-container').append(html);
+	return html;
+}
+
+function Create_MovableMapTokenListValues() {
+	var html = addOption('Clear', '', 'UnSet_MovableMapTokens(this);');
+
+	for (var i = 0; i < MOVABLE_TOKENS_LIST.length; i++) {
+		html += addOption(MOVABLE_TOKENS_LIST[i][0] + ' ', '', 'Set_MovableMapTokens(this, \'' + MOVABLE_TOKENS_LIST[i][0] + '\')');
+	}
+	html += '<li role="separator" class="divider"></li>';
+	for (var i = 0; i < MOVABLE_OBJECTS_LIST.length; i++) {
+		html += addOption(MOVABLE_OBJECTS_LIST[i][0] + ' ', '', 'Set_MovableMapTokens(this, \'' + MOVABLE_OBJECTS_LIST[i][0] + '\')');
+	}
+
+	return html;
+}
+
+function Set_MovableMapTokens(element, value) {
+	var container = $(element).parents('.select-row');
+	if (MOVABLE_TOKENS[value] != undefined)
+	{
+		MovableMapTokenLine.XYBase = MOVABLE_TOKENS[value].width + 'x' + MOVABLE_TOKENS[value].height;
+	}
+	if (MOVABLE_OBJECTS[value] != undefined)
+	{
+		MovableMapTokenLine.XYBase = MOVABLE_OBJECTS[value].width + 'x' + MOVABLE_OBJECTS[value].height;
+	}
+	MovableMapTokenLine.Set_MainElement(container, value);
+}
+
+function UnSet_MovableMapTokens(element) {
+	var container = $(element).parents('.select-row');
+	MovableMapTokenLine.UnSet_MainElement(container);
+}
+

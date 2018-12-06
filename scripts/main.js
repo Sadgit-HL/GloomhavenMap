@@ -342,15 +342,12 @@ function rebuildMap(element, mapNb) {
 	updateLevel(config.CurrentLevel);
 	FillWindow_QuestObjectives(config, true);
 	FillWindow_MapDesign(config, true);
+	FillWindow_MapTokens(config, true);
 	FillWindow_OLFigures(config, true);
 
 	constructAlliesTabFromConfig();
 	constructVillagersTabFromConfig();
-	if (mapConfig.objectives != undefined) {
-		config.objectives = mapConfig.objectives;
-		clearMiscellaneousObjectsTab();
-		constructMiscellaneousObjectsTabFromConfig();
-	}
+
 	switchToMap();
 	UnSet_Campaign(element);
 }
@@ -562,20 +559,47 @@ function constructMapFromConfig() {
         map.append(doorObject);
 	}
 
-/*
 
-	for (var i = 0; config.objectives != undefined && i < config.objectives.length; i++) {
-		var objective = config.objectives[i];
+	for (var i = 0; config.maptokens != undefined && i < config.maptokens.length; i++) {
+		var objective = config.maptokens[i];
 		var objectiveObject = $('<div>');
 		var objectiveImage = $('<img>');
-		var folder = 'images/misc/';
+		var folder = 'images/overlay-tokens/';
+		var angle = objective.angle;
 		var z_index = 0;
-		objectiveObject.css({
-			'position' : 'absolute',
-			'left' : (objective.x * HCellSize).toString() + 'px',
-			'top' : (objective.y * VCellSize).toString() + 'px',
-			'z-index' : z_index
-		});
+
+		var HexDelta = (1 - (objective.x % 2)) * (VCellSize/2);
+
+		if (MOVABLE_TOKENS[objective.title] != undefined)
+		{
+			objectiveObject.css({
+				'position' : 'absolute',
+				'left' : ((Math.floor(objective.x * HCellSize * 3 / 4 )) - MOVABLE_TOKENS[objective.title].left + (HCellSize/2)).toString()  + 'px',
+				'top' : ((objective.y * VCellSize) - MOVABLE_TOKENS[objective.title].top + (VCellSize/2) + HexDelta).toString() + 'px',
+				'z-index' : z_index
+			});
+			objectiveImage.css({
+				'-ms-transform' : 'rotate(' + angle + 'deg)',
+				'-webkit-transform' : 'rotate(' + angle + 'deg)',
+				'transform' : 'rotate(' + angle + 'deg)',
+				'transform-origin' : MOVABLE_TOKENS[objective.title].left + 'px ' + MOVABLE_TOKENS[objective.title].top + 'px'
+			});
+		}
+		if (MOVABLE_OBJECTS[objective.title] != undefined)
+		{
+			objectiveObject.css({
+				'position' : 'absolute',
+				'left' : ((Math.floor(objective.x * HCellSize * 3 / 4 )) - MOVABLE_OBJECTS[objective.title].left + (HCellSize/2)).toString()  + 'px',
+				'top' : ((objective.y * VCellSize) - MOVABLE_OBJECTS[objective.title].top + (VCellSize/2) + HexDelta).toString() + 'px',
+				'z-index' : z_index
+			});
+			objectiveImage.css({
+				'-ms-transform' : 'rotate(' + angle + 'deg)',
+				'-webkit-transform' : 'rotate(' + angle + 'deg)',
+				'transform' : 'rotate(' + angle + 'deg)',
+				'transform-origin' : MOVABLE_OBJECTS[objective.title].left + 'px ' + MOVABLE_OBJECTS[objective.title].top + 'px'
+			});
+		}
 		objectiveImage.attr('src', folder + urlize(objective.title) + '.png');
 		objectiveObject.append(objectiveImage);
 		if (objective.hp != undefined) {
@@ -593,10 +617,13 @@ function constructMapFromConfig() {
 		var familiarImage = $('<img>');
 		var folder = 'images/familiars_tokens/';
 		var z_index = 1;
+
+		var HexDelta = (1 - (familiar.x % 2)) * (VCellSize/2);
+
 		familiarObject.css({
 			'position' : 'absolute',
-			'left' : (familiar.x * HCellSize).toString() + 'px',
-			'top' : (familiar.y * VCellSize).toString() + 'px',
+			'left' : ((Math.floor(familiar.x * HCellSize * 3 / 4 )) - FAMILIARS[familiar.title].left + (HCellSize/2)).toString()  + 'px',
+			'top' : ((familiar.y * VCellSize) - FAMILIARS[familiar.title].top + (VCellSize/2) + HexDelta).toString() + 'px',
 			'z-index' : z_index
 		});
 		familiarImage.attr('src', folder + urlize(familiar.title) + '.png');
@@ -611,6 +638,7 @@ function constructMapFromConfig() {
         figures.append(familiarObject);
 	}
 
+/*
 	for (var i = 0; config.villagers != undefined && i < config.villagers.length; i++) {
 		var villager = config.villagers[i];
 		var villagerObject = $('<div>');
@@ -1001,13 +1029,12 @@ function constructSettingsFromConfig() {
 //	updateLevel(config.CurrentLevel);
 	FillWindow_QuestObjectives(config, false);
 	FillWindow_MapDesign(config, false);
+	FillWindow_MapTokens(config, false);
 	FillWindow_OLFigures(config, false);
 	constructHeroesTabsFromConfig();
+	constructAlliesAndFamiliarsTabFromConfig();
 
 /*
-
-	constructAlliesAndFamiliarsTabFromConfig();
-	constructMiscellaneousObjectsTabFromConfig();
 	constructOverlordCardsTabFromConfig();
 	constructPlotDeckTabFromConfig();
 */
@@ -1112,17 +1139,17 @@ function collectData() {
 //	config.expansions = selectedExpansions;
 	config = GetWindow_QuestObjectives(config);
 	config = GetWindow_MapDesign(config);
+	config = GetWindow_MapTokens(config);
 	config = GetWindow_OLFigures(config);
 	config.hero1 = hero($('#hero1 .select-row'));
 	config.hero2 = hero($('#hero2 .select-row'));
 	config.hero3 = hero($('#hero3 .select-row'));
 	config.hero4 = hero($('#hero4 .select-row'));
+	config.familiars = getFamiliars();
 /*
 
 	config.allies = getAllies();
-	config.familiars = getFamiliars();
 	config.villagers = getVillagers();
-	config.objectives = getObjectives();
 	config.overlord = {};
 	config.overlord.cards = getOverlordCards();
 	config.plot = getPlotInfo();
@@ -1176,11 +1203,11 @@ function switchToMap() {
 
 function clearAdditionalElements() {
 	ResetWindow_MapDesign();
+	ResetWindow_MapTokens();
 	ResetWindow_OLFigures();
 
 //	clearLieutenants();
 //	clearAgents();
-	clearMiscellaneousObjectsTab();
 	clearHeroesSackAndSearchItems();
 	clearHeroesConditions();
 	clearFamiliarsAndAllies();
@@ -1234,12 +1261,12 @@ function LoadSubScripts(){
 	LoadOneSubScripts("scripts/00MapControls.js");
 	LoadOneSubScripts("scripts/01QuestObjectives.js");
 	LoadOneSubScripts("scripts/02MapDesign.js");
+	LoadOneSubScripts("scripts/10Tokens.js");
 	LoadOneSubScripts("scripts/03OLFigures.js");
 	LoadOneSubScripts("scripts/04Heroes.js");
-	/*
 	LoadOneSubScripts("scripts/08Familiers.js");
+	/*
 	LoadOneSubScripts("scripts/09OLCards.js");
-	LoadOneSubScripts("scripts/10Tokens.js");
 	LoadOneSubScripts("scripts/11PlotCards.js");
 	*/
 }
@@ -1253,11 +1280,11 @@ function InitializeAllWindows() {
 	InitializeWindowFor_MapDesign();
 	InitializeWindowFor_OLFigures();
 	//InitializeWindowFor_Heroes();
+	InitializeWindowFor_MapTokens();
+	InitializeWindowFor_Familiars();
 
 /*
-	InitializeWindowFor_Familiars();
 	InitializeWindowFor_OLCards();
-	InitializeWindowFor_MapTokens();
 	//InitializeWindowFor_PlotCards();
 */
 }
