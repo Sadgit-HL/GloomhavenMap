@@ -492,13 +492,13 @@ img.familiar-image {
 .ci1 {
 	top: 15;
 	left: 2;
-	background: blue;
+	background: green;
 }
 
 .ci2 {
 	bottom: 15;
 	left: 2;
-	background: lightblue;
+	background: lightgreen;
 	color: black;
 }
 .ci3 {
@@ -509,7 +509,7 @@ img.familiar-image {
 
 .ci4 {
 	bottom: -1;
-	background: green;
+	background: blue;
 }
 
 .grid div {

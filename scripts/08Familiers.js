@@ -9,11 +9,11 @@ function InitializeWindowFor_Familiars() {
 	//familiars zone
 	html.append('<div id="familiars-container"><h1>Summons</h1></div>');
 	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addFamiliarLine();">Add Summons</button>');
-/*
+
 	//villagers zone
 	html.append('<div id="villagers-container"><h1>Villagers</h1></div>');
-	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addVillagerLine();">Add Villager</button>');
-*/
+	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addVillagerLine();">Add Ally</button>');
+
 }
 
 //allies zone
@@ -176,7 +176,18 @@ function constructFamiliarsTabFromConfig() {
 			container.find('.x-title').html(getAlphabetChar(familiar.x - 1) + ' ');
 			container.find('[name="familiar-y"]').val(familiar.y);
 			container.find('.y-title').html(familiar.y.toString() + ' ');
-			container.find('[name="hp"]').val(familiar.hp);
+
+			//OLD !!
+			if (familiar.hp != undefined) {
+				container.find('[name="hp"]').val(familiar.hp);
+			}
+
+			for (j=0;j<MAX_CustomInputs;j++){
+				if (familiar.ci != undefined && familiar.ci.length > i && familiar.ci[j] != undefined){
+					Set_CustomInput(j, container, familiar.ci[j]);
+				}
+			}
+
 			updateConditionsInSettings(familiar.conditions, container);
 		}
 	}
@@ -204,7 +215,8 @@ function addFamiliarLine() {
 	addUnitLine(familiar, 'Familiar');
 
 	familiar.find('.select-familiar ul').append(createFamiliarsSelectContent());
-	familiar.find('[name="familiar-hp"]').attr('name', 'hp');
+	familiar.append(Create_CustomInput(1));
+	familiar.append(Create_CustomInput(2));
 	familiar.find('.select-x ul').addClass('showOneCell').append(createXSelectContent(true));
 	familiar.find('.select-y ul').addClass('showOneCell').append(createYSelectContent(true));
 	familiar.append($('<button type="button" class="btn btn-warning" aria-expanded="false" onclick="addCondition(this);">Add token</button>'));
@@ -222,7 +234,12 @@ function getFamiliars() {
 		familiar.title = container.find('[name="familiar-title"]').val();
 		familiar.x = container.find('[name="familiar-x"]').val();
 		familiar.y = container.find('[name="familiar-y"]').val();
-		familiar.hp = container.find('[name="hp"]').val();
+
+		familiar.ci = [];
+		for (j=0;j<MAX_CustomInputs;j++){
+			familiar.ci[j] = Get_CustomInput(j, container);
+		}
+
 		familiar.conditions = getConditions(container);
 		result.push(familiar);
 	}
@@ -278,7 +295,17 @@ function constructVillagersTabFromConfig() {
 			container.find('.x-title').html(getAlphabetChar(villager.x - 1) + ' ');
 			container.find('[name="villager-y"]').val(villager.y);
 			container.find('.y-title').html(villager.y.toString() + ' ');
-			container.find('[name="hp"]').val(villager.hp);
+
+			//OLD !!
+			if (villager.hp != undefined) {
+				container.find('[name="hp"]').val(villager.hp);
+			}
+
+			for (j=0;j<MAX_CustomInputs;j++){
+				if (villager.ci != undefined && villager.ci.length > i && villager.ci[j] != undefined){
+					Set_CustomInput(j, container, villager.ci[j]);
+				}
+			}
 			updateConditionsInSettings(villager.conditions, container);
 		}
 	}
@@ -301,7 +328,8 @@ function addVillagerLine() {
 	addUnitLine(villager, 'Villager');
 
 	villager.find('.select-villager ul').append(createVillagersSelectContent());
-	villager.find('[name="villager-hp"]').attr('name', 'hp');
+	villager.append(Create_CustomInput(1));
+	villager.append(Create_CustomInput(2));
 	villager.find('.select-x ul').addClass('showOneCell').append(createXSelectContent(true));
 	villager.find('.select-y ul').addClass('showOneCell').append(createYSelectContent(true));
 	villager.append($('<button type="button" class="btn btn-warning" aria-expanded="false" onclick="addCondition(this);">Add token</button>'));
@@ -319,7 +347,12 @@ function getVillagers() {
 		villager.title = container.find('[name="villager-title"]').val();
 		villager.x = container.find('[name="villager-x"]').val();
 		villager.y = container.find('[name="villager-y"]').val();
-		villager.hp = container.find('[name="hp"]').val();
+
+		villager.ci = [];
+		for (j=0;j<MAX_CustomInputs;j++){
+			villager.ci[j] = Get_CustomInput(j, container);
+		}
+
 		villager.conditions = getConditions(container);
 		result.push(villager);
 	}
