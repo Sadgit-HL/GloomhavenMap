@@ -952,7 +952,7 @@ function addConditionsToImage(sourcesObject, sourceConfig) {
 }
 
 function addHeroToMap(hero) {
-	if (hero == undefined || hero.title == undefined || hero.title != "") return;
+	if (hero == undefined || hero.title == undefined || hero.title == "") return;
 	var heroObject = $('<div>');
 	var heroImage = $('<img>');
 	var z_index = 2;
