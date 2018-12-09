@@ -1066,6 +1066,7 @@ function updateConfig() {
 
 function collectData() {
 	config.mapVersion = MAPVERSION;
+	config.mapGame = MAPGAME;
 //	config.CurrentLevel = CurrentLevel;
 //	config.expansions = selectedExpansions;
 	config = GetWindow_QuestObjectives(config);

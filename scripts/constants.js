@@ -1,4 +1,4 @@
-var MAPVERSION = "0.0.0";
+var MAPVERSION = "1.0.0";
 var MAPGAME = "GloomHaven";
 
 var mapWidth = 40;
