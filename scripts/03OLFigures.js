@@ -208,13 +208,13 @@ function Reset_MonsterImages(RowElement) {
 function CreateZone_Lieutenants() {
 	var html = $('<div>');
 	var container = $('<div>').addClass('lieutenant-container');
-	container.append('<h1>Lieutenants</h1>');
+	container.append('<h1>Bosses</h1>');
 	// non global -> line by line
 	//container.append('<div class="lieutenants-cards"></div>');
 	//container.append('<div class="lieutenants-relicscards"></div>');
 	//container.append('<div class="lieutenants-tokenscards"></div>');
 	html.append(container);
-	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="AddLine_Lieutenant();">Add lieutenant</button>');
+	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="AddLine_Lieutenant();">Add boss</button>');
 	//initialize LineClass
 	lieutenantLine.NameListValues = Create_LieutenantListValues();
 	//lieutenantLine.RelicCommonImageContainer = "lieutenants-relicscards";
