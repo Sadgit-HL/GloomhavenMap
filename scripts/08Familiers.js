@@ -11,7 +11,7 @@ function InitializeWindowFor_Familiars() {
 	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addFamiliarLine();">Add Summons</button>');
 
 	//villagers zone
-	html.append('<div id="villagers-container"><h1>Villagers</h1></div>');
+	html.append('<div id="villagers-container"><h1>Custom Summons</h1></div>');
 	html.append('<button type="button" class="btn btn-success" aria-expanded="false" onclick="addVillagerLine();">Add Ally</button>');
 
 }
@@ -266,7 +266,7 @@ function updateFamiliar(element, value) {
 
 function clearFamiliar(element) {
 	var container = $(element).parents('.select-row');
-	container.find('.familiar-title').html('Select Familiar ');
+	container.find('.familiar-title').html('Select Summon ');
 	container.find('input[name="familiar-title"]').attr('value','');
 }
 
@@ -373,7 +373,7 @@ function updateVillager(element, value) {
 
 function clearVillager(element) {
 	var container = $(element).parents('.select-row');
-	container.find('.villager-title').html('Select Villager ');
+	container.find('.villager-title').html('Select Summon ');
 	container.find('input[name="villager-title"]').attr('value','');
 }
 

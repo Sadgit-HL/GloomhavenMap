@@ -115,8 +115,6 @@ OVERLAYTILES_LIST = [
 	['corridor wood 1h',1,1,45,39],
 	['corridor wood 2h',1,1,45,39],
 	['pressure plate',1,1,45,39],
-	['dark fog',1,1,45,39],
-	['light fog',1,1,45,39],
 	['hot coals',1,1,45,39],
 	['hot coals 2h',1,1,45,39],
 	['hot coals 3h',1,1,45,39],
@@ -143,7 +141,9 @@ DOORS_LIST = [
 	['Stone Door H',1,1,45,39],
 	['Stone Door V',1,1,45,39],
 	['Wooden Door H',1,1,45,39],
-	['Wooden Door V',1,1,45,39]
+	['Wooden Door V',1,1,45,39],
+	['Dark Fog',1,1,45,39],
+	['Light Fog',1,1,45,39]
 ];
 DOORS = {};
 for (var i = 0; i < DOORS_LIST.length; i++) {
@@ -227,7 +227,8 @@ CONDITIONS_INITIAL = [
 	['Poison',true],
 	['Strengthen',true],
 	['Stun',true],
-	['Wound',true]
+	['Wound',true],
+	['Angry Face',true],
 ];
 
 var CONDITIONS = {};
@@ -269,41 +270,41 @@ for (var i=0; i < MONSTER_TRAITS.length; i++) {
 }
 
 var MONSTERS_LIST = [
-	['ancient artillery',1,1,35,41,false,bg,[dummy],false],
-	['bandit archer',1,1,35,41,false,bg,[dummy],false],
-	['bandit guard',1,1,35,41,false,bg,[dummy],false],
-	['black imp',1,1,35,41,false,bg,[dummy],false],
-	['cave bear',1,1,35,41,false,bg,[dummy],false],
-	['city archer',1,1,35,41,false,bg,[dummy],false],
-	['city guard',1,1,35,41,false,bg,[dummy],false],
-	['cultist',1,1,35,41,false,bg,[dummy],false],
-	['deep terror',1,1,35,41,false,bg,[dummy],false],
-	['earth demon',1,1,35,41,false,bg,[dummy],false],
-	['flame demon',1,1,35,41,false,bg,[dummy],false],
-	['forest imp',1,1,35,41,false,bg,[dummy],false],
-	['frost demon',1,1,35,41,false,bg,[dummy],false],
-	['giant viper',1,1,35,41,false,bg,[dummy],false],
-	['harrower infester',1,1,35,41,false,bg,[dummy],false],
-	['hound',1,1,35,41,false,bg,[dummy],false],
-	['inox archer',1,1,35,41,false,bg,[dummy],false],
-	['inox bodyguard',1,1,35,41,false,bg,[dummy],false],
-	['inox guard',1,1,35,41,false,bg,[dummy],false],
-	['inox shaman',1,1,35,41,false,bg,[dummy],false],
-	['living bones',1,1,35,41,false,bg,[dummy],false],
-	['living corpse',1,1,35,41,false,bg,[dummy],false],
-	['living spirit',1,1,35,41,false,bg,[dummy],false],
-	['lurker',1,1,35,41,false,bg,[dummy],false],
-	['night demon',1,1,35,41,false,bg,[dummy],false],
-	['ooze',1,1,35,41,false,bg,[dummy],false],
-	['rending drake',1,1,35,41,false,bg,[dummy],false],
-	['savaas icestorm',1,1,35,41,false,bg,[dummy],false],
-	['savaas lavaflow',1,1,35,41,false,bg,[dummy],false],
-	['spitting drake',1,1,35,41,false,bg,[dummy],false],
-	['stone golem',1,1,35,41,false,bg,[dummy],false],
-	['sun demon',1,1,35,41,false,bg,[dummy],false],
-	['vermling scout',1,1,35,41,false,bg,[dummy],false],
-	['vermling shaman',1,1,35,41,false,bg,[dummy],false],
-	['wind demon',1,1,35,41,false,bg,[dummy],false]
+	['Ancient Artillery',1,1,35,41,false,bg,[dummy],false],
+	['Bandit Archer',1,1,35,41,false,bg,[dummy],false],
+	['Bandit Guard',1,1,35,41,false,bg,[dummy],false],
+	['Black Imp',1,1,35,41,false,bg,[dummy],false],
+	['Cave Bear',1,1,35,41,false,bg,[dummy],false],
+	['City Archer',1,1,35,41,false,bg,[dummy],false],
+	['City Guard',1,1,35,41,false,bg,[dummy],false],
+	['Cultist',1,1,35,41,false,bg,[dummy],false],
+	['Deep Terror',1,1,35,41,false,bg,[dummy],false],
+	['Earth Demon',1,1,35,41,false,bg,[dummy],false],
+	['Flame Demon',1,1,35,41,false,bg,[dummy],false],
+	['Forest Imp',1,1,35,41,false,bg,[dummy],false],
+	['Frost Demon',1,1,35,41,false,bg,[dummy],false],
+	['Giant Viper',1,1,35,41,false,bg,[dummy],false],
+	['Harrower Infester',1,1,35,41,false,bg,[dummy],false],
+	['Hound',1,1,35,41,false,bg,[dummy],false],
+	['Inox Archer',1,1,35,41,false,bg,[dummy],false],
+	['Inox Bodyguard',1,1,35,41,false,bg,[dummy],false],
+	['Inox Guard',1,1,35,41,false,bg,[dummy],false],
+	['Inox Shaman',1,1,35,41,false,bg,[dummy],false],
+	['Living Bones',1,1,35,41,false,bg,[dummy],false],
+	['Living Corpse',1,1,35,41,false,bg,[dummy],false],
+	['Living Spirit',1,1,35,41,false,bg,[dummy],false],
+	['Lurker',1,1,35,41,false,bg,[dummy],false],
+	['Night Demon',1,1,35,41,false,bg,[dummy],false],
+	['Ooze',1,1,35,41,false,bg,[dummy],false],
+	['Rending Drake',1,1,35,41,false,bg,[dummy],false],
+	['Savaas Icestorm',1,1,35,41,false,bg,[dummy],false],
+	['Savaas Lavaflow',1,1,35,41,false,bg,[dummy],false],
+	['Spitting Drake',1,1,35,41,false,bg,[dummy],false],
+	['Stone Golem',1,1,35,41,false,bg,[dummy],false],
+	['Sun Demon',1,1,35,41,false,bg,[dummy],false],
+	['Vermling Scout',1,1,35,41,false,bg,[dummy],false],
+	['Vermling Shaman',1,1,35,41,false,bg,[dummy],false],
+	['Wind Demon',1,1,35,41,false,bg,[dummy],false]
 ];
 
 
@@ -378,24 +379,24 @@ var ImagePathHeroesImage = "images/heroes_cards/";
 var ImagePathHeroesMapToken = "images/heroes_tokens/";
 
 var HEROES_LIST = [
-	['Beast Tyrant',1,1,35,41,,,rog],
-	['Berserker',1,1,35,41,1,1,35,41,,,rog],
-//	['Bladeswarm',1,1,35,41,,,sup],
 	['Brute',1,1,35,41,,,war],
 	['Cragheart',1,1,35,41,,,war],
-	['Doomstalker',1,1,35,41,,,sup],
-	['Elementalist',1,1,35,41,,,rog],
 	['Mindthief',1,1,35,41,,,wiz],
-	['Nightshroud',1,1,35,41,,,wiz],
-	['Plagueherald',1,1,35,41,,,rog],
-	['Quartermaster',1,1,35,41,,,rog],
-	['Sawbones',1,1,35,41,,,war],
 	['Scoundrel',1,1,35,41,,,sup],
-	['Sunkeeper',1,1,35,41,,,war],
-	['Soothsinger',1,1,35,41,,,rog],
-	['Summoner',1,1,35,41,,,wiz],
 	['Spellweaver',1,1,35,41,,,sup],
-	['Tinkerer',1,1,35,41,,,war]
+	['Tinkerer',1,1,35,41,,,war],
+	['Angry Face',1,1,35,41,,,sup],
+//	['Bladeswarm',1,1,35,41,,,sup],
+	['Circles',1,1,35,41,,,wiz],
+	['Cthulhu',1,1,35,41,,,rog],
+	['Lightning',1,1,35,41,1,1,35,41,,,rog],
+	['Moon',1,1,35,41,,,wiz],
+	['Musical Note',1,1,35,41,,,rog],
+	['Three Spears',1,1,35,41,,,rog],
+	['Triangle',1,1,35,41,,,rog],
+	['Saw',1,1,35,41,,,war],
+	['Sun',1,1,35,41,,,war],
+	['Two Mini',1,1,35,41,,,rog],
 ];
 
 var HEROES = {};
@@ -419,11 +420,15 @@ HEROES_LIST.sort(listsort);
 // ------------------------------------------------------
 
 VILLAGERS_LIST = [
+	['Air',1,1,35,41,true],
+	['Dark',1,1,35,41,false],
+	['Earth',1,1,35,41,false],
+	['Fire',1,1,35,41,false],
+	['Ice',1,1,35,41,false],
+	['Light',1,1,35,41,false],
 	['Giant Rat',1,1,35,41,false],
 	['Mystic Ally',1,1,35,41,false],
-	['Mystic Ally1',1,1,35,41,false],
-	['Rat Swarm1',1,1,35,41,false],
-	['Rat Swarm2',1,1,35,41,false]
+	['Rat Swarm',1,1,35,41,false],
 ];
 
 var VILLAGERS = {};
