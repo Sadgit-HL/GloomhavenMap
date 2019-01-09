@@ -161,7 +161,7 @@ for (var i = 0; i < DOORS_LIST.length; i++) {
 MOVABLE_OBJECTS_LIST = [
 	['Altar',1,1,45,39],
 	['Barrel',1,1,45,39],
-	['Bear trap',1,1,45,39],
+	['Bear Trap',1,1,45,39],
 	['Bookcase',1,1,45,39],
 	['Boulder 1H',1,1,45,39],
 	['Boulder 2H',1,1,45,39],
