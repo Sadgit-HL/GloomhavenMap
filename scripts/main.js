@@ -679,6 +679,9 @@ function constructMapFromConfig() {
 			'z-index' : z_index
 		});
 
+		var monsterPosition = $('<div>').addClass('xy');
+		monsterPosition.html(getAlphabetChar(Number(monster.x)-1) + monster.y.toString());
+		monsterObject.append(monsterPosition);
 /*
 		if (monster.auras != undefined) {
 			for (var j = 0; j < monster.auras.length; j++) {
@@ -784,6 +787,10 @@ function constructMapFromConfig() {
 			'top' : ((lieutenant.y * VCellSize) - LIEUTENANTS[lieutenant.title].top + (VCellSize/2) + HexDelta).toString() + 'px',
 			'z-index' : z_index
 		});
+
+		var monsterPosition = $('<div>').addClass('xy');
+		monsterPosition.html(getAlphabetChar(Number(lieutenant.x)-1) + lieutenant.y.toString());
+		lieutenantObject.append(monsterPosition);
 
 /*
 		if (lieutenant.auras != undefined) {
@@ -968,6 +975,10 @@ function addHeroToMap(hero) {
 		'top' : ((hero.y * VCellSize) - HEROES[hero.title].top + (VCellSize/2) + HexDelta).toString() + 'px',
 		'z-index' : z_index
 	});
+
+	var monsterPosition = $('<div>').addClass('xy');
+	monsterPosition.html(getAlphabetChar(Number(hero.x)-1) + hero.y.toString());
+	heroObject.append(monsterPosition);
 /*
 	if (hero.aura != undefined) {
 		var aura = $('<div>');
