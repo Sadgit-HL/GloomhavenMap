@@ -471,7 +471,8 @@ img.familiar-image {
 .ci9,
 .ci10,
 .ci11,
-.ci12 {
+.ci12,
+.xy{
 	position: absolute;
 	left: 15;
 	color: white;
@@ -510,6 +511,11 @@ img.familiar-image {
 .ci4 {
 	bottom: -1;
 	background: blue;
+}
+
+.xy {
+	top: 36;
+	left: 25;
 }
 
 .grid div {
