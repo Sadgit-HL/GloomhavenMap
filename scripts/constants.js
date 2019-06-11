@@ -122,6 +122,7 @@ OVERLAYTILES_LIST = [
 	['log 2h',1,1,45,39],
 	['rubble',1,1,45,39],
 	['stairs',1,1,45,39],
+        ['thorns',1,1,45,39],
 	['water',1,1,45,39],
 	['water 2h',1,1,45,39],
 	['water 3h',1,1,45,39]
