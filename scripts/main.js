@@ -266,6 +266,9 @@ function RetroCompatibility(OldConfig) {
 	if (NewConfig.CurrentLevel == undefined) {
 		NewConfig.CurrentLevel = 0;
 	}
+	if (NewConfig.CurrentLevel == "I" || NewConfig.CurrentLevel == "II") {
+		NewConfig.CurrentLevel = 0;
+	}
 
 	// previous to 1.5.0
 	if (NewConfig.mapVersion == undefined) {
