@@ -264,7 +264,7 @@ function RetroCompatibility(OldConfig) {
 
 	//initialize values if needed
 	if (NewConfig.CurrentLevel == undefined) {
-		NewConfig.CurrentLevel = 'I';
+		NewConfig.CurrentLevel = 0;
 	}
 
 	// previous to 1.5.0
@@ -303,14 +303,14 @@ function RetroCompatibility(OldConfig) {
 		//change Level
 		// FROM "actOne":true TO "CurrentLevel":"I"
 		// FROM "actOne":false TO "CurrentLevel":"II"
-		if (NewConfig.actOne != undefined) {
-			if (NewConfig.actOne) {
-				NewConfig.CurrentLevel = "I";
-			}
-			else {
-				NewConfig.CurrentLevel = "II";
-			}
-		}
+		//if (NewConfig.actOne != undefined) {
+		//	if (NewConfig.actOne) {
+		//		NewConfig.CurrentLevel = "I";
+		//	}
+		//	else {
+		//		NewConfig.CurrentLevel = "II";
+		//	}
+		//}
 
 
 
@@ -1039,7 +1039,7 @@ function adjustOverlappingImages() {
 }
 
 function constructSettingsFromConfig() {
-//	updateLevel(config.CurrentLevel);
+	updateLevel(config.CurrentLevel);
 	FillWindow_QuestObjectives(config, false);
 	FillWindow_MapDesign(config, false);
 	FillWindow_MapTokens(config, false);
@@ -1078,7 +1078,7 @@ function updateConfig() {
 function collectData() {
 	config.mapVersion = MAPVERSION;
 	config.mapGame = MAPGAME;
-//	config.CurrentLevel = CurrentLevel;
+	config.CurrentLevel = CurrentLevel;
 //	config.expansions = selectedExpansions;
 	config = GetWindow_QuestObjectives(config);
 	config = GetWindow_MapDesign(config);
