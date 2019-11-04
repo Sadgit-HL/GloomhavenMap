@@ -431,6 +431,17 @@ VILLAGERS_LIST = [
 	['Giant Rat',1,1,35,41,false],
 	['Mystic Ally',1,1,35,41,false],
 	['Rat Swarm',1,1,35,41,false],
+	['Void Eater',1,1,35,41,false],
+	['Bat Swarm',1,1,35,41,false],
+	['Rock Colossus',1,1,35,41,false],
+	['Black Unicorn',1,1,35,41,false],
+	['Iron Beast',1,1,35,41,false],
+	['Nail Spheres',1,1,35,41,false],
+	['Healing Sprite',1,1,35,41,false],
+	['Thorn Shooter',1,1,35,41,false],
+	['Lava Golem',1,1,35,41,false],
+	['Shadow Wolf',1,1,35,41,false],
+	['Slime Spirit',1,1,35,41,false],
 ];
 
 var VILLAGERS = {};
