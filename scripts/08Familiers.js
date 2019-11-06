@@ -183,7 +183,7 @@ function constructFamiliarsTabFromConfig() {
 			}
 
 			for (j=0;j<MAX_CustomInputs;j++){
-				if (familiar.ci != undefined && familiar.ci.length > i && familiar.ci[j] != undefined){
+				if (familiar.ci != undefined && familiar.ci.length > j && familiar.ci[j] != undefined){
 					Set_CustomInput(j, container, familiar.ci[j]);
 				}
 			}
@@ -302,7 +302,7 @@ function constructVillagersTabFromConfig() {
 			}
 
 			for (j=0;j<MAX_CustomInputs;j++){
-				if (villager.ci != undefined && villager.ci.length > i && villager.ci[j] != undefined){
+				if (villager.ci != undefined && villager.ci.length > j && villager.ci[j] != undefined){
 					Set_CustomInput(j, container, villager.ci[j]);
 				}
 			}
