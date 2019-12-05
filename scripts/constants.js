@@ -442,6 +442,8 @@ VILLAGERS_LIST = [
 	['Lava Golem',1,1,35,41,false],
 	['Shadow Wolf',1,1,35,41,false],
 	['Slime Spirit',1,1,35,41,false],
+	['Skeleton',1,1,35,41,false],
+	['Jade Falcon',1,1,35,41,false],
 ];
 
 var VILLAGERS = {};
