@@ -444,6 +444,7 @@ VILLAGERS_LIST = [
 	['Slime Spirit',1,1,35,41,false],
 	['Skeleton',1,1,35,41,false],
 	['Jade Falcon',1,1,35,41,false],
+	['Warrior Spirit',1,1,35,41,false],
 ];
 
 var VILLAGERS = {};
