@@ -446,6 +446,8 @@ VILLAGERS_LIST = [
 	['Jade Falcon',1,1,35,41,false],
 	['Warrior Spirit',1,1,35,41,false],
 	['Orchid',1,1,35,41,false],
+	['Redthorn',1,1,35,41,false],
+
 ];
 
 var VILLAGERS = {};
