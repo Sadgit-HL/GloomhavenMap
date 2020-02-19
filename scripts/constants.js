@@ -356,7 +356,7 @@ var LIEUTENANTS_LIST = [
 	['The Colorless',1,1,35,41,false,bg],
 	['The Gloom',1,1,35,41,false,bg],
 	['The Sightless Eye',1,1,35,41,false,bg],
-	['Winged Horror',1,1,35,41,false,bg]
+	['Winged Horror',1,1,35,41,false,bg],
 ];
 
 var LIEUTENANTS = {};
