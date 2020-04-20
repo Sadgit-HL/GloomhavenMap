@@ -448,6 +448,8 @@ VILLAGERS_LIST = [
 	['Orchid',1,1,35,41,false],
 	['Redthorn',1,1,35,41,false],
 	['Burning Avatar',1,1,35,41,false],
+	['Bear',1,1,35,41,false],
+
 
 ];
 
