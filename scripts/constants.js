@@ -399,6 +399,10 @@ var HEROES_LIST = [
 	['Saw',1,1,35,41,,,war],
 	['Sun',1,1,35,41,,,war],
 	['Two Mini',1,1,35,41,,,rog],
+	['Voidwarden',1,1,35,41,,,rog],
+	['Demolitionist',1,1,35,41,,,rog],
+	['Red Guard',1,1,35,41,,,rog],
+	['Hatchet',1,1,35,41,,,rog],
 ];
 
 var HEROES = {};
