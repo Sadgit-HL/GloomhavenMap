@@ -403,6 +403,7 @@ var HEROES_LIST = [
 	['Demolitionist',1,1,35,41,,,rog],
 	['Red Guard',1,1,35,41,,,rog],
 	['Hatchet',1,1,35,41,,,rog],
+	['Aeromancer',1,1,35,41,,,rog],
 ];
 
 var HEROES = {};
