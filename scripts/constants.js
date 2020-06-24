@@ -231,6 +231,7 @@ CONDITIONS_INITIAL = [
 	['Stun',true],
 	['Wound',true],
 	['Angry Face',true],
+	['Aeromancer',true],
 ];
 
 var CONDITIONS = {};
