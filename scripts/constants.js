@@ -456,6 +456,8 @@ VILLAGERS_LIST = [
 	['Burning Avatar',1,1,35,41,false],
 	['Bear',1,1,35,41,false],
         ['Giant Toad',1,1,35,41,false],
+	['Zephyr',1,1,35,41,false],
+        ['Swamp Alligator',1,1,35,41,false],
 
 
 ];
