@@ -81,7 +81,8 @@ MAP_TILES_LIST_COMPLETE = [
 	['l2',7,5,68,39],
 	['l3',7,5,68,39],
 	['m1',7,6,68,117],
-	['n1',7,8,68,39]
+	['n1',7,8,68,39],
+	['jotl_01',11,7,68,39],
 ];
 
 MAP_TILES_LIST = [];
@@ -307,7 +308,8 @@ var MONSTERS_LIST = [
 	['Sun Demon',1,1,35,41,false,bg,[dummy],false],
 	['Vermling Scout',1,1,35,41,false,bg,[dummy],false],
 	['Vermling Shaman',1,1,35,41,false,bg,[dummy],false],
-	['Wind Demon',1,1,35,41,false,bg,[dummy],false]
+	['Wind Demon',1,1,35,41,false,bg,[dummy],false],
+	['JotL Black Sludge',1,1,35,41,false,bg,[dummy],false]
 ];
 
 
