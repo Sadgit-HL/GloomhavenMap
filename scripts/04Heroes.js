@@ -34,7 +34,7 @@ function addHeroLine(number) {
 function createHeroSelectContent() {
 	var html = addOption('Clear', '', 'clearHero(this);');
 	for (var i = 0; i < HEROES_LIST.length; i++) {
-		html += addOption(HEROES_LIST[i][0] + ' - ' + HEROES_LIST[i][5], '', 'updateHero(this, \'' + HEROES_LIST[i][0] + '\');');
+		html += addOption(HEROES_LIST[i][0] + ' ', '', 'updateHero(this, \'' + HEROES_LIST[i][0] + '\');');
 	}
 	return html;
 }

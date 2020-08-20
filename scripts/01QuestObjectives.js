@@ -4,9 +4,6 @@ function InitializeWindowFor_QuestObjectives() {
 	html.append(addTextareaWithLabel("Overlord victory conditions:", "overlord-victory"));
 	html.append(addTextareaWithLabel("Current quest status:", "current-status"));
 	html.append(addTextareaWithLabel("Reinforcements:", "reinforcements"));
-
-	//expansions
-	html.append(Create_ExpansionList());
 }
 
 function GetWindow_QuestObjectives(DataToUpdate) {
@@ -16,7 +13,6 @@ function GetWindow_QuestObjectives(DataToUpdate) {
 	questObjectives.currentStatus = $('#current-status').val();
 	questObjectives.reinforcements = $('#reinforcements').val();
 	DataToUpdate.questObjectives = questObjectives
-	DataToUpdate = GetZone_Expansions(DataToUpdate);
 	return DataToUpdate;
 }
 
@@ -29,7 +25,6 @@ function FillWindow_QuestObjectives(NewData, FromPreFilledMaps) {
 		$('#current-status').val(questObjectives.currentStatus);
 		$('#reinforcements').val(questObjectives.reinforcements);
 	}
-	FillZone_Expansions(NewData, FromPreFilledMaps);
 }
 
 function ResetWindow_QuestObjectives(FromPreFilledMaps) {
@@ -37,5 +32,4 @@ function ResetWindow_QuestObjectives(FromPreFilledMaps) {
 	$('#overlord-victory').val('');
 	$('#current-status').val('');
 	$('#reinforcements').val('');
-	ResetZone_Expansions(FromPreFilledMaps);
 }

@@ -123,7 +123,7 @@ function RemoveLine_Monster(Button) {
 function Create_MonsterListValues() {
 	var html = addOption('Clear', '', 'UnSet_Monster(this);');
 	for (var i = 0; i < MONSTERS_LIST.length; i++) {
-		var monsterClass = folderize(MONSTERS_LIST[i][5]);
+		var monsterClass = folderize(MONSTERS_LIST[i][6]);
 		for (var j = 0; j < MONSTERS_LIST[i][7].length; j++) {
 			monsterClass += ' ';
 			monsterClass += urlize(MONSTERS_LIST[i][7][j]);

@@ -292,8 +292,8 @@ function rotateVillagers(clockwise, realWidth, realHeight) {
 }
 
 function rotateObjectives(clockwise, realWidth, realHeight) {
-	for (var i = 0; i < config.maptokens.length; i++) {
-		var objective = config.maptokens[i];
+	for (var i = 0; i < config.objectives.length; i++) {
+		var objective = config.objectives[i];
 		var height = 1, width = 1;
 		rotateObject(clockwise, objective, height, width, realHeight, realWidth);
 	}
