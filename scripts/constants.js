@@ -230,6 +230,7 @@ CONDITIONS_INITIAL = [
 	['Invisible',true],
 	['Muddle',true],
 	['Poison',true],
+	['Regenerate',true],
 	['Strengthen',true],
 	['Stun',true],
 	['Wound',true],
