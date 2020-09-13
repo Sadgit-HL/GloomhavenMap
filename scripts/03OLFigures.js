@@ -276,7 +276,7 @@ function Update_LieutenantImages(RowElement) {
 	{
 		var LieutenantImage = $('<img>');
 		var ImageCardPath = ImagePathRoot + lieutenantLine.CardsPath(EXPANSION_PATHS[lieutenantLine.AllData[OneLieutenantValue].expansion]);
-		LieutenantImage.attr('src', ImageCardPath + urlize(ieutenantLine.AllData[OneLieutenantValue].title) + LevelAddition + '.png').addClass('lieutenant').addClass(urlize(ieutenantLine.AllData[OneLieutenantValue].title));
+		LieutenantImage.attr('src', ImageCardPath + urlize(lieutenantLine.AllData[OneLieutenantValue].title) + LevelAddition + '.png').addClass('lieutenant').addClass(urlize(lieutenantLine.AllData[OneLieutenantValue].title));
 		LieutenantImageContainer.append(LieutenantImage);
 		if (LIEUTENANTS_LIST[OneLieutenantValue].hasBack) {
 			var LieutenantCardBack = $('<img>');

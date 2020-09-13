@@ -139,9 +139,14 @@ function Create_HeroListValues() {
 function Set_Hero(element, value) {
 	heroLine.XYBase = "1x1";
 	var container = $(element).parents('.select-row');
+	//update hero line because it has last value whichis not always good
+	var OneHeroValue = container.find('.MainElement-ID').val();
+	heroLine.elementID = OneHeroValue
 	heroLine.Set_MainElement(container, value);
-	Update_HeroImages(container);
-	//add zone for hero skill + insert skill images container
+
+	Update_HeroImages($('#' + OneHeroValue + ' .heroes-container'));
+
+//add zone for hero skill + insert skill images container
 //	var HeroImageContainer = $('<div>').addClass('hero-skills-images-container');
 //	container.find('.Row-cards').after(HeroImageContainer);
 //	var SkillZone = CreateZone_HeroSkills(value);
