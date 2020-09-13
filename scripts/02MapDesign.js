@@ -4,8 +4,6 @@ function InitializeWindowFor_MapDesign() {
 	//Level Button
 //	html.append(Create_LevelButton());
 
-	//pre-filled Maps zone
-//	html.append(CreateZone_PreFilledMaps());
 	//tiles zone
 	html.append(CreateZone_Tiles());
 	//OverlayTiles zone
@@ -40,62 +38,6 @@ function ResetWindow_MapDesign(FromPreFilledMaps) {
 	ResetZone_Doors(FromPreFilledMaps);
 }
 
-//pre-filled Maps zone
-function CreateZone_PreFilledMaps() {
-	var html = $('<div>').addClass('full-maps-container');
-	html.append('<h1>Full maps</h1>');
-	html.append(Create_CampaignList());
-	html.append(Create_EncounterList());
-	return html;
-}
-
-function Create_CampaignList() {
-	var html = createInputSelect('Select Campaign ', 'Campaign-Title', 'select-campaign');
-	html.find('ul').addClass('showcampaign ' + ALL_CAMPAIGNS_CLASSES);
-	html.find('ul').append(addOption('Clear', '', 'UnSet_Campaign(this,\'\');'));
-	for (var i = 0; i < CAMPAIGNS.length; i++) {
-		var code = CAMPAIGNS[i][1];
-		var title = CAMPAIGNS[i][0];
-		html.find('ul').append(addOption(title + ' ', code, 'Set_Campaign(this, \'' + code + '\');'));
-	}
-	html.append($('<input type="hidden" name="Campaign-Value" class="Campaign-Value" value=""/>'));
-	return html;
-}
-
-function Create_EncounterList() {
-	var html = createInputSelect('Remove and replace current map with : Quest / Encounter ', 'encounter-title', 'select-encounter');
-	html.find('ul').addClass('showencounter ' + ALL_CAMPAIGNS_CLASSES + ' ' + ALL_LEVELS);
-	for (var i = 0; i < MAP_HASES_LIST.length; i++) {
-		html.find('ul').append(addOption(MAP_HASES_LIST[i][1] + ' ',MAP_HASES_LIST[i][0] + ' ' + 'Act' + MAP_HASES_LIST[i][2], 'rebuildMap(this, \'' + i + '\', false);'));
-	}
-	return html;
-}
-
-function Set_Campaign(element, value) {
-	var container = $(element).parents('.full-maps-container');
-	container.find('.Campaign-Title').html(element.innerText + ' ');
-	container.find('.Campaign-Value').attr('value',value);
-	Update_EncounterList(value, CurrentLevel);
-}
-
-function UnSet_Campaign(element, value) {
-	var container = $(element).parents('.full-maps-container');
-	container.find('.select-campaign ul').addClass(ALL_CAMPAIGNS_CLASSES);
-	container.find('.Campaign-Title').html('Select campaign ');
-	container.find('.Campaign-Value').attr('value',value);
-	Update_EncounterList(ALL_CAMPAIGNS_CLASSES, ALL_LEVELS);
-}
-
-function Update_EncounterList(campaign, Level) {
-	var container = $('.full-maps-container');
-	if (campaign != '') {
-		container.find('.select-encounter ul').removeClass(ALL_CAMPAIGNS_CLASSES).addClass(campaign);
-	}
-	if (Level == "I" || Level == "II") {
-		Level = 'Act' + Level;
-	}
-	container.find('.select-encounter ul').removeClass(ALL_LEVELS).addClass(Level);
-}
 
 //tiles zone
 function CreateZone_Tiles() {
@@ -147,9 +89,9 @@ function AddLine_Tile() {
 
 function Create_TileListValues() {
 	var html = addOption('Clear', '', 'UnSet_Tile(this);');
-	for (var i = 0; i < MAP_TILES_LIST.length; i++) {
-		html += addOption(MAP_TILES_LIST[i] + ' ', '', 'Set_Tile(this, \'' + MAP_TILES_LIST[i] + '\')');
-	}
+	Object.keys(MAP_TILES_LIST).forEach(item => {
+		html += addOption(MAP_TILES_LIST[item].title + ' ', '', 'Set_Tile(this, \'' + item + '\')');
+	});
 	return html;
 }
 
@@ -194,7 +136,7 @@ function FillZone_Doors(NewData, FromPreFilledMaps) {
 	ResetZone_Doors(FromPreFilledMaps);
 	if (NewData.doors != undefined) {
 		for (var i = 0 ; i < NewData.doors.length; i++) {
-			doorLine.XYBase = DOORS[NewData.doors[i].title].width + 'x' + DOORS[NewData.doors[i].title].height;
+			doorLine.XYBase = doorLine.AllData[NewData.doors[i].id].width + 'x' + doorLine.AllData[NewData.doors[i].id].height;
 			var html = doorLine.AddOneLineWithData(NewData.doors[i]);
 			$('.doors-container').append(html);
 		}
@@ -214,9 +156,9 @@ function AddLine_Door() {
 
 function Create_DoorListValues() {
 	var html = addOption('Clear', '', 'UnSet_Door(this);');
-	for (var i = 0; i < DOORS_LIST.length; i++) {
-		html += addOption(DOORS_LIST[i][0] + ' ', '', 'Set_Door(this, \'' + DOORS_LIST[i][0] + '\')');
-	}
+	Object.keys(DOORS_LIST).forEach(item => {
+		html += addOption(DOORS_LIST[item].title + ' ', '', 'Set_Door(this, \'' + item + '\')');
+	});
 	return html;
 }
 
@@ -261,7 +203,7 @@ function FillZone_OverlayTiles(NewData, FromPreFilledMaps) {
 	ResetZone_OverlayTiles(FromPreFilledMaps);
 	if (NewData.overlaytiles != undefined) {
 		for (var i = 0 ; i < NewData.overlaytiles.length; i++) {
-			OverlayTileLine.XYBase = OVERLAYTILES[NewData.overlaytiles[i].title].width + 'x' + OVERLAYTILES[NewData.overlaytiles[i].title].height;
+			OverlayTileLine.XYBase = OverlayTileLine.AllData[NewData.overlaytiles[i].id].width + 'x' + OverlayTileLine.AllData[NewData.overlaytiles[i].id].height;
 			var html = OverlayTileLine.AddOneLineWithData(NewData.overlaytiles[i]);
 			$('.overlaytile-container').append(html);
 		}
@@ -281,15 +223,15 @@ function AddLine_OverlayTiles() {
 
 function Create_OverlayTileListValues() {
 	var html = addOption('Clear', '', 'UnSet_OverlayTiles(this);');
-	for (var i = 0; i < OVERLAYTILES_LIST.length; i++) {
-		html += addOption(OVERLAYTILES_LIST[i][0] + ' ', '', 'Set_OverlayTiles(this, \'' + OVERLAYTILES_LIST[i][0] + '\')');
-	}
+	Object.keys(OVERLAYTILES_LIST).forEach(item => {
+		html += addOption(OVERLAYTILES_LIST[item].title + ' ', '', 'Set_OverlayTiles(this, \'' + item + '\')');
+	});
 	return html;
 }
 
 function Set_OverlayTiles(element, value) {
 	var container = $(element).parents('.select-row');
-	OverlayTileLine.XYBase = OVERLAYTILES[value].width + 'x' + OVERLAYTILES[value].height;
+	OverlayTileLine.XYBase = OverlayTileLine.AllData[value].width + 'x' + OverlayTileLine.AllData[value].height;
 	OverlayTileLine.Set_MainElement(container, value);
 }
 

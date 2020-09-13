@@ -11,7 +11,7 @@ function Create_LevelButton()
 
 	var html;
 	html = $('<div>').addClass('SelectLevel');
-	html.append('<input type="image" src="images/misc/Level' + CurrentLevel + '.png" class="ImgLevel" onclick="SwitchLevel();" />');
+	html.append('<input type="image" src="' + ImagePathRoot + ImagePathLevelImage + 'Level' + CurrentLevel + '.png" class="ImgLevel" onclick="SwitchLevel();" />');
 	return html;
 }
 
@@ -19,7 +19,7 @@ function Fill_LevelButton()
 {
 	var LevelImg = $('.ImgLevel');
 	var LevelImgSrc = LevelImg.attr('src');
-	LevelImgSrc = 'images/misc/Level' + CurrentLevel + ".png";
+	LevelImgSrc = ImagePathRoot + ImagePathLevelImage + 'Level' + CurrentLevel + ".png";
 	LevelImg.attr('src', LevelImgSrc);
 }
 

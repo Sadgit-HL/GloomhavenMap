@@ -1,5 +1,5 @@
 function Create_CoordinatesSystem(XYBase) {
-	var html= $('<div>');
+	var html = $('<div>');
 	html.addClass('coordinates-container');
 	html.addClass('btn-group');
 
@@ -35,29 +35,29 @@ function Update_XY(RowElement, NewXYBase) {
 			UnSet_X(RowElement);
 		}
 		else {
-			Set_X(RowElement,RowElement.find('.X-Value').attr('value'))
+			Set_X(RowElement, RowElement.find('.X-Value').attr('value'))
 		}
 		if (RowElement.find('.Y-Value').attr('value') == '') {
 			UnSet_Y(RowElement);
 		}
 		else {
-			Set_Y(RowElement,RowElement.find('.Y-Value').attr('value'))
+			Set_Y(RowElement, RowElement.find('.Y-Value').attr('value'))
 		}
 	}
 
-//	var xYSelects = $(container).find('.select-x ul, .select-y ul');
-//	var firstClass = SHOWING_CLASSES[NewXSize];
-//	var secondClass = SHOWING_CLASSES[NewYSize];
-//	xYSelects.removeClass(SHOWING_CLASSES[1] + ' ' + SHOWING_CLASSES[2] + ' ' + SHOWING_CLASSES[3] + ' squared');
-//	xYSelects.addClass(firstClass);
-//	if (firstClass == secondClass) {
-//		xYSelects.addClass('squared');
-//	} else {
-//		xYSelects.addClass(secondClass);
-//	}
-//
-//	UnSet_X(element);
-//	UnSet_Y(element);
+	//	var xYSelects = $(container).find('.select-x ul, .select-y ul');
+	//	var firstClass = SHOWING_CLASSES[NewXSize];
+	//	var secondClass = SHOWING_CLASSES[NewYSize];
+	//	xYSelects.removeClass(SHOWING_CLASSES[1] + ' ' + SHOWING_CLASSES[2] + ' ' + SHOWING_CLASSES[3] + ' squared');
+	//	xYSelects.addClass(firstClass);
+	//	if (firstClass == secondClass) {
+	//		xYSelects.addClass('squared');
+	//	} else {
+	//		xYSelects.addClass(secondClass);
+	//	}
+	//
+	//	UnSet_X(element);
+	//	UnSet_Y(element);
 }
 
 function Get_Coordinates(container) {
@@ -70,10 +70,10 @@ function Get_Coordinates(container) {
 }
 
 function Set_Coordinates(container, ConfigData) {
-	container.find('.XYBase-Value').attr('value',ConfigData.base);
-	container.find('.direction-container a div').attr('class',ConfigData.direction);
-	Set_X(container,ConfigData.x);
-	Set_Y(container,ConfigData.y);
+	container.find('.XYBase-Value').attr('value', ConfigData.base);
+	container.find('.direction-container a div').attr('class', ConfigData.direction);
+	Set_X(container, ConfigData.x);
+	Set_Y(container, ConfigData.y);
 }
 
 // X element
@@ -112,15 +112,15 @@ function Create_XListValues(XYBase) {
 	for (var i = 1; i <= mapWidth; i++) {
 		//From 'A' to mapWidth in letters ex 'AN'
 		if (BaseArray[0] == "1" || BaseArray[1] == "1") {
-			html = html + addOption(getAlphabetChar(i-1), Direction1, 'Set_X(this, \'' + i.toString() + '\');');
+			html = html + addOption(getAlphabetChar(i - 1), Direction1, 'Set_X(this, \'' + i.toString() + '\');');
 		}
 		if (BaseArray[0] == "2" || BaseArray[1] == "2") {
-			if (i <= mapWidth-1)
-				html = html + addOption(getAlphabetChar(i-1) + '-' + getAlphabetChar(i), Direction2, 'Set_X(this, \'' + i.toString() + '\');');
+			if (i <= mapWidth - 1)
+				html = html + addOption(getAlphabetChar(i - 1) + '-' + getAlphabetChar(i), Direction2, 'Set_X(this, \'' + i.toString() + '\');');
 		}
 		if (BaseArray[0] == "3" || BaseArray[1] == "3") {
-			if (i <= mapWidth-2)
-				html = html + addOption(getAlphabetChar(i-1) + '-' + getAlphabetChar(i+1), Direction3, 'Set_X(this, \'' + i.toString() + '\');');
+			if (i <= mapWidth - 2)
+				html = html + addOption(getAlphabetChar(i - 1) + '-' + getAlphabetChar(i + 1), Direction3, 'Set_X(this, \'' + i.toString() + '\');');
 		}
 	}
 	return html;
@@ -160,22 +160,22 @@ function Set_X(element, value) {
 	}
 	switch (NumCells) {
 		case "2":
-			titleTemp = titleTemp + '-' + getAlphabetChar(value);
+			titleTemp = titleTemp + '-' + getAlphabetChar(Number(value));
 			break;
 		case "3":
-			titleTemp = titleTemp + '-' + getAlphabetChar(value+1);
+			titleTemp = titleTemp + '-' + getAlphabetChar(Number(value) + 1);
 			break;
 	}
 
 	var DirectionAlreadyVisible = container.find('.direction-container').hasClass('visible');
 
-	Update_Direction(element,currentDirection);
+	Update_Direction(element, currentDirection);
 
 	container.find('.X-Title').html(titleTemp + ' ');
 
 	if (DirectionAlreadyVisible == false && container.find('.direction-container').hasClass('visible') && value != '') {
 		//also update Y title -> using Yvalue as if coming fromconfig
-		Set_Y(container,container.find('.Y-Value').attr('value'))
+		Set_Y(container, container.find('.Y-Value').attr('value'))
 	}
 }
 
@@ -197,8 +197,8 @@ function UnSet_X(element) {
 		container = $(element).parents('.select-row');
 	}
 	container.find('.X-Title').html('Select X coordinate');
-	container.find('.X-Value').attr('value','');
-	Update_Direction(element,'');
+	container.find('.X-Value').attr('value', '');
+	Update_Direction(element, '');
 }
 
 // Y element
@@ -240,12 +240,12 @@ function Create_YListValues(XYBase) {
 			html = html + addOption(i.toString(), Direction1, 'Set_Y(this, \'' + i.toString() + '\');');
 		}
 		if (BaseArray[0] == "2" || BaseArray[1] == "2") {
-			if (i <= mapHeight-1)
-				html = html + addOption(i.toString() + '-' + (i+1).toString(), Direction2, 'Set_Y(this, \'' + i.toString() + '\');');
+			if (i <= mapHeight - 1)
+				html = html + addOption(i.toString() + '-' + (i + 1).toString(), Direction2, 'Set_Y(this, \'' + i.toString() + '\');');
 		}
 		if (BaseArray[0] == "3" || BaseArray[1] == "3") {
-			if (i <= mapHeight-2)
-				html = html + addOption(i.toString() + '-' + (i+2).toString(), Direction3, 'Set_Y(this, \'' + i.toString() + '\');');
+			if (i <= mapHeight - 2)
+				html = html + addOption(i.toString() + '-' + (i + 2).toString(), Direction3, 'Set_Y(this, \'' + i.toString() + '\');');
 		}
 	}
 	return html;
@@ -285,22 +285,22 @@ function Set_Y(element, value) {
 	}
 	switch (NumCells) {
 		case "2":
-			titleTemp = titleTemp + '-' + (Number(value)+1);
+			titleTemp = titleTemp + '-' + (Number(value) + 1);
 			break;
 		case "3":
-			titleTemp = titleTemp + '-' + (Number(value)+2);
+			titleTemp = titleTemp + '-' + (Number(value) + 2);
 			break;
 	}
 
 	var DirectionAlreadyVisible = container.find('.direction-container').hasClass('visible');
 
-	Update_Direction(element,currentDirection);
+	Update_Direction(element, currentDirection);
 
 	container.find('.Y-Title').html(titleTemp + ' ');
 
 	if (DirectionAlreadyVisible == false && container.find('.direction-container').hasClass('visible') && value != '') {
 		//also update Y title -> using Yvalue as if coming fromconfig
-		Set_X(container,container.find('.X-Value').attr('value'))
+		Set_X(container, container.find('.X-Value').attr('value'))
 	}
 }
 
@@ -322,13 +322,13 @@ function UnSet_Y(element) {
 		container = $(element).parents('.select-row');
 	}
 	container.find('.Y-Title').html('Select Y coordinate');
-	container.find('.Y-Value').attr('value','');
-	Update_Direction(element,'');
+	container.find('.Y-Value').attr('value', '');
+	Update_Direction(element, '');
 }
 
 //direction
 function Create_Direction() {
-	var html= $('<div>');
+	var html = $('<div>');
 	html.addClass('btn-group');
 	html.addClass('direction-container');
 	html.append($('<a onclick="SwitchDirection(this);"><div></div></a>'));
@@ -351,7 +351,7 @@ function Update_Direction(element, value) {
 
 	var DirectionContainer = container.find('.direction-container');
 	var DirectionDiv = container.find('.direction-container a div');
-	DirectionDiv.attr('class',value);
+	DirectionDiv.attr('class', value);
 
 	switch (value) {
 		case "V":
@@ -371,8 +371,7 @@ function Update_Direction(element, value) {
 	}
 }
 
-function SwitchDirection(element)
-{
+function SwitchDirection(element) {
 	var container = $(element).parents('.select-row');
 	var DirectionDiv = container.find('.direction-container a div');
 	var coordinatesContainer = $(element).parents('.coordinates-container');
@@ -381,9 +380,8 @@ function SwitchDirection(element)
 	var startX = container.find('.X-Value').attr('value');
 	var titleXTemp = getAlphabetChar(startX - 1);
 	var titleYTemp = container.find('.Y-Value').attr('value');
-	if (DirectionDiv.attr("class") == "H")
-	{
-		DirectionDiv.attr("class","V");
+	if (DirectionDiv.attr("class") == "H") {
+		DirectionDiv.attr("class", "V");
 		coordinatesContainer.removeClass('H');
 		coordinatesContainer.addClass('V');
 		switch (BaseArray[0]) {
@@ -391,21 +389,20 @@ function SwitchDirection(element)
 				titleXTemp = titleXTemp + '-' + getAlphabetChar(startX);
 				break;
 			case "3":
-				titleXTemp = titleXTemp + '-' + getAlphabetChar(startX+1);
+				titleXTemp = titleXTemp + '-' + getAlphabetChar(startX + 1);
 				break;
 		}
 		switch (BaseArray[1]) {
 			case "2":
-				titleYTemp = titleYTemp + '-' + (Number(titleYTemp)+1);
+				titleYTemp = titleYTemp + '-' + (Number(titleYTemp) + 1);
 				break;
 			case "3":
-				titleYTemp = titleYTemp + '-' + (Number(titleYTemp)+2);
+				titleYTemp = titleYTemp + '-' + (Number(titleYTemp) + 2);
 				break;
 		}
 	}
-	else if (DirectionDiv.attr("class") == "V")
-	{
-		DirectionDiv.attr("class","H");
+	else if (DirectionDiv.attr("class") == "V") {
+		DirectionDiv.attr("class", "H");
 		coordinatesContainer.removeClass('V');
 		coordinatesContainer.addClass('H');
 		switch (BaseArray[1]) {
@@ -413,15 +410,15 @@ function SwitchDirection(element)
 				titleXTemp = titleXTemp + '-' + getAlphabetChar(startX);
 				break;
 			case "3":
-				titleXTemp = titleXTemp + '-' + getAlphabetChar(startX+1);
+				titleXTemp = titleXTemp + '-' + getAlphabetChar(startX + 1);
 				break;
 		}
 		switch (BaseArray[0]) {
 			case "2":
-				titleYTemp = titleYTemp + '-' + (Number(titleYTemp)+1);
+				titleYTemp = titleYTemp + '-' + (Number(titleYTemp) + 1);
 				break;
 			case "3":
-				titleYTemp = titleYTemp + '-' + (Number(titleYTemp)+2);
+				titleYTemp = titleYTemp + '-' + (Number(titleYTemp) + 2);
 				break;
 		}
 	}
