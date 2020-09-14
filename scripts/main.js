@@ -156,6 +156,10 @@ function recoverMonsterBaseName(MonsterFullName) {
 	var MonsterBaseName = MonsterFullName.replace(MasterSuffix, '').replace(MinionSuffix, '')
 	return MonsterBaseName;
 }
+function removeMonsterMinionSuffix(MonsterFullName) {
+	var MonsterName = MonsterFullName.replace(MinionSuffix, '')
+	return MonsterName;
+}
 
 
 function addConditions(conditions, container) {
