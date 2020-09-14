@@ -271,6 +271,19 @@ function RetroCompatibility(OldConfig) {
 	var AndOlder = false
 	var NewConfig = OldConfig
 
+	if (Object.keys(OldConfig).length == 0)
+	{
+		//empty config
+		//just add heroes to have a start
+		NewConfig.heroes = [];
+		for (var i = 1; i <= MAX_Heroes; i++) {
+			var OneHero = {};
+			OneHero.id = 0;
+			NewConfig.heroes[i - 1] = OneHero;
+		}
+		return NewConfig;
+	}
+
 	//initialize values if needed
 	if (NewConfig.CurrentLevel == undefined) {
 		NewConfig.CurrentLevel = 0;
