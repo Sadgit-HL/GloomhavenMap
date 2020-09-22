@@ -285,7 +285,11 @@ var MONSTERS_RAW = [
 	[33, 'Vermling Scout', 1, 1, 41, 35, bg, false, [dummy], false],
 	[34, 'Vermling Shaman', 1, 1, 41, 35, bg, false, [dummy], false],
 	[35, 'Wind Demon', 1, 1, 41, 35, bg, false, [dummy], false],
-	[36, 'Black Sludge', 1, 1, 41, 35, jotl, false, [dummy], false]
+	[36, 'Black Sludge', 1, 1, 41, 35, jotl, false, [dummy], false],
+	[37, 'Aesther Ashblade', 1, 1, 41, 35, bg, false, [dummy], false],
+	[38, 'Aesther Scout', 1, 1, 41, 35, bg, false, [dummy], false],
+	[39, 'Valrath Savage', 1, 1, 41, 35, bg, false, [dummy], false],
+	[40, 'Valrath Tracker', 1, 1, 41, 35, bg, false, [dummy], false],
 ];
 
 function getMonsterTraits(i) {
@@ -322,6 +326,9 @@ var LIEUTENANTS_RAW = [
 	[11, 'The Gloom', 1, 1, 41, 35, bg, false],
 	[12, 'The Sightless Eye', 1, 1, 41, 35, bg, false],
 	[13, 'Winged Horror', 1, 1, 41, 35, bg, false],
+	[14, 'Human Commander', 1, 1, 41, 35, bg, false],
+	[15, 'Manifestation of Corruption', 1, 1, 41, 35, bg, false],
+	[16, 'Valrath Commander', 1, 1, 41, 35, bg, false],
 ];
 
 LIEUTENANTS_LIST = FromRAWToLIST(LIEUTENANTS_RAW);
