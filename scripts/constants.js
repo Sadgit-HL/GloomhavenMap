@@ -414,6 +414,13 @@ VILLAGERS_RAW = [
 	[28, 'Giant Toad', 1, 1, 41, 35, bg, false],
 	[29, 'Zephyr', 1, 1, 41, 35, bg, false],
 	[30, 'Swamp Alligator', 1, 1, 41, 35, bg, false],
+	[31, 'Power Core', 1, 1, 41, 35, bg, false],
+	[32, 'Green Adder', 1, 1, 41, 35, bg, false],
+	[33, 'Tattered Wolf', 1, 1, 41, 35, bg, false],
+	[34, 'Red Falcon', 1, 1, 41, 35, bg, false],
+	[35, 'Monolith', 1, 1, 41, 35, bg, false],
+	[36, 'Spirit Banner', 1, 1, 41, 35, bg, false],
+	[37, 'Wind Totem', 1, 1, 41, 35, bg, false],
 ];
 
 VILLAGERS_LIST = FromRAWToLIST(VILLAGERS_RAW);
