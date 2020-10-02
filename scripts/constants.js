@@ -209,7 +209,9 @@ MOVABLE_TOKENS2_RAW = [
 	[28, 'Totem', 1, 1, 45, 39, bg],
 	[29, 'Treasure Tile', 1, 1, 45, 39, bg],
 	[30, 'Tree 3H', 1, 1, 45, 39, bg],
-	[31, 'Wall Section 2H', 1, 1, 45, 39, bg]
+	[31, 'Wall Section 2H', 1, 1, 45, 39, bg],
+	[32, 'Colony', 1, 1, 45, 39, bg],
+	[33, 'Root', 1, 1, 45, 39, bg],
 ];
 TMP_LIST2 = FromRAWToLIST(MOVABLE_TOKENS2_RAW);
 MOVABLE_TOKENS_LIST = Object.assign(TMP_LIST1, TMP_LIST2);
@@ -368,6 +370,9 @@ var HEROES_RAW = [
 	[22, 'Hatchet', 1, 1, 41, 35, bg, , , dummy],
 	[23, 'Aeromancer', 1, 1, 41, 35, bg, , , dummy],
 	[24, 'Diviner', 1, 1, 41, 35, bg, , , dummy],
+	[25, 'Amber Aegis', 1, 1, 41, 35, bg, , , dummy],
+	[26, 'Rootwhisperer', 1, 1, 41, 35, bg, , , dummy],
+
 ];
 
 HEROES_LIST = FromRAWToLIST(HEROES_RAW);
