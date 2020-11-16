@@ -331,11 +331,7 @@ var LIEUTENANTS_RAW = [
 	[13, 'Winged Horror', 1, 1, 41, 35, bg, false],
 	[14, 'Human Commander', 1, 1, 41, 35, bg, false],
 	[15, 'Manifestation of Corruption', 1, 1, 41, 35, bg, false],
-        [16, 'Valrath Commander', 1, 1, 41, 35, bg, false],
-        [17, 'Selah Naberis', 1, 1, 41, 35, bg, false],
-        [18, 'Sraka the_Wise', 1, 1, 41, 35, bg, false],
-        [19, 'The Steel Lion', 1, 1, 41, 35, bg, false],
-        [20, 'Uyart Ikkuma', 1, 1, 41, 35, bg, false],    
+	[16, 'Valrath Commander', 1, 1, 41, 35, bg, false],
 ];
 
 LIEUTENANTS_LIST = FromRAWToLIST(LIEUTENANTS_RAW);
