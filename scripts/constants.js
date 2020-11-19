@@ -432,7 +432,9 @@ VILLAGERS_RAW = [
 	[35, 'Monolith', 1, 1, 41, 35, bg, false],
 	[36, 'Spirit Banner', 1, 1, 41, 35, bg, false],
 	[37, 'Wind Totem', 1, 1, 41, 35, bg, false],
-	[38, 'Ghost Falcon', 1, 1, 41, 35, bg, false],
+        [38, 'Ghost Falcon', 1, 1, 41, 35, bg, false],
+        [39, 'Steel Scarabs', 1, 1, 41, 35, bg, false],
+    
 ];
 
 VILLAGERS_LIST = FromRAWToLIST(VILLAGERS_RAW);
