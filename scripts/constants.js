@@ -434,6 +434,7 @@ VILLAGERS_RAW = [
 	[37, 'Wind Totem', 1, 1, 41, 35, bg, false],
         [38, 'Ghost Falcon', 1, 1, 41, 35, bg, false],
         [39, 'Steel Scarabs', 1, 1, 41, 35, bg, false],
+        [40, 'Hail', 1, 1, 41, 35, bg, false],
     
 ];
 
