@@ -378,6 +378,8 @@ var HEROES_RAW = [
 	[25, 'Amber Aegis', 1, 1, 41, 35, bg, , , dummy],
         [26, 'Rootwhisperer', 1, 1, 41, 35, bg, , , dummy],
     	[27, 'Bladeswarm', 1, 1, 41, 35, bg, , , dummy],
+        [28, 'Chieftain', 1, 1, 41, 35, bg, , , dummy],
+        [29, 'Brightspark', 1, 1, 41, 35, bg, , , dummy],
 
 ];
 
