@@ -380,6 +380,10 @@ var HEROES_RAW = [
     	[27, 'Bladeswarm', 1, 1, 41, 35, bg, , , dummy],
         [28, 'Chieftain', 1, 1, 41, 35, bg, , , dummy],
         [29, 'Brightspark', 1, 1, 41, 35, bg, , , dummy],
+        [30, 'Banner Spear', 1, 1, 41, 35, bg, , , dummy],
+        [31, 'Drifter', 1, 1, 41, 35, bg, , , dummy],
+        [32, 'Deathwalker', 1, 1, 41, 35, bg, , , dummy],
+        [33, 'Geminate', 1, 1, 41, 35, bg, , , dummy],
 
 ];
 
