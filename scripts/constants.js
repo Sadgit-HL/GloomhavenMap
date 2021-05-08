@@ -212,6 +212,8 @@ MOVABLE_TOKENS2_RAW = [
 	[31, 'Wall Section 2H', 1, 1, 45, 39, bg],
 	[32, 'Colony', 1, 1, 45, 39, bg],
 	[33, 'Root', 1, 1, 45, 39, bg],
+	[33, 'Shadow', 1, 1, 45, 39, bg],
+
 ];
 TMP_LIST2 = FromRAWToLIST(MOVABLE_TOKENS2_RAW);
 MOVABLE_TOKENS_LIST = Object.assign(TMP_LIST1, TMP_LIST2);
