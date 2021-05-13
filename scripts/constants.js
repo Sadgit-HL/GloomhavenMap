@@ -237,7 +237,9 @@ MOVABLE_TOKENS2_RAW = [
 	[31, 'Wall Section 2H', 1, 1, 45, 39, bg],
 	[32, 'Colony', 1, 1, 45, 39, bg],
 	[33, 'Root', 1, 1, 45, 39, bg],
-	[33, 'Shadow', 1, 1, 45, 39, bg],
+	[34, 'Shadow', 1, 1, 45, 39, bg],
+	[35, 'Destruction', 1, 1, 45, 39, bg],
+
 
 ];
 TMP_LIST2 = FromRAWToLIST(MOVABLE_TOKENS2_RAW);
@@ -320,6 +322,20 @@ var MONSTERS_RAW = [
 	[38, 'Aesther Scout', 1, 1, 41, 35, bg, false, [dummy], false],
 	[39, 'Valrath Savage', 1, 1, 41, 35, bg, false, [dummy], false],
 	[40, 'Valrath Tracker', 1, 1, 41, 35, bg, false, [dummy], false],
+	[30, 'Spitting Drake', 1, 1, 41, 35, bg, false, [dummy], false],
+	[31, 'Stone Golem JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[32, 'Black Sludge JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[33, 'Black Imp JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[34, 'Blood Monstrosity JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[35, 'Blood Imp JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[36, 'Chaos Demon JL', 1, 1, 41, 35, jotl, false, [dummy], false],
+	[37, 'Giant Viper JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[38, 'Living Corpse JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[39, 'Living Spirit JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[40, 'Rat Monstrosity JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[41, 'Vermling Raider JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[42, 'Vermlich Scout JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[43, 'Zealot JL', 1, 1, 41, 35, bg, false, [dummy], false],
 ];
 
 function getMonsterTraits(i) {
@@ -362,7 +378,10 @@ var LIEUTENANTS_RAW = [
         [17, 'Selah Naberis', 1, 1, 41, 35, bg, false],
         [18, 'Sraka the_Wise', 1, 1, 41, 35, bg, false],
         [19, 'The Steel Lion', 1, 1, 41, 35, bg, false],
-        [20, 'Uyart Ikkuma', 1, 1, 41, 35, bg, false],    
+        [20, 'Uyart Ikkuma', 1, 1, 41, 35, bg, false],
+        [21, 'Blood Horror', 1, 1, 41, 35, bg, false],
+        [22, 'Blood Tumor', 1, 1, 41, 35, bg, false],
+        [23, 'First of the Order', 1, 1, 41, 35, bg, false],        
 ];
 
 LIEUTENANTS_LIST = FromRAWToLIST(LIEUTENANTS_RAW);
