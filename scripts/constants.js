@@ -322,20 +322,20 @@ var MONSTERS_RAW = [
 	[38, 'Aesther Scout', 1, 1, 41, 35, bg, false, [dummy], false],
 	[39, 'Valrath Savage', 1, 1, 41, 35, bg, false, [dummy], false],
 	[40, 'Valrath Tracker', 1, 1, 41, 35, bg, false, [dummy], false],
-	[30, 'Spitting Drake', 1, 1, 41, 35, bg, false, [dummy], false],
-	[31, 'Stone Golem JL', 1, 1, 41, 35, bg, false, [dummy], false],
-	[32, 'Black Sludge JL', 1, 1, 41, 35, bg, false, [dummy], false],
-	[33, 'Black Imp JL', 1, 1, 41, 35, bg, false, [dummy], false],
-	[34, 'Blood Monstrosity JL', 1, 1, 41, 35, bg, false, [dummy], false],
-	[35, 'Blood Imp JL', 1, 1, 41, 35, bg, false, [dummy], false],
-	[36, 'Chaos Demon JL', 1, 1, 41, 35, jotl, false, [dummy], false],
-	[37, 'Giant Viper JL', 1, 1, 41, 35, bg, false, [dummy], false],
-	[38, 'Living Corpse JL', 1, 1, 41, 35, bg, false, [dummy], false],
-	[39, 'Living Spirit JL', 1, 1, 41, 35, bg, false, [dummy], false],
-	[40, 'Rat Monstrosity JL', 1, 1, 41, 35, bg, false, [dummy], false],
-	[41, 'Vermling Raider JL', 1, 1, 41, 35, bg, false, [dummy], false],
-	[42, 'Vermlich Scout JL', 1, 1, 41, 35, bg, false, [dummy], false],
-	[43, 'Zealot JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[41, 'Spitting Drake', 1, 1, 41, 35, bg, false, [dummy], false],
+	[42, 'Stone Golem JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[43, 'Black Sludge JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[44, 'Black Imp JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[45, 'Blood Monstrosity JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[46, 'Blood Imp JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[47, 'Chaos Demon JL', 1, 1, 41, 35, jotl, false, [dummy], false],
+	[48, 'Giant Viper JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[49, 'Living Corpse JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[50, 'Living Spirit JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[51, 'Rat Monstrosity JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[52, 'Vermling Raider JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[53, 'Vermling Scout JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[54, 'Zealot JL', 1, 1, 41, 35, bg, false, [dummy], false],
 ];
 
 function getMonsterTraits(i) {
@@ -487,6 +487,8 @@ VILLAGERS_RAW = [
         [38, 'Ghost Falcon', 1, 1, 41, 35, bg, false],
         [39, 'Steel Scarabs', 1, 1, 41, 35, bg, false],
         [40, 'Hail', 1, 1, 41, 35, bg, false],
+      	[41, 'Mech Suit', 1, 1, 41, 35, bg, false],
+      	[42, 'Sand Devil', 1, 1, 41, 35, bg, false],
     
 ];
 
