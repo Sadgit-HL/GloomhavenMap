@@ -263,6 +263,8 @@ CONDITIONS_INITIAL = [
 	[12, 'Angry Face', true, false],
 	[13, 'Aeromancer', true, false],
 	[14, 'Ward', true, false],
+	[15, 'Hatchet', true, false],
+
 ];
 
 var CONDITIONS = {};
