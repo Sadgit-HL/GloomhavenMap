@@ -492,7 +492,8 @@ VILLAGERS_RAW = [
         [40, 'Hail', 1, 1, 41, 35, bg, false],
       	[41, 'Mech Suit', 1, 1, 41, 35, bg, false],
       	[42, 'Sand Devil', 1, 1, 41, 35, bg, false],
-      	[42, 'Shambling Skeleton', 1, 1, 41, 35, bg, false],
+      	[43, 'Shambling Skeleton', 1, 1, 41, 35, bg, false],
+      	[44, 'Wraith', 1, 1, 41, 35, bg, false],
 
     
 ];
