@@ -238,6 +238,7 @@ MOVABLE_TOKENS2_RAW = [
 	[33, 'Root', 1, 1, 45, 39, bg],
 	[34, 'Shadow', 1, 1, 45, 39, bg],
 	[35, 'Destruction', 1, 1, 45, 39, bg],
+	[36, 'Favorite', 1, 1, 45, 39, bg],
 
 
 ];
@@ -431,6 +432,7 @@ var HEROES_RAW = [
         [31, 'Drifter', 1, 1, 41, 35, bg, , , dummy],
         [32, 'Deathwalker', 1, 1, 41, 35, bg, , , dummy],
         [33, 'Geminate', 1, 1, 41, 35, bg, , , dummy],
+        [34, 'Boneshaper', 1, 1, 41, 35, bg, , , dummy],
 
 ];
 
@@ -490,6 +492,8 @@ VILLAGERS_RAW = [
         [40, 'Hail', 1, 1, 41, 35, bg, false],
       	[41, 'Mech Suit', 1, 1, 41, 35, bg, false],
       	[42, 'Sand Devil', 1, 1, 41, 35, bg, false],
+      	[42, 'Shambling Skeleton', 1, 1, 41, 35, bg, false],
+
     
 ];
 
