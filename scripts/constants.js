@@ -265,6 +265,7 @@ CONDITIONS_INITIAL = [
 	[13, 'Aeromancer', true, false],
 	[14, 'Ward', true, false],
 	[15, 'Hatchet', true, false],
+	[16, 'Red Guard', true, false],
 
 ];
 
