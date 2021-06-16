@@ -434,6 +434,8 @@ var HEROES_RAW = [
         [32, 'Deathwalker', 1, 1, 41, 35, bg, , , dummy],
         [33, 'Geminate', 1, 1, 41, 35, bg, , , dummy],
         [34, 'Boneshaper', 1, 1, 41, 35, bg, , , dummy],
+        [35, 'Blinkblade', 1, 1, 41, 35, bg, , , dummy],
+
 
 ];
 
