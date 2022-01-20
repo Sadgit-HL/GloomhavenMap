@@ -179,7 +179,10 @@ OVERLAYTILES_RAW = [
 	[17, 'thorns', 1, 1, 45, 39, bg],
 	[18, 'water', 1, 1, 45, 39, bg],
 	[19, 'water 2h', 1, 1, 45, 39, bg],
-	[20, 'water 3h', 1, 1, 45, 39, bg]
+	[20, 'water 3h', 1, 1, 45, 39, bg],
+	[21, 'mire', 1, 1, 45, 39, bg],
+	[22, 'void pit', 1, 1, 45, 39, bg],
+
 ];
 OVERLAYTILES_LIST = FromRAWToLIST(OVERLAYTILES_RAW);
 
@@ -266,6 +269,12 @@ CONDITIONS_INITIAL = [
 	[14, 'Ward', true, false],
 	[15, 'Hatchet', true, false],
 	[16, 'Red Guard', true, false],
+	[17, 'Poison2', true, false],
+	[18, 'Poison3', true, false],
+	[19, 'Poison4', true, false],
+	[20, 'Wound2', true, false],
+	[21, 'Infect', true, false],	
+	[22, 'Chill', true, false],
 
 ];
 
@@ -339,6 +348,7 @@ var MONSTERS_RAW = [
 	[52, 'Vermling Raider JL', 1, 1, 41, 35, bg, false, [dummy], false],
 	[53, 'Vermling Scout JL', 1, 1, 41, 35, bg, false, [dummy], false],
 	[54, 'Zealot JL', 1, 1, 41, 35, bg, false, [dummy], false],
+	[55, 'Water Spirit', 1, 1, 41, 35, bg, false, [dummy], false],
 ];
 
 function getMonsterTraits(i) {
@@ -435,9 +445,16 @@ var HEROES_RAW = [
         [33, 'Geminate', 1, 1, 41, 35, bg, , , dummy],
         [34, 'Boneshaper', 1, 1, 41, 35, bg, , , dummy],
         [35, 'Blinkblade', 1, 1, 41, 35, bg, , , dummy],
-
-
-];
+    	[36, 'Bombard', 1, 1, 41, 35, bg, , , dummy],
+        [37, 'Chainguard', 1, 1, 41, 35, bg, , , dummy],
+        [38, 'Fireknight', 1, 1, 41, 35, bg, , , dummy],
+        [39, 'Hierophant', 1, 1, 41, 35, bg, , , dummy],
+        [40, 'Hollowpact', 1, 1, 41, 35, bg, , , dummy],
+        [41, 'Luminary', 1, 1, 41, 35, bg, , , dummy],
+        [42, 'Mirefoot', 1, 1, 41, 35, bg, , , dummy],
+    	[43, 'Spirit Caller', 1, 1, 41, 35, bg, , , dummy],
+        [44, 'Starslinger', 1, 1, 41, 35, bg, , , dummy],
+ ];
 
 HEROES_LIST = FromRAWToLIST(HEROES_RAW);
 //add missing specific fields
