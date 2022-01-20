@@ -448,7 +448,7 @@ var HEROES_RAW = [
         [35, 'Blinkblade', 1, 1, 41, 35, bg, , , dummy],
     	[36, 'Bombard', 1, 1, 41, 35, bg, , , dummy],
         [37, 'Chainguard', 1, 1, 41, 35, bg, , , dummy],
-        [38, 'Fireknight', 1, 1, 41, 35, bg, , , dummy],
+        [38, 'Fire Knight', 1, 1, 41, 35, bg, , , dummy],
         [39, 'Hierophant', 1, 1, 41, 35, bg, , , dummy],
         [40, 'Hollowpact', 1, 1, 41, 35, bg, , , dummy],
         [41, 'Luminary', 1, 1, 41, 35, bg, , , dummy],
