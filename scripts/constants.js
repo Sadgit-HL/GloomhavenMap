@@ -279,6 +279,7 @@ CONDITIONS_INITIAL = [
 	[23, 'Chainguard', true, false],
 	[15, 'Hatchet', true, false],
 	[16, 'Red Guard', true, false],
+	[23, 'Chieftain', true, false],
 
 ];
 
