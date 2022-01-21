@@ -180,8 +180,11 @@ OVERLAYTILES_RAW = [
 	[18, 'water', 1, 1, 45, 39, bg],
 	[19, 'water 2h', 1, 1, 45, 39, bg],
 	[20, 'water 3h', 1, 1, 45, 39, bg],
-	[21, 'mire', 1, 1, 45, 39, bg],
+	[21, 'bog', 1, 1, 45, 39, bg],
 	[22, 'void pit', 1, 1, 45, 39, bg],
+	[23, 'broken log', 1, 1, 45, 39, bg],
+	[24, 'ladder', 1, 1, 45, 39, bg],
+
 
 ];
 OVERLAYTILES_LIST = FromRAWToLIST(OVERLAYTILES_RAW);
