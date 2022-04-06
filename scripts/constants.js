@@ -423,7 +423,6 @@ var HEROES_RAW = [
 	[5, 'Spellweaver', 1, 1, 41, 35, bg, , , dummy],
 	[6, 'Tinkerer', 1, 1, 41, 35, bg, , , dummy],
 	[7, 'Angry Face', 1, 1, 41, 35, bg, , , dummy],
-	//[8, 'Bladeswarm',1,1,41,35,bg,,,dummy],
 	[9, 'Circles', 1, 1, 41, 35, bg, , , dummy],
 	[10, 'Cthulhu', 1, 1, 41, 35, bg, , , dummy],
 	[11, 'Lightning', 1, 1, 41, 35, bg, , , dummy],
@@ -460,6 +459,7 @@ var HEROES_RAW = [
         [42, 'Mirefoot', 1, 1, 41, 35, bg, , , dummy],
     	[43, 'Spirit Caller', 1, 1, 41, 35, bg, , , dummy],
         [44, 'Starslinger', 1, 1, 41, 35, bg, , , dummy],
+        [45, 'Artificer', 1, 1, 41, 35, bg, , , dummy],
  ];
 
 HEROES_LIST = FromRAWToLIST(HEROES_RAW);
@@ -526,7 +526,15 @@ VILLAGERS_RAW = [
 	[48, 'Giant Tortoise', 1, 1, 41, 35, bg, false],
       	[49, 'Chest Thumper', 1, 1, 41, 35, bg, false],
       	[50, 'Wraith', 1, 1, 41, 35, bg, false],
-
+      	[51, 'Scrap', 1, 1, 41, 35, bg, false],
+      	[52, 'Use Scrap', 1, 1, 41, 35, bg, false],
+	[53, 'Hollow Carapace', 1, 1, 41, 35, bg, false],
+	[54, 'Clockwork Soldier', 1, 1, 41, 35, bg, false],
+	[55, 'Clockwork Rocket', 1, 1, 41, 35, bg, false],
+	[56, 'Clockwork Ravager', 1, 1, 41, 35, bg, false],
+      	[57, 'Clockwork Guardian', 1, 1, 41, 35, bg, false],
+      	[58, 'Clockwork Drone', 1, 1, 41, 35, bg, false],
+      	[59, 'Clockwork Bombard', 1, 1, 41, 35, bg, false],
     
 ];
 
