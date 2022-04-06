@@ -277,8 +277,10 @@ CONDITIONS_INITIAL = [
 	[13, 'Aeromancer', true, false],
 	[12, 'Angry Face', true, false],
 	[23, 'Chainguard', true, false],
+	[24, 'Chieftain', true, false],
 	[15, 'Hatchet', true, false],
-	[16, 'Red Guard', true, false],
+
+	
 
 ];
 
@@ -517,7 +519,13 @@ VILLAGERS_RAW = [
       	[41, 'Mech Suit', 1, 1, 41, 35, bg, false],
       	[42, 'Sand Devil', 1, 1, 41, 35, bg, false],
       	[43, 'Shambling Skeleton', 1, 1, 41, 35, bg, false],
-      	[44, 'Wraith', 1, 1, 41, 35, bg, false],
+      	[44, 'Spotted Hound', 1, 1, 41, 35, bg, false],
+	[45, 'Pack Mule', 1, 1, 41, 35, bg, false],
+	[46, 'Fighting Bull', 1, 1, 41, 35, bg, false],
+	[47, 'Speedy Ostrich', 1, 1, 41, 35, bg, false],
+	[48, 'Giant Tortoise', 1, 1, 41, 35, bg, false],
+      	[49, 'Chest Thumper', 1, 1, 41, 35, bg, false],
+      	[50, 'Wraith', 1, 1, 41, 35, bg, false],
 
     
 ];
