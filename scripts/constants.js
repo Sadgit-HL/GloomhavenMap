@@ -245,6 +245,7 @@ MOVABLE_TOKENS2_RAW = [
 	[34, 'Shadow', 1, 1, 45, 39, bg],
 	[35, 'Destruction', 1, 1, 45, 39, bg],
 	[36, 'Favorite', 1, 1, 45, 39, bg],
+	[37, 'Bombard', 1, 1, 45, 39, bg],
 
 
 ];
@@ -276,6 +277,7 @@ CONDITIONS_INITIAL = [
 	[14, 'Ward', true, false],
 	[13, 'Aeromancer', true, false],
 	[12, 'Angry Face', true, false],
+	[25, 'Bombard', true, false],
 	[23, 'Chainguard', true, false],
 	[24, 'Chieftain', true, false],
 	[15, 'Hatchet', true, false],
