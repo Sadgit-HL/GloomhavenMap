@@ -281,8 +281,8 @@ CONDITIONS_INITIAL = [
 	[23, 'Chainguard', true, false],
 	[24, 'Chieftain', true, false],
 	[15, 'Hatchet', true, false],
-
-	
+	[25, 'Sated', true, false],
+	[26, 'Rupture', true, false],
 
 ];
 
@@ -462,6 +462,7 @@ var HEROES_RAW = [
     	[43, 'Spirit Caller', 1, 1, 41, 35, bg, , , dummy],
         [44, 'Starslinger', 1, 1, 41, 35, bg, , , dummy],
         [45, 'Artificer', 1, 1, 41, 35, bg, , , dummy],
+        [46, 'Ruinmaw', 1, 1, 41, 35, bg, , , dummy],
  ];
 
 HEROES_LIST = FromRAWToLIST(HEROES_RAW);
