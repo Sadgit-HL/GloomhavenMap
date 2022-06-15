@@ -538,6 +538,7 @@ VILLAGERS_RAW = [
       	[57, 'Clockwork Guardian', 1, 1, 41, 35, bg, false],
       	[58, 'Clockwork Drone', 1, 1, 41, 35, bg, false],
       	[59, 'Clockwork Bombard', 1, 1, 41, 35, bg, false],
+      	[60, 'Metal Detector', 1, 1, 41, 35, bg, false],
     
 ];
 
