@@ -186,6 +186,7 @@ OVERLAYTILES_RAW = [
 	[24, 'ladder', 1, 1, 45, 39, bg],
 
 
+
 ];
 OVERLAYTILES_LIST = FromRAWToLIST(OVERLAYTILES_RAW);
 
@@ -246,6 +247,7 @@ MOVABLE_TOKENS2_RAW = [
 	[35, 'Destruction', 1, 1, 45, 39, bg],
 	[36, 'Favorite', 1, 1, 45, 39, bg],
 	[37, 'Bombard', 1, 1, 45, 39, bg],
+	[38, 'Spark', 1, 1, 45, 39, bg],
 
 
 ];
