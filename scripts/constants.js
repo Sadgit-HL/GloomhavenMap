@@ -257,33 +257,41 @@ MOVABLE_TOKENS_LIST = Object.assign(TMP_LIST1, TMP_LIST2);
 var ImagePathConditionImage = "_common/conditions_tokens/";
 var ImagePathConditionFigureToken = "_common/conditions_tokens/";
 CONDITIONS_INITIAL = [
+	[13, 'Aeromancer', true, false],
+	[12, 'Angry Face', true, false],
+	[29, 'Bane', true, false],	
 	[1, 'Bless', true, false],
+	[25, 'Bombard', true, false],
+	[27, 'Brittle', true, false],
+	[23, 'Chainguard', true, false],
+	[24, 'Chieftain', true, false],
 	[22, 'Chill', true, false],
+	[33, 'Chill-2', true, false],
+	[34, 'Chill-3', true, false],
+	[35, 'Chill-4', true, false],
+	[32, 'Conqueror', true, false],
 	[2, 'Curse', true, false],
 	[3, 'Disarm', true, false],
+	[28, 'Dodge', true, false],
+	[15, 'Hatchet', true, false],
 	[4, 'Immobilize', true, false],
 	[21, 'Infect', true, false],	
 	[5, 'Invisible', true, false],
 	[6, 'Muddle', true, false],
 	[7, 'Poison', true, false],
-	[17, 'Poison2', true, false],
-	[18, 'Poison3', true, false],
-	[19, 'Poison4', true, false],
+	[17, 'Poison-2', true, false],
+	[18, 'Poison-3', true, false],
+	[19, 'Poison-4', true, false],
 	[8, 'Regenerate', true, false],
+	[30, 'Reaver', true, false],
+	[31, 'Ritualist', true, false],
+	[26, 'Rupture', true, false],
+	[25, 'Sated', true, false],
 	[9, 'Strengthen', true, false],
 	[10, 'Stun', true, false],
 	[11, 'Wound', true, false],
-        [20, 'Wound2', true, false],
+        [20, 'Wound-2', true, false],
 	[14, 'Ward', true, false],
-	[13, 'Aeromancer', true, false],
-	[12, 'Angry Face', true, false],
-	[25, 'Bombard', true, false],
-	[23, 'Chainguard', true, false],
-	[24, 'Chieftain', true, false],
-	[15, 'Hatchet', true, false],
-	[25, 'Sated', true, false],
-	[26, 'Rupture', true, false],
-
 ];
 
 var CONDITIONS = {};
@@ -357,6 +365,8 @@ var MONSTERS_RAW = [
 	[53, 'Vermling Scout JL', 1, 1, 41, 35, bg, false, [dummy], false],
 	[54, 'Zealot JL', 1, 1, 41, 35, bg, false, [dummy], false],
 	[55, 'Water Spirit', 1, 1, 41, 35, bg, false, [dummy], false],
+	[56, 'Smoke Spirit', 1, 1, 41, 35, bg, false, [dummy], false],
+
 ];
 
 function getMonsterTraits(i) {
@@ -402,7 +412,10 @@ var LIEUTENANTS_RAW = [
         [20, 'Uyart Ikkuma', 1, 1, 41, 35, bg, false],
         [21, 'Blood Horror', 1, 1, 41, 35, bg, false],
         [22, 'Blood Tumor', 1, 1, 41, 35, bg, false],
-        [23, 'First of the Order', 1, 1, 41, 35, bg, false],        
+        [23, 'Harrower Bugflute', 1, 1, 41, 35, bg, false],
+        [24, 'Shardrender', 1, 1, 41, 35, bg, false],     
+        [25, 'Talo', 1, 1, 41, 35, bg, false],
+        [26, 'Valrath Vanquisher', 1, 1, 41, 35, bg, false],                 
 ];
 
 LIEUTENANTS_LIST = FromRAWToLIST(LIEUTENANTS_RAW);
@@ -463,6 +476,12 @@ var HEROES_RAW = [
         [44, 'Starslinger', 1, 1, 41, 35, bg, , , dummy],
         [45, 'Artificer', 1, 1, 41, 35, bg, , , dummy],
         [46, 'Ruinmaw', 1, 1, 41, 35, bg, , , dummy],
+        [47, 'Incarnate', 1, 1, 41, 35, bg, , , dummy],
+        [48, 'Rimehearth', 1, 1, 41, 35, bg, , , dummy],
+        [49, 'Shardrender', 1, 1, 41, 35, bg, , , dummy],
+        [50, 'Tempest', 1, 1, 41, 35, bg, , , dummy],
+        [51, 'Thornreaper', 1, 1, 41, 35, bg, , , dummy],
+        [52, 'Vanquisher', 1, 1, 41, 35, bg, , , dummy],
  ];
 
 HEROES_LIST = FromRAWToLIST(HEROES_RAW);
