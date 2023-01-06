@@ -248,8 +248,6 @@ MOVABLE_TOKENS2_RAW = [
 	[36, 'Favorite', 1, 1, 45, 39, bg],
 	[37, 'Bombard', 1, 1, 45, 39, bg],
 	[38, 'Spark', 1, 1, 45, 39, bg],
-
-
 ];
 TMP_LIST2 = FromRAWToLIST(MOVABLE_TOKENS2_RAW);
 MOVABLE_TOKENS_LIST = Object.assign(TMP_LIST1, TMP_LIST2);
