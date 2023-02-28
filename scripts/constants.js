@@ -366,6 +366,9 @@ var MONSTERS_RAW = [
 	[54, 'Zealot JL', 1, 1, 41, 35, bg, false, [dummy], false],
 	[55, 'Water Spirit', 1, 1, 41, 35, bg, false, [dummy], false],
 	[56, 'Smoke Spirit', 1, 1, 41, 35, bg, false, [dummy], false],
+	[57, 'Gnashing Drake', 1, 1, 41, 35, bg, false, [dummy], false],
+	[58, 'Harrower Aegis', 1, 1, 41, 35, bg, false, [dummy], false],
+	[59, 'Ravenous Gharial', 1, 1, 41, 35, bg, false, [dummy], false],
 
 ];
 
@@ -415,7 +418,11 @@ var LIEUTENANTS_RAW = [
         [23, 'Harrower Bugflute', 1, 1, 41, 35, bg, false],
         [24, 'Shardrender', 1, 1, 41, 35, bg, false],     
         [25, 'Talo', 1, 1, 41, 35, bg, false],
-        [26, 'Valrath Vanquisher', 1, 1, 41, 35, bg, false],                 
+        [26, 'Valrath Vanquisher', 1, 1, 41, 35, bg, false],
+        [27, 'Goremyon Shatter Mind', 1, 1, 41, 35, bg, false],
+        [28, 'Inox Bloodguard', 1, 1, 41, 35, bg, false],
+        [29, 'Ruinmaw', 1, 1, 41, 35, bg, false],
+        [30, 'Terrorscale Drake', 1, 1, 41, 35, bg, false],                
 ];
 
 LIEUTENANTS_LIST = FromRAWToLIST(LIEUTENANTS_RAW);
